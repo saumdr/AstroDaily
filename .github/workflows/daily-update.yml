@@ -20,7 +20,7 @@ jobs:
     - name: 部署到 Surge
       env:
         SURGE_LOGIN: 308493389@qq.com
-        SURGE_<SECRET_REDACTED>
+        SURGE_TOKEN: ${{ secrets.SURGE_TOKEN }}
       run: |
         npm install -g surge
         mkdir -p deploy
