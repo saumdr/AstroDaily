@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>AstroDaily · 天体物理日报存档</title>
+<style>
+:root {
+  --bg: #0a0e1a; --surface: #111827; --card: #1a2236;
+  --accent: #6366f1; --accent2: #8b5cf6; --gold: #f59e0b;
+  --text: #e2e8f0; --text-dim: #94a3b8;
+  --font: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+body { font-family:var(--font); background:var(--bg); color:var(--text); min-height:100vh; }
+
+.hero {
+  background: linear-gradient(160deg, #0f172a 0%, #1e1b4b 40%, #312e81 100%);
+  padding: 56px 24px 44px; text-align:center; position:relative; overflow:hidden;
+}
+.hero::before {
+  content:''; position:absolute; top:-30%; left:50%; transform:translateX(-50%);
+  width:600px; height:600px;
+  background:radial-gradient(circle, rgba(99,102,241,0.1), transparent 70%);
+  border-radius:50%;
+}
+.hero-inner { position:relative; z-index:1; }
+.hero-title {
+  font-size:36px; font-weight:800;
+  background:linear-gradient(90deg, #a5b4fc, #c084fc, #f59e0b);
+  -webkit-background-clip:text; -webkit-text-fill-color:transparent;
+  margin-bottom:8px;
+}
+.hero-sub { font-size:15px; color:var(--text-dim); }
+
+.main { max-width:900px; margin:0 auto; padding:40px 16px 60px; }
+.section-head {
+  font-size:20px; font-weight:700; margin-bottom:20px; padding-bottom:10px;
+  border-bottom:2px solid var(--accent); display:flex; align-items:center; gap:10px;
+}
+.grid { display:grid; grid-template-columns:repeat(auto-fill, minmax(260px,1fr)); gap:14px; }
+
+.idx-card {
+  display:block; background:var(--card); border-radius:12px; padding:18px 20px;
+  text-decoration:none; color:var(--text);
+  border:1px solid rgba(99,102,241,0.15);
+  transition:transform 0.2s, box-shadow 0.2s, border-color 0.2s;
+}
+.idx-card:hover {
+  transform:translateY(-3px); box-shadow:0 6px 20px rgba(99,102,241,0.2);
+  border-color:var(--accent);
+}
+.idx-date { font-size:15px; font-weight:700; margin-bottom:4px; }
+.idx-file { font-size:11px; color:var(--text-dim); font-family:monospace; }
+
+.footer {
+  text-align:center; padding:20px; font-size:12px; color:var(--text-dim);
+  border-top:1px solid rgba(99,102,241,0.15); background:var(--surface);
+}
+.footer a { color:var(--gold); text-decoration:none; }
+
+@media (max-width:640px) {
+  .hero { padding:36px 16px 28px; }
+  .hero-title { font-size:24px; }
+  .grid { grid-template-columns:1fr; }
+}
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="hero-inner">
+    <div class="hero-title">🌌 AstroDaily</div>
+    <div class="hero-sub">天体物理日报存档 · 共 {{ARCHIVE_COUNT}} 期</div>
+  </div>
+</div>
+
+<div class="main">
+  <div class="section-head">📚 往期日报</div>
+  <div class="grid">
+    {{IDX_CARDS}}
+  </div>
+</div>
+
+<div class="footer">
+  数据来源：<a href="https://arxiv.org/list/astro-ph/recent" target="_blank" rel="noopener noreferrer">arXiv astro-ph</a>
+  &nbsp;|&nbsp; 由 AstroDaily 自动生成
+  &nbsp;|&nbsp; 保留最近 {{MAX_N}} 期
+</div>
+
+</body>
+</html>

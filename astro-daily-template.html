@@ -1,0 +1,743 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🌌 AstroDaily · 天体物理日报 · {{DATE_STR}}</title>
+<style>
+:root {
+  --bg: #0a0e1a;
+  --surface: #111827;
+  --card: #1a2236;
+  --modal-bg: #0f1629;
+  --accent: #6366f1;
+  --accent2: #8b5cf6;
+  --gold: #f59e0b;
+  --green: #22c55e;
+  --text: #e2e8f0;
+  --text-dim: #94a3b8;
+  --border: rgba(99,102,241,0.18);
+  --radius: 14px;
+  --font: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+body { font-family:var(--font); background:var(--bg); color:var(--text); line-height:1.6; min-height:100vh; }
+
+/* ===== HERO ===== */
+.hero {
+  background: linear-gradient(160deg, #0f172a 0%, #1e1b4b 40%, #312e81 100%);
+  padding: 48px 24px 40px; position: relative; overflow: hidden;
+}
+.hero::before {
+  content:''; position:absolute; top:-40%; right:-15%;
+  width:500px; height:500px;
+  background: radial-gradient(circle, rgba(99,102,241,0.15), transparent 70%);
+  border-radius:50%;
+}
+.hero-inner { max-width:1100px; margin:0 auto; position:relative; z-index:1; }
+.hero-date { font-size:13px; color:var(--text-dim); letter-spacing:2px; margin-bottom:6px; }
+.hero-title {
+  font-size:36px; font-weight:800;
+  background: linear-gradient(90deg, #a5b4fc, #c084fc, #f59e0b);
+  -webkit-background-clip:text; -webkit-text-fill-color:transparent;
+  margin-bottom:4px;
+}
+.hero-sub { font-size:15px; color:var(--text-dim); margin-bottom:28px; }
+.hero-stats { display:flex; gap:12px; flex-wrap:wrap; }
+.hero-stat {
+  background:rgba(99,102,241,0.12); border:1px solid var(--border);
+  border-radius:10px; padding:12px 18px; flex:1; min-width:100px;
+}
+.hero-stat-num { font-size:26px; font-weight:800; color:var(--gold); line-height:1.1; }
+.hero-stat-label { font-size:12px; color:var(--text-dim); margin-top:2px; }
+
+/* ===== NAV ===== */
+.nav-bar {
+  background:var(--surface); border-bottom:1px solid var(--border);
+  position:sticky; top:0; z-index:100; box-shadow:0 2px 12px rgba(0,0,0,0.4);
+}
+.nav-inner { max-width:1100px; margin:0 auto; display:flex; gap:4px; padding:8px 12px; overflow-x:auto; }
+.nav-link {
+  padding:6px 14px; border-radius:20px; font-size:12px; font-weight:600;
+  color:var(--text-dim); text-decoration:none; white-space:nowrap; transition:all 0.2s;
+}
+.nav-link:hover, .nav-link.active {
+  background:linear-gradient(135deg, var(--accent), var(--accent2)); color:#fff;
+}
+
+/* ===== MAIN ===== */
+.main { max-width:1100px; margin:0 auto; padding:32px 16px 60px; }
+.sec-anchor { scroll-margin-top:56px; }
+.section-head {
+  display:flex; align-items:center; gap:12px;
+  margin:36px 0 18px; padding-bottom:10px;
+  border-bottom:2px solid transparent;
+  border-image:linear-gradient(90deg, var(--accent), var(--accent2)) 1;
+}
+.section-icon {
+  width:36px; height:36px; border-radius:10px;
+  display:flex; align-items:center; justify-content:center;
+  font-size:18px;
+  background:linear-gradient(135deg, var(--accent), var(--accent2));
+  flex-shrink:0;
+}
+.section-head h2 { font-size:18px; font-weight:700; }
+.section-head .count {
+  margin-left:auto;
+  background:linear-gradient(135deg, var(--accent), var(--accent2));
+  color:#fff; font-size:11px; font-weight:700;
+  padding:3px 10px; border-radius:12px;
+}
+
+/* ===== CARDS (Compact Front) ===== */
+.card-grid { display:grid; grid-template-columns:repeat(auto-fill, minmax(300px,1fr)); gap:14px; }
+.card {
+  background:var(--card); border-radius:var(--radius);
+  box-shadow:0 2px 12px rgba(0,0,0,0.3);
+  border:1px solid var(--border);
+  opacity:0; transform:translateY(20px);
+  animation:fadeUp 0.5s ease forwards;
+  transition:transform 0.25s, box-shadow 0.25s, border-color 0.25s;
+  cursor:pointer; overflow:hidden;
+  position:relative;
+}
+.card:hover {
+  transform:translateY(-4px);
+  box-shadow:0 8px 24px rgba(99,102,241,0.2);
+  border-color:rgba(99,102,241,0.4);
+}
+@keyframes fadeUp { to { opacity:1; transform:translateY(0); } }
+
+.card-body { padding:18px; }
+.card-header { display:flex; align-items:flex-start; gap:10px; margin-bottom:10px; }
+.card-num {
+  background:linear-gradient(135deg, var(--accent), var(--accent2));
+  color:#fff; font-size:11px; font-weight:800;
+  width:26px; height:26px; border-radius:8px;
+  display:flex; align-items:center; justify-content:center;
+  flex-shrink:0; margin-top:2px;
+}
+.card-title { font-size:14px; font-weight:700; line-height:1.45; color:var(--text); }
+.card-meta { font-size:11px; color:var(--text-dim); margin-bottom:8px; }
+
+/* One-line brief */
+.card-brief {
+  font-size:12.5px; color:var(--text-dim); line-height:1.6;
+  margin-bottom:10px;
+  display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden;
+}
+
+/* Concept chips on front */
+.card-front-chips { display:flex; flex-wrap:wrap; gap:5px; }
+.c-chip {
+  font-size:10px; font-weight:600;
+  background:rgba(99,102,241,0.12); color:#a5b4fc;
+  border:1px solid rgba(99,102,241,0.25);
+  padding:2px 8px; border-radius:6px;
+}
+
+/* Expand hint */
+.card-hint {
+  text-align:center; font-size:11px; color:var(--text-dim);
+  padding:8px; background:rgba(99,102,241,0.06);
+  border-top:1px solid var(--border);
+}
+.card:hover .card-hint { color:var(--gold); }
+
+/* ===== MODAL ===== */
+.modal-overlay {
+  position:fixed; inset:0;
+  background:rgba(0,0,0,0.75);
+  backdrop-filter:blur(6px);
+  z-index:1000;
+  display:none; align-items:center; justify-content:center;
+  padding:20px;
+}
+.modal-overlay.active { display:flex; }
+.modal-box {
+  background:var(--modal-bg);
+  border:1px solid var(--border);
+  border-radius:var(--radius);
+  width:100%; max-width:720px;
+  max-height:85vh; overflow-y:auto;
+  box-shadow:0 20px 60px rgba(0,0,0,0.5);
+  animation:modalIn 0.3s ease;
+}
+@keyframes modalIn {
+  from { opacity:0; transform:translateY(30px) scale(0.96); }
+  to   { opacity:1; transform:translateY(0) scale(1); }
+}
+.modal-header {
+  padding:24px 24px 16px;
+  border-bottom:1px solid var(--border);
+  position:sticky; top:0; background:var(--modal-bg); z-index:2;
+}
+.modal-close {
+  position:absolute; top:14px; right:18px;
+  width:32px; height:32px; border-radius:8px;
+  background:rgba(255,255,255,0.08);
+  border:1px solid var(--border);
+  color:var(--text-dim); font-size:20px; cursor:pointer;
+  display:flex; align-items:center; justify-content:center;
+  transition:all 0.2s;
+}
+.modal-close:hover { background:rgba(230,57,70,0.2); color:#fff; border-color:rgba(230,57,70,0.4); }
+.modal-title { font-size:18px; font-weight:700; line-height:1.45; padding-right:40px; }
+.modal-meta { font-size:12px; color:var(--text-dim); margin-top:8px; }
+
+.modal-body { padding:20px 24px 28px; }
+.modal-section { margin-bottom:22px; }
+.modal-section:last-child { margin-bottom:0; }
+.modal-label {
+  font-size:11px; font-weight:700; letter-spacing:1.5px; text-transform:uppercase;
+  color:var(--gold); margin-bottom:8px; display:flex; align-items:center; gap:6px;
+}
+.modal-text { font-size:13.5px; color:var(--text-dim); line-height:1.7; }
+
+/* Key findings */
+.kf-list { list-style:none; }
+.kf-list li {
+  position:relative; padding-left:22px; margin-bottom:8px;
+  font-size:13px; color:var(--text); line-height:1.65;
+}
+.kf-list li::before {
+  content:'✦'; position:absolute; left:0; top:1px;
+  color:var(--green); font-size:12px;
+}
+
+/* Concept badges in modal */
+.modal-concepts { display:flex; flex-wrap:wrap; gap:8px; }
+.c-badge {
+  font-size:12px; font-weight:600;
+  background:rgba(245,158,11,0.12); color:var(--gold);
+  border:1px solid rgba(245,158,11,0.3);
+  padding:5px 12px; border-radius:8px;
+  cursor:help; transition:background 0.2s;
+}
+.c-badge:hover { background:rgba(245,158,11,0.25); }
+.c-badge .c-tip {
+  display:block; font-size:10.5px; color:#d4a84b; margin-top:2px; font-weight:400; line-height:1.4;
+}
+
+/* Link button */
+.modal-link {
+  display:inline-flex; align-items:center; gap:8px;
+  background:linear-gradient(135deg, var(--accent), var(--accent2));
+  color:#fff; font-size:13px; font-weight:600;
+  padding:10px 20px; border-radius:10px;
+  text-decoration:none; transition:opacity 0.2s, transform 0.2s;
+}
+.modal-link:hover { opacity:0.9; transform:translateY(-1px); }
+
+/* ===== FOOTER ===== */
+.footer {
+  text-align:center; padding:20px 16px 28px;
+  font-size:12px; color:var(--text-dim);
+  border-top:1px solid var(--border); background:var(--surface);
+}
+.footer a { color:var(--gold); text-decoration:none; }
+
+/* ===== Responsive ===== */
+@media (max-width:640px) {
+  .hero { padding:32px 16px 24px; }
+  .hero-title { font-size:24px; }
+  .hero-stat { min-width:0; flex:1 1 40%; padding:10px 12px; }
+  .hero-stat-num { font-size:20px; }
+  .card-grid { grid-template-columns:1fr; }
+  .modal-box { max-height:90vh; }
+  .modal-header { padding:18px 16px 12px; }
+  .modal-body { padding:16px; }
+}
+
+/* ===== Lang Toggle ===== */
+.lang-toggle {
+  margin-left:auto;
+  background:linear-gradient(135deg, var(--accent), var(--accent2));
+  color:#fff; border:none; border-radius:20px;
+  padding:6px 16px; font-size:12px; font-weight:700;
+  cursor:pointer; transition:opacity 0.2s;
+  flex-shrink:0;
+}
+.lang-toggle:hover { opacity:0.85; }
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-inner">
+    <div class="hero-date">AstroDaily · arXiv astro-ph 每日简报</div>
+    <div class="hero-title">🌌 {{DATE_STR}} 天体物理日报</div>
+    <div class="hero-sub">捕捉昨日 arXiv 最值得关注的天体物理研究动态 · 点击卡片查看完整内容</div>
+    <div class="hero-stats">
+      <div class="hero-stat"><div class="hero-stat-num">{{TOTAL}}</div><div class="hero-stat-label">全部论文</div></div>
+      {{HERO_STATS}}
+    </div>
+  </div>
+</div>
+
+<!-- NAV -->
+<nav class="nav-bar"><div class="nav-inner">
+  <a class="nav-link" href="index.html" style="background:rgba(99,102,241,0.15);color:#a5b4fc;">🏠 返回首页</a>
+  {{NAV_LINKS}}
+  <button class="lang-toggle" id="langToggle" onclick="toggleLang()">中文</button>
+</div></nav>
+
+<!-- MAIN -->
+<div class="main">
+{{SECTIONS_CARDS}}
+</div>
+
+<!-- MODAL -->
+<div class="modal-overlay" id="modalOverlay" onclick="closeModal(event)">
+  <div class="modal-box" onclick="event.stopPropagation()">
+    <div class="modal-header">
+      <button class="modal-close" onclick="closeModal()">✕</button>
+      <div class="modal-title" id="mTitle">论文标题</div>
+      <div class="modal-meta" id="mMeta">作者 · 日期</div>
+    </div>
+    <div class="modal-body">
+      <div class="modal-section">
+        <div class="modal-label">📋 摘要</div>
+        <div class="modal-text" id="mSummary">摘要内容...</div>
+      </div>
+      <div class="modal-section" id="mLaymanSection">
+        <div class="modal-label">💡 通俗解释</div>
+        <div class="modal-text" id="mLayman" style="background:rgba(139,92,246,0.08);border:1px solid rgba(139,92,246,0.2);border-radius:10px;padding:14px 16px;font-size:13px;line-height:1.75;">通俗解释内容...</div>
+        <div style="margin-top:10px;">
+          <button class="modal-link" id="btnLayman" onclick="genLayman()" style="background:linear-gradient(135deg,#8b5cf6,#6366f1);border:none;cursor:pointer;font-size:12px;padding:8px 16px;border-radius:8px;color:#fff;">🌐 在线生成通俗解释</button>
+          <span id="laymanStatus" style="font-size:11px;color:var(--text-dim);margin-left:10px;"></span>
+        </div>
+      </div>
+      <div class="modal-section" id="mKeySection">
+        <div class="modal-label">🔑 关键发现</div>
+        <ul class="kf-list" id="mKeyPoints"></ul>
+      </div>
+      <div class="modal-section" id="mConceptSection">
+        <div class="modal-label">📖 概念批注</div>
+        <div class="modal-concepts" id="mConcepts"></div>
+      </div>
+      <div class="modal-section" style="display:flex;gap:10px;flex-wrap:wrap;">
+        <a class="modal-link" id="mLink" href="#" target="_blank" rel="noopener noreferrer">📄 在 arXiv 查看原文 →</a>
+        <button class="modal-link" onclick="closeModal()" style="background:linear-gradient(135deg,#64748b,#475569);border:none;cursor:pointer;">← 返回卡片列表</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<div class="footer">
+  今日共 <strong>{{TOTAL}}</strong> 篇论文 &nbsp;|&nbsp;
+  数据来源：<a href="https://arxiv.org/list/astro-ph/recent" target="_blank" rel="noopener noreferrer">arXiv astro-ph</a> &nbsp;|&nbsp;
+  由 AstroDaily 自动生成
+</div>
+
+<script>
+/* ===== 配置：填写你的 Google Gemini 免费 API Key ===== */
+/* 申请地址：https://aistudio.google.com/app/apikey */
+/* 支持多个 key，用逗号分隔。当第一个被限制时自动尝试下一个。 */
+var GEMINI_API_KEYS = [
+  "AIzaSyAtrmZrA5Ga9So2MD_cTvhqhIdj3iVwX84",
+  "AIzaSyDTPCLz2aPKRAGOg-Pv4qHMJgNDCn1n4Pc",
+];
+var _keyIndex = 0;
+function getNextGeminiKey() {
+  if (GEMINI_API_KEYS.length === 0) return '';
+  var k = GEMINI_API_KEYS[_keyIndex];
+  _keyIndex = (_keyIndex + 1) % GEMINI_API_KEYS.length;
+  return k;
+}
+
+/* ===== Modal ===== */
+function openModal(el) {
+  document.getElementById('mTitle').textContent = el.dataset.title || '';
+  document.getElementById('mMeta').textContent = el.dataset.meta || '';
+  document.getElementById('mSummary').textContent = el.dataset.summary || '';
+  document.getElementById('mLink').href = el.dataset.url || '#';
+
+  // Layman explanation
+  var laymanText = el.dataset.layman || '';
+  var mLayman = document.getElementById('mLayman');
+  if(laymanText && laymanText.trim().length > 10) {
+    mLayman.textContent = laymanText.trim();
+    mLayman.setAttribute('data-en', laymanText.trim());
+    document.getElementById('mLaymanSection').style.display = 'block';
+  } else {
+    document.getElementById('mLaymanSection').style.display = 'none';
+  }
+
+  // Key points
+  var kp = document.getElementById('mKeyPoints');
+  kp.innerHTML = '';
+  var points = (el.dataset.keypoints || '').split('|').filter(function(s){ return s.trim(); });
+  if(points.length) {
+    points.forEach(function(p){
+      var li = document.createElement('li');
+      li.textContent = p.trim();
+      li.dataset.en = p.trim();
+      kp.appendChild(li);
+    });
+    document.getElementById('mKeySection').style.display = 'block';
+  } else {
+    document.getElementById('mKeySection').style.display = 'none';
+  }
+
+  // Concepts
+  var cs = document.getElementById('mConcepts');
+  cs.innerHTML = '';
+  var concepts = (el.dataset.concepts || '').split('|').filter(function(s){ return s.trim(); });
+  if(concepts.length) {
+    concepts.forEach(function(c){
+      var parts = c.split('::');
+      var name = parts[0].trim();
+      var tip = parts[1] ? parts[1].trim() : '';
+      var span = document.createElement('span');
+      span.className = 'c-badge';
+      if(tip) {
+        span.title = tip;
+        span.innerHTML = name + '<span class="c-tip">' + tip + '</span>';
+      } else {
+        span.textContent = name;
+      }
+      cs.appendChild(span);
+    });
+    document.getElementById('mConceptSection').style.display = 'block';
+  } else {
+    document.getElementById('mConceptSection').style.display = 'none';
+  }
+
+  document.getElementById('modalOverlay').classList.add('active');
+  document.body.style.overflow = 'hidden';
+  openModal._currentEl = el;
+
+  // Translate modal content if in Chinese mode
+  if(typeof astroLang !== 'undefined' && astroLang === 'zh') {
+    astroTranslateModalOf(el);
+  }
+}
+
+function closeModal(e) {
+  if(e && e.target !== document.getElementById('modalOverlay')) return;
+  document.getElementById('modalOverlay').classList.remove('active');
+  document.body.style.overflow = '';
+  openModal._currentEl = null;
+}
+
+document.addEventListener('keydown', function(e){
+  if(e.key === 'Escape') closeModal();
+});
+
+/* ===== Nav highlight ===== */
+(function(){
+  var secs = document.querySelectorAll('.sec-anchor');
+  var links = document.querySelectorAll('.nav-link');
+  window.addEventListener('scroll', function(){
+    var cur = '';
+    secs.forEach(function(s){ if(window.scrollY >= s.offsetTop - 70) cur = s.id; });
+    links.forEach(function(l){ l.classList.remove('active'); if(l.getAttribute('href')==='#'+cur) l.classList.add('active'); });
+  });
+  /* Card fade-in */
+  if('IntersectionObserver' in window){
+    var obs = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){ if(e.isIntersecting){ e.target.style.animationPlayState='running'; obs.unobserve(e.target); } });
+    }, {threshold:0.1});
+    document.querySelectorAll('.card').forEach(function(c){ obs.observe(c); });
+  }
+})();
+
+/* ===== Language Toggle ===== */
+var astroLang = localStorage.getItem('astro-lang') || 'en';
+var astroTranslating = false;
+
+function astroTranslateText(text, ok, fail) {
+  if(!text || text.trim().length < 5) { ok(text); return; }
+  var cacheKey = 'astro-tr-' + text.length + '-' + text.substring(0, 60);
+  try {
+    var cached = localStorage.getItem(cacheKey);
+    if(cached) { ok(cached); return; }
+  } catch(e) {}
+  var url = 'https://api.mymemory.translated.net/get?q=' + encodeURIComponent(text) + '&langpair=en|zh-CN';
+  fetch(url)
+    .then(function(r){ return r.json(); })
+    .then(function(d){
+      if(d && d.responseStatus === 200 && d.responseData && d.responseData.translatedText) {
+        var zh = d.responseData.translatedText;
+        try { localStorage.setItem(cacheKey, zh); } catch(e) {}
+        ok(zh);
+      } else {
+        // Log for debugging
+        console.warn('[翻译失败]', d ? d.responseStatus : '网络错误', text.substring(0, 80));
+        fail();
+      }
+    })
+    .catch(function(err){ console.warn('[翻译异常]', err); fail(); });
+}
+
+/* 长文本分段翻译：MyMemory 免费版单次限制约 400 字符 */
+function astroTranslateLongText(text, ok, fail) {
+  if(!text || text.trim().length < 5) { ok(text); return; }
+  if(text.length < 400) {
+    astroTranslateText(text, ok, fail);
+    return;
+  }
+  // 按句子拆分，每段不超过 350 字符
+  var sentences = text.match(/[^.!?]+[.!?]+/g) || [text];
+  var chunks = [], cur = '';
+  sentences.forEach(function(s){
+    s = s.trim();
+    if(!s) return;
+    if((cur + ' ' + s).length < 350) {
+      cur = cur ? cur + ' ' + s : s;
+    } else {
+      if(cur) chunks.push(cur);
+      cur = s;
+    }
+  });
+  if(cur) chunks.push(cur);
+
+  var results = [];
+  function next(i){
+    if(i >= chunks.length) { ok(results.join(' ')); return; }
+    astroTranslateText(chunks[i], function(zh){
+      results.push(zh);
+      setTimeout(function(){ next(i+1); }, 300);
+    }, function(){
+      results.push(chunks[i]); // 保留原文
+      setTimeout(function(){ next(i+1); }, 300);
+    });
+  }
+  next(0);
+}
+
+function astroProcessQueue(queue, idx, done) {
+  if(idx >= queue.length) { done(); return; }
+  var el = queue[idx];
+  var text = el.getAttribute('data-en');
+  astroTranslateText(text, function(zh){
+    el.setAttribute('data-zh', zh);
+    el.textContent = zh;
+    setTimeout(function(){ astroProcessQueue(queue, idx+1, done); }, 250);
+  }, function(){
+    el.setAttribute('data-zh', text);
+    setTimeout(function(){ astroProcessQueue(queue, idx+1, done); }, 250);
+  });
+}
+
+function astroTranslateModalOf(el) {
+  var mTitle = document.getElementById('mTitle');
+  var enTitle = el.dataset.enTitle || el.dataset.title || '';
+  astroTranslateText(enTitle, function(zh){ mTitle.textContent = zh; }, function(){});
+
+  var mSummary = document.getElementById('mSummary');
+  var enSummary = el.dataset.enSummary || el.dataset.summary || '';
+  astroTranslateLongText(enSummary, function(zh){ mSummary.textContent = zh; }, function(){});
+
+  var mLayman = document.getElementById('mLayman');
+  // 优先使用在线生成的中文解释
+  if(mLayman && el.dataset.laymanGen) {
+    mLayman.textContent = el.dataset.laymanGen;
+  } else if(mLayman && el.dataset.layman) {
+    astroTranslateLongText(el.dataset.layman, function(zh){ mLayman.textContent = zh; }, function(){});
+  }
+
+  var kpLis = document.querySelectorAll('#mKeyPoints li');
+  kpLis.forEach(function(li){
+    var en = li.dataset.en || li.textContent;
+    li.dataset.en = en;
+    astroTranslateText(en, function(zh){ li.textContent = zh; }, function(){});
+  });
+}
+
+/* ==== 在线生成通俗解释（调用 Google Gemini 免费 API）==== */
+function genLayman() {
+  var el = openModal._currentEl;
+  if (!el) return;
+  var btn = document.getElementById('btnLayman');
+  var st  = document.getElementById('laymanStatus');
+
+  // 如果已经有缓存的生成结果，直接显示
+  if (el.dataset.laymanGen) {
+    var mLayman = document.getElementById('mLayman');
+    mLayman.textContent = el.dataset.laymanGen;
+    st.textContent = '（已生成）';
+    setTimeout(function(){ st.textContent = ''; }, 2000);
+    return;
+  }
+
+  if (!GEMINI_API_KEYS.length) {
+    st.textContent = '请先在脚本顶部填写 Gemini API Key';
+    return;
+  }
+  btn.disabled = true;
+  st.textContent = '正在生成…';
+
+  var titleEn   = el.dataset.enTitle || el.dataset.title || '';
+  var summaryEn = el.dataset.enSummary || el.dataset.summary || '';
+  var prompt = (
+    '你是一个天体物理科普作家。请用非常通俗的大白话解释下面这篇论文，' +
+    '面向只有大学普通物理基础的读者，不超过 200 字。\n\n' +
+    '论文标题：' + titleEn + '\n' +
+    '论文摘要：' + summaryEn.substring(0, 1200) + '\n\n' +
+    '要求：\n' +
+    '1. 第一句说清楚这篇论文研究了什么（用大白话）。\n' +
+    '2. 第二句说清楚为什么要研究这个——科学意义是什么。\n' +
+    '3. 可以打比方，用日常生活中的事物做类比。\n' +
+    '4. 不要使用任何专业术语，如果必须用，请在括号里用大白话解释。\n' +
+    '5. 直接输出解释，不要说"这篇论文……"这样的废话。'
+  );
+  var body = JSON.stringify({
+    contents: [{ parts: [{ text: prompt }] }],
+    generationConfig: { temperature: 0.4, maxOutputTokens: 400 }
+  });
+
+  function tryKey(keysLeft) {
+    if (keysLeft === 0) {
+      st.textContent = '所有 API Key 均达到调用上限，建议等 1-2 分钟再试，或添加更多 Key';
+      btn.disabled = false;
+      return;
+    }
+    var key = getNextGeminiKey();
+    if (!key) {
+      st.textContent = '没有可用的 API Key';
+      btn.disabled = false;
+      return;
+    }
+    var url = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=' + encodeURIComponent(key);
+    fetch(url, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: body
+    })
+    .then(function(r){
+      if (r.status === 429) {
+        // 当前 key 被限流，尝试下一个
+        return tryKey(keysLeft - 1);
+      }
+      if (!r.ok) {
+        throw new Error('HTTP ' + r.status + ' ' + r.statusText);
+      }
+      return r.json().then(function(d){
+        var text = '';
+        try { text = d.candidates[0].content.parts[0].text; } catch(e) {}
+        if (!text) {
+          var errMsg = (d.error && d.error.message) ? d.error.message : '返回空内容';
+          st.textContent = '生成失败：' + errMsg.substring(0, 80);
+          btn.disabled = false;
+          return;
+        }
+        // 显示并缓存
+        var mLayman = document.getElementById('mLayman');
+        mLayman.textContent = text.substring(0, 600);
+        el.dataset.laymanGen = text.substring(0, 600);
+        // 如果当前是中文模式，顺便翻译
+        if (astroLang === 'zh') {
+          astroTranslateLongText(text.substring(0, 500), function(zh){
+            mLayman.textContent = zh;
+            el.dataset.laymanZh = zh;
+          }, function(){});
+        }
+        st.textContent = '生成完毕！';
+        setTimeout(function(){ st.textContent = ''; }, 4000);
+        btn.disabled = false;
+      });
+    })
+    .catch(function(err){
+      var msg = String(err.message || err);
+      if (msg.indexOf('Failed to fetch') !== -1 || msg.indexOf('NetworkError') !== -1) {
+        st.textContent = '无法连接 Gemini API（网络问题或被墙），建议开启代理后重试';
+      } else if (msg.indexOf('403') !== -1 || msg.indexOf('401') !== -1) {
+        st.textContent = 'API Key 无效或已被限制，请重新申请';
+      } else {
+        st.textContent = '错误：' + msg.substring(0, 80);
+      }
+      btn.disabled = false;
+    });
+  }
+
+  tryKey(GEMINI_API_KEYS.length);
+}
+
+function astroRestoreModalOf(el) {
+  var mTitle = document.getElementById('mTitle');
+  mTitle.textContent = el.dataset.enTitle || el.dataset.title || '';
+
+  var mSummary = document.getElementById('mSummary');
+  mSummary.textContent = el.dataset.enSummary || el.dataset.summary || '';
+
+  var mLayman = document.getElementById('mLayman');
+  if(mLayman && el.dataset.laymanGen) {
+    mLayman.textContent = el.dataset.laymanGen;
+  } else if(mLayman && el.dataset.layman) {
+    mLayman.textContent = el.dataset.layman;
+  }
+
+  var points = (el.dataset.keypoints || '').split('|').filter(function(s){ return s.trim(); });
+  var kpLis = document.querySelectorAll('#mKeyPoints li');
+  kpLis.forEach(function(li, i){
+    if(i < points.length) {
+      li.textContent = points[i].trim();
+      li.dataset.en = points[i].trim();
+    }
+  });
+}
+
+function astroTranslateAll() {
+  astroTranslating = true;
+  var els = document.querySelectorAll('.translatable');
+  var queue = [];
+  for(var i = 0; i < els.length; i++) {
+    var el = els[i];
+    var en = el.getAttribute('data-en') || el.textContent;
+    el.setAttribute('data-en', en);
+    var zh = el.getAttribute('data-zh');
+    if(zh) {
+      el.textContent = zh;
+    } else {
+      queue.push(el);
+    }
+  }
+  astroProcessQueue(queue, 0, function(){ astroTranslating = false; });
+}
+
+function astroRestoreAll() {
+  var els = document.querySelectorAll('.translatable');
+  for(var i = 0; i < els.length; i++) {
+    var en = els[i].getAttribute('data-en');
+    if(en) els[i].textContent = en;
+  }
+  // Also restore modal if open
+  var el = openModal._currentEl;
+  if(el && document.getElementById('modalOverlay').classList.contains('active')) {
+    astroRestoreModalOf(el);
+  }
+}
+
+function toggleLang() {
+  if(astroTranslating) return;
+  if(astroLang === 'en') {
+    astroLang = 'zh';
+    localStorage.setItem('astro-lang', 'zh');
+    document.getElementById('langToggle').textContent = 'EN';
+    astroTranslateAll();
+    // Also translate modal if open
+    var el = openModal._currentEl;
+    if(el && document.getElementById('modalOverlay').classList.contains('active')) {
+      astroTranslateModalOf(el);
+    }
+  } else {
+    astroLang = 'en';
+    localStorage.setItem('astro-lang', 'en');
+    document.getElementById('langToggle').textContent = '中文';
+    astroRestoreAll();
+  }
+}
+
+if(astroLang === 'zh') {
+  document.addEventListener('DOMContentLoaded', function(){
+    document.getElementById('langToggle').textContent = 'EN';
+    astroTranslateAll();
+  });
+}
+</script>
+</body>
+</html>
