@@ -1,1 +1,28 @@
+name: AstroDaily 每日自动更新
 
+on:
+  schedule:
+    - cron: '0 1 * * *'
+  workflow_dispatch:
+
+jobs:
+  update-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    - uses: actions/setup-python@v5
+      with:
+        python-version: '3.10'
+    - name: 安装依赖
+      run: pip install requests beautifulsoup4
+    - name: 生成日报
+      run: python astro_daily.py
+    - name: 部署到 Surge
+      env:
+        SURGE_LOGIN: 308493389@qq.com
+        SURGE_<SECRET_REDACTED>
+      run: |
+        npm install -g surge
+        mkdir -p deploy
+        cp astro-daily-archives/astro-daily-*.html deploy/index.html 2>/dev/null || true
+        surge --project ./deploy --domain astro-daily-latest.surge.sh
