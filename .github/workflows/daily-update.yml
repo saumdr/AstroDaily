@@ -17,12 +17,19 @@ jobs:
       run: pip install requests beautifulsoup4
     - name: 生成日报
       run: python astro_daily.py
+    - name: 检查生成的文件
+      run: |
+        echo "=== 检查文件 ==="
+        ls -la astro-daily-archives/ 2>/dev/null || echo "目录不存在"
+        ls *.html 2>/dev/null || echo "无 html 文件"
+        echo "==============="
     - name: 部署到 Surge
       env:
-        SURGE_LOGIN: 308493389@qq.com
+        SURGE_LOGIN: "308493389@qq.com"
         SURGE_TOKEN: ${{ secrets.SURGE_TOKEN }}
       run: |
         npm install -g surge
         mkdir -p deploy
-        cp astro-daily-archives/astro-daily-*.html deploy/index.html 2>/dev/null || true
+        cp astro-daily-archives/astro-daily-*.html deploy/index.html 2>/dev/null || cp astro-daily-*.html deploy/index.html 2>/dev/null || cp index.html deploy/index.html
+        ls -la deploy/
         surge --project ./deploy --domain astro-daily-latest.surge.sh
