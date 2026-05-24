@@ -1,5 +1,9 @@
 name: AstroDaily 每日自动更新
-
+run: |
+        git config user.name "AstroDaily Bot"
+        git config user.email "bot@astrodaily.local"
+        git add astro-daily-archives/ index.html || true
+        git diff --cached --quiet || (git commit -m "📰 更新日报 $(date +%Y-%m-%d)" && git push) || true
 on:
   schedule:
     - cron: '0 1 * * *'
