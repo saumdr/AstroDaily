@@ -43,9 +43,15 @@ jobs:
       run: |
         npm install -g surge
         mkdir -p deploy
-        cp astro-daily-archives/astro-daily-*.html deploy/index.html 2>/dev/null || cp astro-daily-*.html deploy/index.html 2>/dev/null || cp index.html deploy/index.html
+        LATEST=$(ls -t astro-daily-archives/astro-daily-*.html 2>/dev/null | head -1)
+        if [ -n "$LATEST" ]; then
+          cp "$LATEST" deploy/index.html
+          echo "✅ 部署文件: $LATEST"
+        else
+          cp index.html deploy/index.html 2>/dev/null || echo "⚠️ 没有找到存档文件"
+        fi
         ls -la deploy/
         surge --project ./deploy --domain astro-daily-latest.surge.sh
 
     - name: 📢 输出访问地址
-      run: echo "🌐 日报已更新！访问地址： https://astro-daily-latest.surge.sh"
+      run: echo "🌐 日报已更新！访问地址：<ADDRESS_REMOVED>
