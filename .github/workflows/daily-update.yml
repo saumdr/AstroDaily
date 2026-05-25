@@ -2,41 +2,40 @@ name: AstroDaily 每日自动更新
 
 on:
   schedule:
-    # 每天早上 9:00 北京时间 = 凌晨 1:00 UTC
     - cron: '0 1 * * *'
-  workflow_dispatch:  # 允许手动触发
+  workflow_dispatch:
 
 jobs:
   update-and-deploy:
     runs-on: ubuntu-latest
     
     steps:
-    - name: 📥 检出代码
+    - name: 检出代码
       uses: actions/checkout@v4
       with:
         fetch-depth: 0
 
-    - name: 🐍 设置 Python
+    - name: 设置 Python
       uses: actions/setup-python@v5
       with:
         python-version: '3.10'
 
-    - name: 📦 安装依赖
+    - name: 安装依赖
       run: |
         python -m pip install --upgrade pip
         pip install requests beautifulsoup4
 
-    - name: 📰 生成日报
+    - name: 生成日报
       run: python astro_daily.py
 
-    - name: 📤 提交更新的日报
+    - name: 提交更新的日报
       run: |
         git config user.name "AstroDaily Bot"
         git config user.email "bot@astrodaily.local"
         git add astro-daily-archives/ index.html || true
-        git diff --cached --quiet || (git commit -m "📰 更新日报 $(date +%Y-%m-%d)" && git push) || true
+        git diff --cached --quiet || (git commit -m "更新日报 $(date +%Y-%m-%d)" && git push) || true
 
-    - name: 🚀 部署到 Surge
+    - name: 部署到 Surge
       env:
         SURGE_LOGIN: "308493389@qq.com"
         SURGE_TOKEN: ${{ secrets.SURGE_TOKEN }}
@@ -46,12 +45,9 @@ jobs:
         LATEST=$(ls -t astro-daily-archives/astro-daily-*.html 2>/dev/null | head -1)
         if [ -n "$LATEST" ]; then
           cp "$LATEST" deploy/index.html
-          echo "✅ 部署文件: $LATEST"
+          echo "deploy file: $LATEST"
         else
-          cp index.html deploy/index.html 2>/dev/null || echo "⚠️ 没有找到存档文件"
+          cp index.html deploy/index.html 2>/dev/null || echo "no archive found"
         fi
         ls -la deploy/
         surge --project ./deploy --domain astro-daily-latest.surge.sh
-
-    - name: 📢 输出访问地址
-      run: echo "🌐 日报已更新！访问地址：<ADDRESS_REMOVED>
