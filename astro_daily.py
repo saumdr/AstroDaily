@@ -746,7 +746,7 @@ h1 { color: #a5b4fc; font-size: 2.5em; margin: 10px 0; }
     请明日再访
   </div>
   <div class="back">
-    <a href="index.html">📅 查看往期日报</a>
+    <a href="../index.html">📅 查看往期日报</a>
   </div>
 </div>
 </body>
