@@ -42,28 +42,20 @@ jobs:
       run: |
         npm install -g surge
         mkdir -p deploy
+        cp -r astro-daily-archives/ deploy/
+        cp index.html deploy/
         LATEST=$(ls -t astro-daily-archives/astro-daily-*.html 2>/dev/null | head -1)
-        if [ -n "$LATEST" ]; then
-          if grep -q "今日暂无新论文" "$LATEST" 2>/dev/null; then
-            VALID=$(for f in $(ls -t astro-daily-archives/astro-daily-*.html 2>/dev/null); do
-              if ! grep -q "今日暂无新论文" "$f" 2>/dev/null; then
-                echo "$f"
-                break
-              fi
-            done)
-            if [ -n "$VALID" ]; then
-              cp "$VALID" deploy/index.html
-              echo "无新论文，部署最近有效日报: $VALID"
-            else
-              cp "$LATEST" deploy/index.html
-              echo "部署提示页面: $LATEST"
+        if grep -q "今日暂无新论文" "$LATEST" 2>/dev/null; then
+          for f in $(ls -t astro-daily-archives/astro-daily-*.html 2>/dev/null); do
+            if ! grep -q "今日暂无新论文" "$f" 2>/dev/null; then
+              cp "$f" deploy/index.html
+              echo "valid: $f"
+              break
             fi
-          else
-            cp "$LATEST" deploy/index.html
-            echo "部署最新日报: $LATEST"
-          fi
+          done
         else
-          cp index.html deploy/index.html 2>/dev/null || echo "未找到文件"
+          cp "$LATEST" deploy/index.html
+          echo "latest: $LATEST"
         fi
         ls -la deploy/
         surge --project ./deploy --domain astro-daily-latest.surge.sh
