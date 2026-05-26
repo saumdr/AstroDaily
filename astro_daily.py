@@ -693,6 +693,8 @@ def generate_index():
         return
     cards = ""
     for f in files:
+        # 日报文件存放在 astro-daily-archives/ 子目录下，链接需加前缀
+        file_path = "astro-daily-archives/" + f
         date_part = f.replace("astro-daily-", "").replace(".html", "")
         try:
             y, m, d = date_part.split("-")
@@ -704,7 +706,7 @@ def generate_index():
             '    <div class="idx-date">%s</div>\n'
             '    <div class="idx-file">%s</div>\n'
             '  </a>\n'
-        ) % (f, date_label, f)
+        ) % (file_path, date_label, f)
     count = len(files)
     with open(INDEX_TEMPLATE_FILE, "r", encoding="utf-8") as tpl:
         content = tpl.read()
@@ -715,43 +717,6 @@ def generate_index():
         out.write(content)
     print("[索引] 已更新：index.html")
 
-def generate_no_update_page(date_str):
-    """生成无新论文时的提示页面"""
-    html = '''<!DOCTYPE html>
-<html lang="zh-CN">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>AstroDaily · 天体物理日报 · ''' + date_str + '''</title>
-<style>
-body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background: #0f172a; color: #e2e8f0; min-height: 100vh; display: flex; align-items: center; justify-content: center; margin: 0; }
-.container { text-align: center; padding: 40px; }
-.icon { font-size: 80px; margin-bottom: 20px; }
-h1 { color: #a5b4fc; font-size: 2.5em; margin: 10px 0; }
-.date { color: #64748b; font-size: 1.2em; margin: 20px 0; }
-.msg { color: #94a3b8; font-size: 1.1em; margin: 30px 0; line-height: 1.8; }
-.back { margin-top: 40px; }
-.back a { color: #60a5fa; text-decoration: none; font-size: 1em; }
-.back a:hover { text-decoration: underline; }
-</style>
-</head>
-<body>
-<div class="container">
-  <div class="icon">🔭</div>
-  <h1>🌌 AstroDaily</h1>
-  <div class="date">''' + date_str + '''</div>
-  <div class="msg">
-    📭 今日暂无新论文<br>
-    arXiv astro-ph 今日未发布新论文<br>
-    请明日再访
-  </div>
-  <div class="back">
-    <a href="../index.html">📅 查看往期日报</a>
-  </div>
-</div>
-</body>
-</html>'''
-    return html
 
 # ── 主流程 ─────────────────────────────────────────────
 def main():
@@ -779,18 +744,11 @@ def main():
     }
     target_papers = [p for p in papers if p.get("published", "")[:10] in allowed_dates]
     if not target_papers:
-        print("[跳过] %s 及其前后一天均无新论文，生成提示页面。" % rep_date)
-        # 生成无更新提示页面
-        no_update_html = generate_no_update_page(rep_date)
-        out_path = os.path.join(OUTPUT_DIR, "astro-daily-%s.html" % rep_date)
-        with open(out_path, "w", encoding="utf-8") as f:
-            f.write(no_update_html)
-        print("[生成] 无更新提示页面已保存：%s" % out_path)
+        print("[跳过] %s 及其前后一天均无新论文，跳过生成。" % rep_date)
         cleanup_old()
         generate_index()
-        print("\n✅ 提示页面已生成！")
+        print("\n✅ 无新内容，索引已更新。")
         return
-
     papers = target_papers
     print("[论文] 目标日期附近共 %d 篇论文" % len(papers))
 
