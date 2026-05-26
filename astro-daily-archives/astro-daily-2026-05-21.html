@@ -1,0 +1,719 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🌌 AstroDaily · 天体物理日报 · 2026-05-21</title>
+<style>
+:root {
+  --bg: #0a0e1a;
+  --surface: #111827;
+  --card: #1a2236;
+  --modal-bg: #0f1629;
+  --accent: #6366f1;
+  --accent2: #8b5cf6;
+  --gold: #f59e0b;
+  --green: #22c55e;
+  --text: #e2e8f0;
+  --text-dim: #94a3b8;
+  --border: rgba(99,102,241,0.18);
+  --radius: 14px;
+  --font: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+body { font-family:var(--font); background:var(--bg); color:var(--text); line-height:1.6; min-height:100vh; }
+
+/* ===== HERO ===== */
+.hero {
+  background: linear-gradient(160deg, #0f172a 0%, #1e1b4b 40%, #312e81 100%);
+  padding: 48px 24px 40px; position: relative; overflow: hidden;
+}
+.hero::before {
+  content:''; position:absolute; top:-40%; right:-15%;
+  width:500px; height:500px;
+  background: radial-gradient(circle, rgba(99,102,241,0.15), transparent 70%);
+  border-radius:50%;
+}
+.hero-inner { max-width:1100px; margin:0 auto; position:relative; z-index:1; }
+.hero-date { font-size:13px; color:var(--text-dim); letter-spacing:2px; margin-bottom:6px; }
+.hero-title {
+  font-size:36px; font-weight:800;
+  background: linear-gradient(90deg, #a5b4fc, #c084fc, #f59e0b);
+  -webkit-background-clip:text; -webkit-text-fill-color:transparent;
+  margin-bottom:4px;
+}
+.hero-sub { font-size:15px; color:var(--text-dim); margin-bottom:28px; }
+.hero-stats { display:flex; gap:12px; flex-wrap:wrap; }
+.hero-stat {
+  background:rgba(99,102,241,0.12); border:1px solid var(--border);
+  border-radius:10px; padding:12px 18px; flex:1; min-width:100px;
+}
+.hero-stat-num { font-size:26px; font-weight:800; color:var(--gold); line-height:1.1; }
+.hero-stat-label { font-size:12px; color:var(--text-dim); margin-top:2px; }
+
+/* ===== NAV ===== */
+.nav-bar {
+  background:var(--surface); border-bottom:1px solid var(--border);
+  position:sticky; top:0; z-index:100; box-shadow:0 2px 12px rgba(0,0,0,0.4);
+}
+.nav-inner { max-width:1100px; margin:0 auto; display:flex; gap:4px; padding:8px 12px; overflow-x:auto; }
+.nav-link {
+  padding:6px 14px; border-radius:20px; font-size:12px; font-weight:600;
+  color:var(--text-dim); text-decoration:none; white-space:nowrap; transition:all 0.2s;
+}
+.nav-link:hover, .nav-link.active {
+  background:linear-gradient(135deg, var(--accent), var(--accent2)); color:#fff;
+}
+
+/* ===== MAIN ===== */
+.main { max-width:1100px; margin:0 auto; padding:32px 16px 60px; }
+.sec-anchor { scroll-margin-top:56px; }
+.section-head {
+  display:flex; align-items:center; gap:12px;
+  margin:36px 0 18px; padding-bottom:10px;
+  border-bottom:2px solid transparent;
+  border-image:linear-gradient(90deg, var(--accent), var(--accent2)) 1;
+}
+.section-icon {
+  width:36px; height:36px; border-radius:10px;
+  display:flex; align-items:center; justify-content:center;
+  font-size:18px;
+  background:linear-gradient(135deg, var(--accent), var(--accent2));
+  flex-shrink:0;
+}
+.section-head h2 { font-size:18px; font-weight:700; }
+.section-head .count {
+  margin-left:auto;
+  background:linear-gradient(135deg, var(--accent), var(--accent2));
+  color:#fff; font-size:11px; font-weight:700;
+  padding:3px 10px; border-radius:12px;
+}
+
+/* ===== CARDS (Compact Front) ===== */
+.card-grid { display:grid; grid-template-columns:repeat(auto-fill, minmax(300px,1fr)); gap:14px; }
+.card {
+  background:var(--card); border-radius:var(--radius);
+  box-shadow:0 2px 12px rgba(0,0,0,0.3);
+  border:1px solid var(--border);
+  opacity:0; transform:translateY(20px);
+  animation:fadeUp 0.5s ease forwards;
+  transition:transform 0.25s, box-shadow 0.25s, border-color 0.25s;
+  cursor:pointer; overflow:hidden;
+  position:relative;
+}
+.card:hover {
+  transform:translateY(-4px);
+  box-shadow:0 8px 24px rgba(99,102,241,0.2);
+  border-color:rgba(99,102,241,0.4);
+}
+@keyframes fadeUp { to { opacity:1; transform:translateY(0); } }
+
+.card-body { padding:18px; }
+.card-header { display:flex; align-items:flex-start; gap:10px; margin-bottom:10px; }
+.card-num {
+  background:linear-gradient(135deg, var(--accent), var(--accent2));
+  color:#fff; font-size:11px; font-weight:800;
+  width:26px; height:26px; border-radius:8px;
+  display:flex; align-items:center; justify-content:center;
+  flex-shrink:0; margin-top:2px;
+}
+.card-title { font-size:14px; font-weight:700; line-height:1.45; color:var(--text); }
+.card-meta { font-size:11px; color:var(--text-dim); margin-bottom:8px; }
+
+/* One-line brief */
+.card-brief {
+  font-size:12.5px; color:var(--text-dim); line-height:1.6;
+  margin-bottom:10px;
+  display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden;
+}
+
+/* Concept chips on front */
+.card-front-chips { display:flex; flex-wrap:wrap; gap:5px; }
+.c-chip {
+  font-size:10px; font-weight:600;
+  background:rgba(99,102,241,0.12); color:#a5b4fc;
+  border:1px solid rgba(99,102,241,0.25);
+  padding:2px 8px; border-radius:6px;
+}
+
+/* Expand hint */
+.card-hint {
+  text-align:center; font-size:11px; color:var(--text-dim);
+  padding:8px; background:rgba(99,102,241,0.06);
+  border-top:1px solid var(--border);
+}
+.card:hover .card-hint { color:var(--gold); }
+
+/* ===== MODAL ===== */
+.modal-overlay {
+  position:fixed; inset:0;
+  background:rgba(0,0,0,0.75);
+  backdrop-filter:blur(6px);
+  z-index:1000;
+  display:none; align-items:center; justify-content:center;
+  padding:20px;
+}
+.modal-overlay.active { display:flex; }
+.modal-box {
+  background:var(--modal-bg);
+  border:1px solid var(--border);
+  border-radius:var(--radius);
+  width:100%; max-width:720px;
+  max-height:85vh; overflow-y:auto;
+  box-shadow:0 20px 60px rgba(0,0,0,0.5);
+  animation:modalIn 0.3s ease;
+}
+@keyframes modalIn {
+  from { opacity:0; transform:translateY(30px) scale(0.96); }
+  to   { opacity:1; transform:translateY(0) scale(1); }
+}
+.modal-header {
+  padding:24px 24px 16px;
+  border-bottom:1px solid var(--border);
+  position:sticky; top:0; background:var(--modal-bg); z-index:2;
+}
+.modal-close {
+  position:absolute; top:14px; right:18px;
+  width:32px; height:32px; border-radius:8px;
+  background:rgba(255,255,255,0.08);
+  border:1px solid var(--border);
+  color:var(--text-dim); font-size:20px; cursor:pointer;
+  display:flex; align-items:center; justify-content:center;
+  transition:all 0.2s;
+}
+.modal-close:hover { background:rgba(230,57,70,0.2); color:#fff; border-color:rgba(230,57,70,0.4); }
+.modal-title { font-size:18px; font-weight:700; line-height:1.45; padding-right:40px; }
+.modal-meta { font-size:12px; color:var(--text-dim); margin-top:8px; }
+
+.modal-body { padding:20px 24px 28px; }
+.modal-section { margin-bottom:22px; }
+.modal-section:last-child { margin-bottom:0; }
+.modal-label {
+  font-size:11px; font-weight:700; letter-spacing:1.5px; text-transform:uppercase;
+  color:var(--gold); margin-bottom:8px; display:flex; align-items:center; gap:6px;
+}
+.modal-text { font-size:13.5px; color:var(--text-dim); line-height:1.7; }
+
+/* Key findings */
+.kf-list { list-style:none; }
+.kf-list li {
+  position:relative; padding-left:22px; margin-bottom:8px;
+  font-size:13px; color:var(--text); line-height:1.65;
+}
+.kf-list li::before {
+  content:'✦'; position:absolute; left:0; top:1px;
+  color:var(--green); font-size:12px;
+}
+
+/* Concept badges in modal */
+.modal-concepts { display:flex; flex-wrap:wrap; gap:8px; }
+.c-badge {
+  font-size:12px; font-weight:600;
+  background:rgba(245,158,11,0.12); color:var(--gold);
+  border:1px solid rgba(245,158,11,0.3);
+  padding:5px 12px; border-radius:8px;
+  cursor:help; transition:background 0.2s;
+}
+.c-badge:hover { background:rgba(245,158,11,0.25); }
+.c-badge .c-tip {
+  display:block; font-size:10.5px; color:#d4a84b; margin-top:2px; font-weight:400; line-height:1.4;
+}
+
+/* Link button */
+.modal-link {
+  display:inline-flex; align-items:center; gap:8px;
+  background:linear-gradient(135deg, var(--accent), var(--accent2));
+  color:#fff; font-size:13px; font-weight:600;
+  padding:10px 20px; border-radius:10px;
+  text-decoration:none; transition:opacity 0.2s, transform 0.2s;
+}
+.modal-link:hover { opacity:0.9; transform:translateY(-1px); }
+
+/* ===== FOOTER ===== */
+.footer {
+  text-align:center; padding:20px 16px 28px;
+  font-size:12px; color:var(--text-dim);
+  border-top:1px solid var(--border); background:var(--surface);
+}
+.footer a { color:var(--gold); text-decoration:none; }
+
+/* ===== Responsive ===== */
+@media (max-width:640px) {
+  .hero { padding:32px 16px 24px; }
+  .hero-title { font-size:24px; }
+  .hero-stat { min-width:0; flex:1 1 40%; padding:10px 12px; }
+  .hero-stat-num { font-size:20px; }
+  .card-grid { grid-template-columns:1fr; }
+  .modal-box { max-height:90vh; }
+  .modal-header { padding:18px 16px 12px; }
+  .modal-body { padding:16px; }
+}
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-inner">
+    <div class="hero-date">AstroDaily · arXiv astro-ph 每日简报</div>
+    <div class="hero-title">🌌 2026-05-21 天体物理日报</div>
+    <div class="hero-sub">捕捉昨日 arXiv 最值得关注的天体物理研究动态 · 点击卡片查看完整内容</div>
+    <div class="hero-stats">
+      <div class="hero-stat"><div class="hero-stat-num">25</div><div class="hero-stat-label">全部论文</div></div>
+      <div class="hero-stat"><div class="hero-stat-num">8</div><div class="hero-stat-label">星系与宇宙学</div></div>
+<div class="hero-stat"><div class="hero-stat-num">12</div><div class="hero-stat-label">恒星与系外行星</div></div>
+<div class="hero-stat"><div class="hero-stat-num">5</div><div class="hero-stat-label">高能天体物理</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- NAV -->
+<nav class="nav-bar"><div class="nav-inner">
+  <a class="nav-link" href="#" onclick="event.preventDefault();var a=document.createElement('a');a.href='../index.html';location.href=a.href;" style="background:rgba(99,102,241,0.15);color:#a5b4fc;">🏠 返回首页</a>
+  <a class="nav-link" href="#sec-星系与宇宙学">星系与宇宙学 (8)</a>
+<a class="nav-link" href="#sec-恒星与系外行星">恒星与系外行星 (12)</a>
+<a class="nav-link" href="#sec-高能天体物理">高能天体物理 (5)</a>
+</div></nav>
+
+<!-- MAIN -->
+<div class="main">
+<div class="sec-anchor" id="sec-星系与宇宙学"></div>
+<div class="section-head">
+  <div class="section-icon">🌌</div>
+  <h2>星系与宇宙学</h2>
+  <span class="count">8 篇</span>
+</div>
+<div class="card-grid">
+<div class="card" style="animation-delay:0.04" onclick="openModal(this)" data-title="从原星系到厚薄：为什么银河系会分三个运动阶段演化？" data-title-en="From protogalaxy through thick and thin: Why did the Milky Way evolve in three kinematic phases?" data-meta="Olti Myrtaj、James S. Bullock、Michael Boylan-Kolchin 等 · 2026-05-21" data-summary="APOGEE 和盖亚数据显示，银河系的结构似乎经历了三个不同的运动阶段。首先，在宇宙早期，银河系是一个无序的原星系，随后“旋转”到第二个运动阶段，其标志是在旋转的厚恒星盘中发生恒星形成。厚盘阶段后来过渡到第三（也是最后）阶段，恒星形成发生在寒冷、薄的恒星盘中。在本文中，我们使用一系列银河系质量星系的 FIRE-2 模拟来证明在我们的宇宙学放大模拟中出现相同的三个阶段，并研究它们的物理起源。在我们所有的星系中，当冷气体 ($T \leq 10^4$ K) 转化为恒星的速率较低、恒星形成速率呈爆发性且重子质量在宿主势内相对于质量运动中心“晃动”时，就会发生早期无序阶段。晃动阶段结束后，星系中的气体开始连贯旋转，随后年轻恒星旋转起来。星系的中心势在气体自旋之前最不集中。第二个厚盘阶段与冷气体转化为恒星的速率最高的时期一致，尽管恒星形成速率在此阶段仍然是爆发性的。当内部环河介质星化时，最终会转变为薄盘相。薄盘阶段与恒星稳定形成的时间和冷气体转化为恒星的中等速率有关。合并似乎并没有在推动这三个阶段之间的过渡中发挥决定性作用。形成厚圆盘的条件似乎相当简单：稳定的质心运动。薄盘的形成需要更多：气体必须足够缓慢地吸积，使其角动量在加入星系之前混合并变得相干。" data-summary-en="APOGEE and Gaia data have revealed that the Milky Way&#x27;s structure appears to have evolved through three distinct kinematic phases. First, at early cosmic times, the Milky Way was a disordered protogalaxy, which subsequently &quot;spun up&quot; to a second kinematic phase marked by star formation occurring in a rotating, thick stellar disk. The thick disk phase later transitioned to a third (and final) phase with star formation occurring in a cold, thin stellar disk. In this paper, we use a suite of FIRE-2 simulations of Milky Way-mass galaxies to demonstrate that the same three phases arise in our cosmological zoom-in simulations, and study their physical origin. In all of our galaxies, the early disordered phase occurs when the rate of cool gas ($T \leq 10^4$ K) converting into stars is low, the star formation rate is bursty, and the baryonic mass &quot;sloshes&quot; within the host potential with respect to the center of mass motion. The gas in the galaxy begins to spin coherently after the sloshing phase ends, followed by the spin-up of young stars. The central potential of the galaxy is least concentrated just prior to gas spin-up. This second, thick disk phase coincides with a period when the rate of cool gas converting into stars is highest, even though the star formation rate remains bursty in this phase. The final transition to the thin disk phase occurs when the inner circumgalactic medium virializes. The thin disk phase is associated with a time of steady star formation and intermediate rates of cool gas converting into stars. Mergers do not appear to play a defining role in driving transitions between the three phases. The condition for the formation of a thick disk appears to be fairly minimal: a stable center of mass motion. The formation of a thin disk requires more: gas must accrete slowly enough for its angular momentum to mix and become coherent prior to joining the galaxy." data-keypoints="APOGEE 和盖亚数据显示，银河系的结构似乎经历了三个不同的运动阶段。|首先，在宇宙早期，银河系是一个无序的原星系，随后“旋转”到第二个运动阶段，其标志是在旋转的厚恒星盘中发生恒星形成。|厚盘阶段后来过渡到第三（也是最后）阶段，恒星形成发生在寒冷、薄的恒星盘中。|在本文中，我们使用一系列银河系质量星系的 FIRE-2 模拟来证明在我们的宇宙学放大模拟中出现相同的三个阶段，并研究它们的物理起源。" data-concepts="APOGEE::阿帕奇天文台星系演化实验——通过光纤光谱测量银河系恒星化学成分和运动学的大型巡天项目。|FIRE::星系形成模拟项目（Feedback in Realistic Environments）——模拟星系演化中反馈效应的数值模拟计划。" data-url="http://arxiv.org/abs/2605.22806v1">
+  <div class="card-body">
+    <div class="card-header">
+      <div class="card-num">1</div>
+      <div class="card-title">从原星系到厚薄：为什么银河系会分三个运动阶段演化？</div>
+    </div>
+    <div class="card-meta">👤 Olti Myrtaj、James S. Bullock、Michael Boylan-Kolchin 等 &nbsp;&nbsp;📅 2026-05-21</div>
+    <div class="card-brief">APOGEE 和盖亚数据显示，银河系的结构似乎经历了三个不同的运动阶段。</div>
+    <div class="card-front-chips"><span class="c-chip">APOGEE</span><span class="c-chip">FIRE</span></div>
+  </div>
+  <div class="card-hint">点击查看详情 ↓</div>
+</div>
+<div class="card" style="animation-delay:0.08" onclick="openModal(this)" data-title="偏移集合论中的原初黑洞：形成概率、质量函数和窗函数" data-title-en="Primordial black holes in excursion set theory: Formation probabilities, mass functions, and window functions" data-meta="Hayami Iizuka、Daiki Saito、Koki Tokeshi · 2026-05-21" data-summary="我们在偏移集理论中研究了原初黑洞（PBH）的质量函数，其中随机密度对比对粗粒尺度变化的响应由有色噪声描述。对于文献中经常使用的几种窗函数，我们研究了这种选择如何影响 PBH 的形成概率以及由此产生的质量函数。发现质量函数的低质量尾部与卡尔公式预测的不同。差异来自于相关噪声的普遍存在，通过这种噪声，形成概率的简并性不再存在。尽管如此，只要使用傅立叶空间中的平滑窗函数，卡尔公式仍然可以在特征质量标度附近提供实用的估计。" data-summary-en="We study the mass function of primordial black holes (PBHs) within the excursion-set theory, in which the response of the stochastic density contrast to the variation of the coarse-graining scale is described by colored noises. For several window functions often used in the literature, we investigate how this choice affects the formation probability as well as the resultant mass function of PBHs. It is found that the low-mass tail of the mass function differs from the one predicted from Carr&#x27;s formula. The difference comes from the prevalence of correlated noises, by which degeneracy of the formation probabilities ceases to exist. Nevertheless, Carr&#x27;s formula still provides a practical estimation in the vicinity of the characteristic mass scale, as long as a smooth window function in Fourier space is used." data-keypoints="我们在偏移集理论中研究了原初黑洞（PBH）的质量函数，其中随机密度对比对粗粒尺度变化的响应由有色噪声描述。|对于文献中经常使用的几种窗函数，我们研究了这种选择如何影响 PBH 的形成概率以及由此产生的质量函数。|发现质量函数的低质量尾部与卡尔公式预测的不同。|差异来自于相关噪声的普遍存在，通过这种噪声，形成概率的简并性不再存在。" data-concepts="PBH" data-url="http://arxiv.org/abs/2605.22789v1">
+  <div class="card-body">
+    <div class="card-header">
+      <div class="card-num">2</div>
+      <div class="card-title">偏移集合论中的原初黑洞：形成概率、质量函数和窗函数</div>
+    </div>
+    <div class="card-meta">👤 Hayami Iizuka、Daiki Saito、Koki Tokeshi &nbsp;&nbsp;📅 2026-05-21</div>
+    <div class="card-brief">我们在偏移集理论中研究了原初黑洞（PBH）的质量函数，其中随机密度对比对粗粒尺度变化的响应由有色噪声描述。</div>
+    <div class="card-front-chips"><span class="c-chip">PBH</span></div>
+  </div>
+  <div class="card-hint">点击查看详情 ↓</div>
+</div>
+<div class="card" style="animation-delay:0.12" onclick="openModal(this)" data-title="CMZoom 调查中的大规模隔离" data-title-en="Mass Segregation in the CMZoom Survey" data-meta="Stefania Schuler、Jen Wallace、Cara Battersby 等 · 2026-05-21" data-summary="我们采用最小生成树（MST）方法来表征银河系中央分子带（CMZ）内致密毫米连续谱源的空间分布和质量分离。我们使用来自 CMZoom 调查的 1.3 毫米灰尘连续体目录的完整版本的修改形式，该目录识别出 685 个紧凑源，其典型有效半径为 $\sim0.1$ pc。对于 35 个 CMZ 云中的 22 个，我们计算了热和湍流 Jeans 长度和质量，并确定紧凑源分离以及紧凑源质量与 $\sim0.1$ pc 尺寸尺度的热碎片更加一致。我们构建了 17 个 CMZ 云中致密源的质量偏析比，并确定所分析的云中有 5 个显示出某种形式的质量偏析 ($Λ_{MSR} &gt; 1.5$)，而其余云要么显示逆质量偏析 ($Λ_{MSR} &lt; 0.75$)，要么没有真正质量偏析的证据 ($0.75 &lt; Λ_{MSR} &lt; 1.5$)。最后，我们发现，尽管一些活跃的恒星形成云确实表现出质量偏析，但其他类似的活跃云却没有，这表明鉴于当前可用的数据，CMZ 中恒星形成云的演化阶段之间的相关性不明确。" data-summary-en="We employ a Minimum Spanning Tree (MST) approach to characterize the spatial distribution and mass segregation of compact millimeter continuum sources within the Central Molecular Zone (CMZ) of the Milky Way. We use a modified form of the complete version of the 1.3 mm dust continuum catalog from the CMZoom survey, which identifies 685 compact sources with typical effective radii of $\sim0.1$ pc. For 22 of 35 CMZ clouds, we calculate the thermal and turbulent Jeans lengths and masses, and determine that compact source separations, as well as compact source masses, are more consistent with thermal fragmentation at $\sim0.1$ pc size scales. We construct the mass segregation ratios for compact sources in 17 CMZ clouds and determine that 5 of the analyzed clouds display some form of mass segregation ($Λ_{MSR} &gt; 1.5$), while the remaining clouds show either inverse mass segregation ($Λ_{MSR} &lt; 0.75$), or no evidence of true mass segregation ($0.75 &lt; Λ_{MSR} &lt; 1.5$). Finally, we find that although some actively star-forming clouds do exhibit mass segregation, other similarly active clouds do not, indicating an unclear correlation with evolutionary stage for star forming clouds in the CMZ, given the current available data." data-keypoints="我们采用最小生成树（MST）方法来表征银河系中央分子带（CMZ）内致密毫米连续谱源的空间分布和质量分离。|我们使用来自 CMZoom 调查的 1.3 毫米灰尘连续体目录的完整版本的修改形式，该目录识别出 685 个紧凑源，其典型有效半径为 $\sim0.1$ pc。|对于 35 个 CMZ 云中的 22 个，我们计算了热和湍流 Jeans 长度和质量，并确定紧凑源分离以及紧凑源质量与 $\sim0.1$ pc 尺寸尺度的热碎片更加一致。|我们构建了 17 个 CMZ 云中致密源的质量偏析比，并确定所分析的云中有 5 个显示出某种形式的质量偏析 ($Λ_{MSR} &gt; 1.5$)，而其余云要么显示逆质量偏析 ($Λ_{MSR} &lt; 0.75$)，要么没有真正质量偏析的证据 ($0.75 &lt; Λ_{MSR} &lt; 1.5$)。" data-concepts="MST|CMZ|MSR" data-url="http://arxiv.org/abs/2605.22754v1">
+  <div class="card-body">
+    <div class="card-header">
+      <div class="card-num">3</div>
+      <div class="card-title">CMZoom 调查中的大规模隔离</div>
+    </div>
+    <div class="card-meta">👤 Stefania Schuler、Jen Wallace、Cara Battersby 等 &nbsp;&nbsp;📅 2026-05-21</div>
+    <div class="card-brief">我们采用最小生成树（MST）方法来表征银河系中央分子带（CMZ）内致密毫米连续谱源的空间分布和质量分离。</div>
+    <div class="card-front-chips"><span class="c-chip">MST</span><span class="c-chip">CMZ</span><span class="c-chip">MSR</span></div>
+  </div>
+  <div class="card-hint">点击查看详情 ↓</div>
+</div>
+<div class="card" style="animation-delay:0.16" onclick="openModal(this)" data-title="克尔黑洞周围光子轴子转换导致的光子环变暗" data-title-en="Dimming of Photon Ring due to Photon-Axion Conversion around Kerr Black Holes" data-meta="Rahul Dhyani、Sauvik Sen、Indrani Banerjee 等 · 2026-05-21" data-summary="我们研究了旋转克尔黑洞附近的光子轴子转换，其中强重力将光子捕获在近圆形轨迹上，有效地增加了路径长度。我们探索光子区域附近这种转换的可观察特征。该过程由环境磁场驱动，在 M87* 等超大质量黑洞周围的效率明显更高，因为光子的光度随着 BH 质量的增加而增加。通过对光子路径长度（转换所依赖的）进行数值评估，我们分析了关键参数（光子频率、轴子质量、光子-轴子耦合、磁场强度、等离子体密度和黑洞自旋）如何影响转换概率以及由此产生的光子光谱光度变暗。我们发现，转换在高频（X 射线和伽马射线）下最有效，而与有效转换相关的频率窗口随着光子轴子耦合的增加以及电子密度和轴子质量的减少而变宽。光子光谱光度的变暗幅度主要取决于磁场、光子轴子耦合和 BH 自旋。我们的研究表明，与静态黑洞相比，旋转黑洞通常表现出更强的变暗能力。因此，如果未来的望远镜在 X 射线/伽马射线波段达到分辨率 $\sim 10^{-5}$ arcsec 检测到光子光谱光度的变暗，那么它们可以对轴子质量及其与光子的耦合提供有趣的约束。" data-summary-en="We investigate photon-axion conversion in the vicinity of rotating Kerr black holes where strong gravity traps photons on near-circular trajectories, effectively enhancing the path length. We explore the observable signatures of such a conversion near the photon region. The process, driven by ambient magnetic fields, is significantly more efficient around supermassive black holes such as M87*, since the luminosity of photons increases with the mass of the BH. By numerically evaluating photon path lengths (on which the conversion depends), we analyze how key parameters-photon frequency, axion mass, photon-axion coupling, magnetic field strength, plasma density, and black hole spin-affect the conversion probability and the resultant dimming of photon spectral luminosity. We find that the conversion is most efficient at high frequencies (X-rays and gamma rays), while the frequency window associated with efficient conversion widens with an increase in the photon-axion coupling and a decrease in the electron density and the axion mass. The magnitude of dimming of the photon spectral luminosity depends primarily on the magnetic field, the photon-axion coupling and the BH spin. Our study reveals that rotating black holes generally exhibit enhanced dimming compared to static ones. Thus, if future telescopes achieving a resolution $\sim 10^{-5}$ arcsec in the X-ray/gamma-ray band detect a dimming of the photon spectral luminosity, then they can provide interesting constraints on the axion mass and its coupling with photons." data-keypoints="我们研究了旋转克尔黑洞附近的光子轴子转换，其中强重力将光子捕获在近圆形轨迹上，有效地增加了路径长度。|我们探索光子区域附近这种转换的可观察特征。|该过程由环境磁场驱动，在 M87* 等超大质量黑洞周围的效率明显更高，因为光子的光度随着 BH 质量的增加而增加。|通过对光子路径长度（转换所依赖的）进行数值评估，我们分析了关键参数（光子频率、轴子质量、光子-轴子耦合、磁场强度、等离子体密度和黑洞自旋）如何影响转换概率以及由此产生的光子光谱光度变暗。" data-concepts="BH::黑洞（Black Hole）——引力强到连光也无法逃逸的天体。" data-url="http://arxiv.org/abs/2605.22696v1">
+  <div class="card-body">
+    <div class="card-header">
+      <div class="card-num">4</div>
+      <div class="card-title">克尔黑洞周围光子轴子转换导致的光子环变暗</div>
+    </div>
+    <div class="card-meta">👤 Rahul Dhyani、Sauvik Sen、Indrani Banerjee 等 &nbsp;&nbsp;📅 2026-05-21</div>
+    <div class="card-brief">我们研究了旋转克尔黑洞附近的光子轴子转换，其中强重力将光子捕获在近圆形轨迹上，有效地增加了路径长度。</div>
+    <div class="card-front-chips"><span class="c-chip">BH</span></div>
+  </div>
+  <div class="card-hint">点击查看详情 ↓</div>
+</div>
+<div class="card" style="animation-delay:0.20" onclick="openModal(this)" data-title="矮星系对费米子暗物质相互作用的限制" data-title-en="Dwarf Galaxy Constraints on Interacting Fermionic Dark Matter" data-meta="Bihag Dave、Raghuveer Garani · 2026-05-21" data-summary="本星系群中的矮星系提供了一种根据恒星运动学数据测试暗物质（DM）模型的方法。在这项工作中，我们研究了两种情况下的简并费米子 DM：标准非相互作用费米气体，以及由相互作用费米系统驱动的唯象状态方程描述的相互作用简并 DM 流体。这些相互作用改变了 DM 流体的可压缩性，并且在参数空间的某些区域中，导致机械不稳定的分支，必须通过麦克斯韦结构来处理。我们一致地求解相应的非相对论流体静力学方程，并使用球面 Jeans 方程计算视线速度色散剖面。然后我们对八个经典银河系矮椭球星系进行 MCMC 拟合。数据支持 DM 费米子质量在 $100$--$300\,{\rm eV}$ 范围内。我们发现相互作用和非相互作用的状态方程给出了费米子质量、中心密度和恒星各向异性的大致相似的后验分布。因此，当前的数据并不强烈倾向于相互作用的状态方程而不是自由简并费米气体，从而排除了与非相互作用极限的大偏差。" data-summary-en="Dwarf galaxies in the Local Group offer a way to test dark matter (DM) models against stellar kinematic data. In this work, we study degenerate fermionic DM in two cases: the standard non-interacting Fermi gas, and an interacting degenerate DM fluid described by a phenomenological equation of state motivated by interacting Fermi systems. These interactions modify the compressibility of the DM fluid and, in some regions of parameter space, lead to mechanically unstable branches that must be treated through a Maxwell construction. We solve the corresponding non-relativistic hydrostatic equations consistently and compute the line-of-sight velocity-dispersion profiles using the spherical Jeans equation. We then perform MCMC fits to eight classical Milky Way dwarf spheroidal galaxies. The data favor DM fermion masses in the range $100$--$300\,{\rm eV}$. We find that the interacting and non-interacting equations of state give broadly similar posterior distributions for the fermion mass, central density, and stellar anisotropy. Current data therefore do not strongly prefer an interacting equation of state over the free degenerate Fermi-gas, thereby excluding large deviations from the non-interacting limit." data-keypoints="本星系群中的矮星系提供了一种根据恒星运动学数据测试暗物质（DM）模型的方法。|在这项工作中，我们研究了两种情况下的简并费米子 DM：标准非相互作用费米气体，以及由相互作用费米系统驱动的唯象状态方程描述的相互作用简并 DM 流体。|这些相互作用改变了 DM 流体的可压缩性，并且在参数空间的某些区域中，导致机械不稳定的分支，必须通过麦克斯韦结构来处理。|我们一致地求解相应的非相对论流体静力学方程，并使用球面 Jeans 方程计算视线速度色散剖面。" data-concepts="DM|MCMC" data-url="http://arxiv.org/abs/2605.22685v1">
+  <div class="card-body">
+    <div class="card-header">
+      <div class="card-num">5</div>
+      <div class="card-title">矮星系对费米子暗物质相互作用的限制</div>
+    </div>
+    <div class="card-meta">👤 Bihag Dave、Raghuveer Garani &nbsp;&nbsp;📅 2026-05-21</div>
+    <div class="card-brief">本星系群中的矮星系提供了一种根据恒星运动学数据测试暗物质（DM）模型的方法。</div>
+    <div class="card-front-chips"><span class="c-chip">DM</span><span class="c-chip">MCMC</span></div>
+  </div>
+  <div class="card-hint">点击查看详情 ↓</div>
+</div>
+<div class="card" style="animation-delay:0.24" onclick="openModal(this)" data-title="利用 Void x CMB 相关性迈向精确宇宙学 (II)：模拟目录对 Void x CMB 透镜信号的影响" data-title-en="Towards precision cosmology with Void x CMB correlations (II): Impact of mock catalogs on the Void x CMB lensing signal" data-meta="Mar Pérez Sar、Carlos Hernández Monteagudo、András Kovács 等 · 2026-05-21" data-summary="大规模结构的引力透镜效应在宇宙微波背景（CMB）上留下了二次各向异性的印记，可用于探测宇宙学。特别是，宇宙空洞产生可通过空洞 x CMB 互相关检测到的特征透镜特征。该信号过去已被可靠地测量，但由于对方法选择如何影响其测量的不完全了解以及其对宇宙学参数的不确定依赖，其宇宙学约束力仍然受到限制。使用一组经过验证的 Roman 模拟目录，我们首先量化模拟结构如何影响测量信号，然后结合当前和即将进行的 CMB 调查（例如普朗克、SO 和 CMB-S4 类实验）来预测 Roman 的功能。我们分析了不同空隙定义（2D 和 3D）的信噪比 (S/N)、堆叠方法（重新缩放与未重新缩放的剖面）、CMB 图过滤方案和噪声水平。与星系和空洞统计数据相比，我们发现空洞 x CMB 透镜信号对模拟目录的选择不太敏感，这表明未来数据的紧张局势不太可能仅仅源于模拟的不准确性。具有重新缩放轮廓的 2D 空隙可实现最高信噪比。我们预测 2D (3D) 罗马空洞与普朗克相结合的信噪比约为 13$σ$ (8$σ$)，SO 的信噪比增加到 22$σ$ (13$σ$)，类似 CMB-S4 的勘测增加到 31$σ$ (18$σ$)。虽然这种可观测到的宇宙学依赖性仍有待量化，但 Roman 与下一代 LSS 和 CMB 巡天一起，为 Void x CMB 透镜的第一个直接宇宙学约束开辟了道路。" data-summary-en="Gravitational lensing by large-scale structure imprints secondary anisotropies on the Cosmic Microwave Background (CMB) that can be exploited to probe cosmology. In particular, cosmic voids produce a characteristic lensing signature detectable through Void x CMB cross-correlations. This signal has been robustly measured in the past but its cosmological constraining power remains limited by the incomplete knowledge of how methodological choices affect its measurement and by its uncertain dependence on cosmological parameters. Using a set of validated Roman mock catalogs, we first quantify how mock construction impacts the measured signal and then forecast the capabilities of Roman, in combination with current and upcoming CMB surveys such as Planck, SO and CMB-S4-like experiments. We analyze the signal-to-noise ratio (S/N) for different void definitions (2D and 3D), stacking approaches (rescaled versus non-rescaled profiles), CMB map filtering schemes and noise levels. In contrast to galaxy and void statistics, we find that the Void x CMB lensing signal is less sensitive to the choice of mock catalog, indicating that future tensions with data are unlikely to stem from mock inaccuracies alone. The highest S/N is achieved for 2D voids with rescaled profiles. We forecast S/N ~13$σ$ (8$σ$) for 2D (3D) Roman voids combined with Planck, increasing to 22$σ$ (13$σ$) for SO and 31$σ$ (18$σ$) for CMB-S4-like surveys. While the cosmological dependence of this observable remains to be quantified, Roman together with next-generation of LSS and CMB surveys opens a path toward the first direct cosmological constraints from Void x CMB lensing." data-keypoints="大规模结构的引力透镜效应在宇宙微波背景（CMB）上留下了二次各向异性的印记，可用于探测宇宙学。|特别是，宇宙空洞产生可通过空洞 x CMB 互相关检测到的特征透镜特征。|该信号过去已被可靠地测量，但由于对方法选择如何影响其测量的不完全了解以及其对宇宙学参数的不确定依赖，其宇宙学约束力仍然受到限制。|使用一组经过验证的 Roman 模拟目录，我们首先量化模拟结构如何影响测量信号，然后结合当前和即将进行的 CMB 调查（例如普朗克、SO 和 CMB-S4 类实验）来预测 Roman 的功能。" data-concepts="CMB::宇宙微波背景（Cosmic Microwave Background）——大爆炸残留的热辐射，温度约 2.7K。|II|LSS" data-url="http://arxiv.org/abs/2605.22630v1">
+  <div class="card-body">
+    <div class="card-header">
+      <div class="card-num">6</div>
+      <div class="card-title">利用 Void x CMB 相关性迈向精确宇宙学 (II)：模拟目录对 Void x CMB 透镜信号的影响</div>
+    </div>
+    <div class="card-meta">👤 Mar Pérez Sar、Carlos Hernández Monteagudo、András Kovács 等 &nbsp;&nbsp;📅 2026-05-21</div>
+    <div class="card-brief">大规模结构的引力透镜效应在宇宙微波背景（CMB）上留下了二次各向异性的印记，可用于探测宇宙学。</div>
+    <div class="card-front-chips"><span class="c-chip">CMB</span><span class="c-chip">II</span><span class="c-chip">LSS</span></div>
+  </div>
+  <div class="card-hint">点击查看详情 ↓</div>
+</div>
+<div class="card" style="animation-delay:0.28" onclick="openModal(this)" data-title="不断演化的暗能量对暗能量调查第 3 年数据测量的外尔势的影响" data-title-en="The impact of evolving dark energy on the Weyl potential measured from the Dark Energy Survey Year 3 data" data-meta="Benedetta Rosatello、Gen Ye、Maria Berti 等 · 2026-05-21" data-summary="暗能量巡天 (DES) 第 3 年数据的测量表明，假设 $Λ$CDM 背景演化，外尔势（几何空间和时间扭曲的总和）的演化速度比广义相对论预测的要慢。正如暗能量光谱仪 (DESI) 所偏好的那样，具有幻影穿越的演化暗能量预计将通过比 $Λ$CDM 更强的加速度来减小引力势的深度，从而有可能解决广义相对论的张力。在本文中，我们表明 $w_0w_a$CDM 模型确实将 $Λ$CDM 的张力降低到 $1.6-2.2σ$ 的水平，具体取决于 CMB 透镜的处理。这种减少并不是由于外尔势不确定性的增加，而是由于演化背景对广义相对论理论预测的影响。需要更多的数据来稳健地确定不断演化的暗能量是否完全解释了中间红移时韦尔势的低值，或者是否需要修改暗区中的重力或相互作用，这可以同时稳定 DESI 指示的幻影交叉。" data-summary-en="Measurements from the Dark Energy Survey (DES) Year 3 data have shown that the Weyl potential -- the sum of the spatial and temporal distortions of the geometry -- evolves more slowly than predicted by General Relativity, assuming a $Λ$CDM background evolution. An evolving dark energy with a phantom crossing, as preferred by the Dark Energy Spectroscopic Instrument (DESI), is expected to decrease the depth of the gravitational potentials through a stronger acceleration than in $Λ$CDM, potentially solving the tension with General Relativity. In this paper, we show that $w_0w_a$CDM models indeed reduce the tension with respect to $Λ$CDM, down to a level of $1.6-2.2σ$, depending on the treatment of CMB lensing. This reduction is not due to an increase in the Weyl potential&#x27;s uncertainties, but truly to the impact of the evolving background on the theoretical predictions in General Relativity. More data are needed to robustly determine if evolving dark energy fully explains the low value of the Weyl potential at intermediate redshifts, or if modifications of gravity or interactions in the dark sector are needed, which could simultaneously stabilize the phantom crossing indicated by DESI." data-keypoints="暗能量巡天 (DES) 第 3 年数据的测量表明，假设 $Λ$CDM 背景演化，外尔势（几何空间和时间扭曲的总和）的演化速度比广义相对论预测的要慢。|正如暗能量光谱仪 (DESI) 所偏好的那样，具有幻影穿越的演化暗能量预计将通过比 $Λ$CDM 更强的加速度来减小引力势的深度，从而有可能解决广义相对论的张力。|在本文中，我们表明 $w_0w_a$CDM 模型确实将 $Λ$CDM 的张力降低到 $1.6-2.2σ$ 的水平，具体取决于 CMB 透镜的处理。|这种减少并不是由于外尔势不确定性的增加，而是由于演化背景对广义相对论理论预测的影响。" data-concepts="DES::暗能量巡天（Dark Energy Survey）。|CDM::冷暗物质（Cold Dark Matter）——运动速度远低于光速的暗物质粒子。|DESI::暗能量光谱仪（Dark Energy Spectroscopic Instrument）。|CMB::宇宙微波背景（Cosmic Microwave Background）——大爆炸残留的热辐射，温度约 2.7K。" data-url="http://arxiv.org/abs/2605.22599v1">
+  <div class="card-body">
+    <div class="card-header">
+      <div class="card-num">7</div>
+      <div class="card-title">不断演化的暗能量对暗能量调查第 3 年数据测量的外尔势的影响</div>
+    </div>
+    <div class="card-meta">👤 Benedetta Rosatello、Gen Ye、Maria Berti 等 &nbsp;&nbsp;📅 2026-05-21</div>
+    <div class="card-brief">暗能量巡天 (DES) 第 3 年数据的测量表明，假设 $Λ$CDM 背景演化，外尔势（几何空间和时间扭曲的总和）的演化速度比广义相对论预测的要慢。</div>
+    <div class="card-front-chips"><span class="c-chip">DES</span><span class="c-chip">CDM</span><span class="c-chip">DESI</span></div>
+  </div>
+  <div class="card-hint">点击查看详情 ↓</div>
+</div>
+<div class="card" style="animation-delay:0.32" onclick="openModal(this)" data-title="探测朝向 L1544 星前核心的离子中性漂移速度：使用 N$_2$D$^+$ 和 para-NH$_2$D 检测双极扩散" data-title-en="Probing the ion-neutral drift velocity towards the L1544 prestellar core: Detection of ambipolar diffusion using N$_2$D$^+$ and para-NH$_2$D" data-meta="Doris Arzoumanian、Silvia Spezzano、Tommaso Grassi 等 · 2026-05-21" data-summary="磁场在恒星形成过程中的动力学作用与物质和磁场之间的耦合紧密相关。这种耦合是由于部分电离的星际介质中离子和中性粒子之间的相互作用造成的。当星前核心的致密环境中电离度下降时，磁场和物质可能会解耦，导致离子和中性粒子的下落速度存在差异，即双极扩散。离子中性解耦导致的引力塌缩的发生从未被观察到。这项工作的目的是寻找恒星核心内双极扩散的特征。我们观察到氘代 N$_2$D$^+$ 离子和中性对 NH$_2$D 物质朝向原型前星核心 L1544。这两个物种是星际核心的理想示踪剂，在核心内部采样相同的高密度。我们比较了离子中性对的速度质心和线宽图。我们发现朝向核心的平均离子中性速度差为 $\sim$0.05 km/s。通过与包括尘埃颗粒生长在内的双极电阻率自洽计算的预测进行比较，我们将 L1544 中观察到的离子中性速度差异解释为双极扩散的特征。我们没有检测到显着的离子中性线宽差异，这可能归因于 L1544 中气体的亚音速坠落运动以及存在倾斜时的几何效应。这些结果强调了星前核心阶段尘埃颗粒生长在设定双极电阻率和调节致密核心塌缩成原恒星的动力学演化中的作用。我们提出，离子中性漂移速度的测量为总磁场强度和星前核心内的尘埃尺寸分布提供了新的约束。" data-summary-en="The dynamical role of the magnetic field in the star formation process is tightly linked to the coupling between matter and the field. This coupling is due to the interaction between ions and neutrals in the partially ionized interstellar medium. When the ionization degree drops in the dense environment of prestellar cores, the magnetic field and the matter may decouple, leading to differences in the infalling velocities of ions and neutrals known as ambipolar diffusion. The onset of gravitational collapse resulting from ion-neutral decoupling has never been observed. The aim of this work is to search for signatures of ambipolar diffusion within a prestellar core. We observed the deuterated N$_2$D$^+$ ion and the neutral para-NH$_2$D species towards the prototypical prestellar core L1544. These two species are ideal tracers of prestellar cores sampling the same high densities in the core interior. We compared the velocity centroid and linewidth maps of the ion-neutral pair. We find a mean ion-neutral velocity difference of $\sim$0.05 km/s towards the core. By comparing with predictions from self-consistent calculations of the ambipolar resistivity including dust grain growth, we interpret the observed ion-neutral velocity difference in L1544 as a signature of ambipolar diffusion. We do not detect a significant ion-neutral linewidth difference that may be attributed to the subsonic infall motions of the gas in L1544 and geometrical effects in the presence of inclination. These results emphasize the role of dust grain growth at the prestellar core stage in setting the ambipolar resistivity and regulating the dynamical evolution of dense cores towards their collapse into protostars. We propose that measurements of ion-neutral drift velocities provide new constraints on the total magnetic field strength and the dust size distribution within prestellar cores." data-keypoints="磁场在恒星形成过程中的动力学作用与物质和磁场之间的耦合紧密相关。|这种耦合是由于部分电离的星际介质中离子和中性粒子之间的相互作用造成的。|当星前核心的致密环境中电离度下降时，磁场和物质可能会解耦，导致离子和中性粒子的下落速度存在差异，即双极扩散。|离子中性解耦导致的引力塌缩的发生从未被观察到。" data-concepts="NH" data-url="http://arxiv.org/abs/2605.22541v1">
+  <div class="card-body">
+    <div class="card-header">
+      <div class="card-num">8</div>
+      <div class="card-title">探测朝向 L1544 星前核心的离子中性漂移速度：使用 N$_2$D$^+$ 和 para-NH$_2$D 检测双极扩散</div>
+    </div>
+    <div class="card-meta">👤 Doris Arzoumanian、Silvia Spezzano、Tommaso Grassi 等 &nbsp;&nbsp;📅 2026-05-21</div>
+    <div class="card-brief">磁场在恒星形成过程中的动力学作用与物质和磁场之间的耦合紧密相关。</div>
+    <div class="card-front-chips"><span class="c-chip">NH</span></div>
+  </div>
+  <div class="card-hint">点击查看详情 ↓</div>
+</div>
+</div>
+<div class="sec-anchor" id="sec-恒星与系外行星"></div>
+<div class="section-head">
+  <div class="section-icon">⭐</div>
+  <h2>恒星与系外行星</h2>
+  <span class="count">12 篇</span>
+</div>
+<div class="card-grid">
+<div class="card" style="animation-delay:0.36" onclick="openModal(this)" data-title="新星 YZ Reticuli 中一颗快速旋转的白矮星" data-title-en="A very rapidly rotating white dwarf in nova YZ Reticuli" data-meta="G. J. M. Luna、N. Rawat、R. Angeloni 等 · 2026-05-21" data-summary="YZ Ret (Nova Reticuli 2020) 是第一个被观测到经历经典新星喷发的 VY Scl 型类新星变星。爆发后，对 20 秒节奏 TESS 数据的时序分析显示，其周期性约为 42 秒，这表明可能将其归类为快速旋转的中极地层。为了明确确定这种调制的性质，我们使用高速地面光度计 Zorro/Gemini South（1 秒节奏）和南非天文台（5 秒节奏）以及 TESS Sector 97 观测进行了多仪器时序分析。我们的地面数据揭示了 37.69131 ± 0.00001 s 的高度相干周期，我们将其确定为白矮星的真实自转周期。我们证明 TESS 数据中明显的 42.61 s 信号是该基频的奈奎斯特别名。此外，TESS 数据中的信号幅度相对于 Gemini 观测结果被抑制约 0.6 倍，这一结果与 20 秒积分时间预期的理论 sinc 函数阻尼一致。37.69131 s 信号的极端相干性和长期稳定性排除了矮新星振荡或非径向脉动等瞬态现象。我们得出的结论是，YZ Ret 拥有一颗处于中极结构的快速旋转的磁性白矮星。这一发现意味着新星喷发期间的质量损失可能是由快速磁旋转风驱动的，并为缺失的超软X射线相提供了物理解释，表明几乎整个吸积包层都耗尽了，迅速熄灭了核燃烧。" data-summary-en="YZ Ret (Nova Reticuli 2020) is the first VY Scl-type nova-like variable observed to undergo a classical nova eruption. Following the outburst, timing analysis of 20-s cadence TESS data revealed a periodicity at approximately 42 s, suggesting a possible classification as a fast-spinning Intermediate Polar. To definitively identify the nature of this modulation, we performed a multi-instrument timing analysis using high-speed ground-based photometry Zorro/Gemini South (1 s cadence) and the South African Astronomical Observatory (5 s cadence) alongside TESS Sector 97 observations. Our ground-based data reveal a highly coherent period of 37.69131 +- 0.00001 s, which we identify as the true rotation period of the white dwarf. We demonstrate that the apparent 42.61 s signal in the TESS data is a Nyquist alias of this fundamental frequency. Furthermore, the signal amplitude in the TESS data is suppressed by a factor of ~0.6 relative to the Gemini observations, a result consistent with the theoretical sinc-function damping expected for a 20-s integration time. The extreme coherence and long-term stability of the 37.69131 s signal rule out transient phenomena such as dwarf nova oscillations or non-radial pulsations. We conclude that YZ Ret hosts a fast-spinning magnetic white dwarf in an Intermediate Polar configuration. This discovery implies that mass loss during the nova eruption was likely driven by a fast magnetic rotator wind and provides a physical explanation for the missing supersoft X-ray phase, suggesting that nearly the entire accreted envelope was exhausted, promptly quenching the nuclear burning." data-keypoints="YZ Ret (Nova Reticuli 2020) 是第一个被观测到经历经典新星喷发的 VY Scl 型类新星变星。|爆发后，对 20 秒节奏 TESS 数据的时序分析显示，其周期性约为 42 秒，这表明可能将其归类为快速旋转的中极地层。|为了明确确定这种调制的性质，我们使用高速地面光度计 Zorro/Gemini South（1 秒节奏）和南非天文台（5 秒节奏）以及 TESS Sector 97 观测进行了多仪器时序分析。|我们的地面数据揭示了 37.69131 ± 0.00001 s 的高度相干周期，我们将其确定为白矮星的真实自转周期。" data-concepts="YZ|VY|TESS::凌星系外行星巡天卫星（Transiting Exoplanet Survey Satellite）。" data-url="http://arxiv.org/abs/2605.22802v1">
+  <div class="card-body">
+    <div class="card-header">
+      <div class="card-num">9</div>
+      <div class="card-title">新星 YZ Reticuli 中一颗快速旋转的白矮星</div>
+    </div>
+    <div class="card-meta">👤 G. J. M. Luna、N. Rawat、R. Angeloni 等 &nbsp;&nbsp;📅 2026-05-21</div>
+    <div class="card-brief">YZ Ret (Nova Reticuli 2020) 是第一个被观测到经历经典新星喷发的 VY Scl 型类新星变星。</div>
+    <div class="card-front-chips"><span class="c-chip">YZ</span><span class="c-chip">VY</span><span class="c-chip">TESS</span></div>
+  </div>
+  <div class="card-hint">点击查看详情 ↓</div>
+</div>
+<div class="card" style="animation-delay:0.40" onclick="openModal(this)" data-title="从晓任务中获取的金星重力波绝对动量通量和阻力的变化" data-title-en="Variation of Venusian Gravity Wave Absolute Momentum Fluxes and Drag as Retrieved from the Akatsuki Mission" data-meta="Erdal Yiğit、Emilia Sloan · 2026-05-21" data-summary="利用晓无线电掩星测量的温度反演，我们将重力波活动描述为垂直波数和高度的函数，并首次估计了绝对水平动量通量和相关重力波阻力（即波加速度）的大小，从而量化了这些波在40--95公里之间的金星中层大气中的潜在影响。观测到的温度扰动表明大气重力波活动，振幅达到约 $\pm$10 K，并且在所有分析剖面中检测到显着的动量通量 (10--30 m$^2$ s$^{-2}$) 和波阻力 (0.003--0.03 m s$^{-2}$)。推断的波阻力代表金星大气中重力波引起的总阻力的下限。动量通量往往随着海拔高度低于约 50--60 公里呈指数增加，然后在更高的海拔处达到峰值并衰减。当动量通量开始减少时，波浪阻力变得突出，这是波浪耗散的结果。这两个量都表现出多个高度局部最大值，这与向上波传播以及不同垂直波长在不同高度处的耗散一致。重力波非线性相互作用引起的阻尼可能在限制波幅和通量随高度增长方面发挥主要作用。这些特征是在不同纬度和当地时间范围内观察到的。总体而言，这些结果为金星中层大气中重力波动量传输和耗散提供了观测约束，并可以指导数值模型量化金星大气中波平均流相互作用。" data-summary-en="Using temperature retrievals from Akatsuki radio occultation measurements, we characterize gravity wave activity as a function of vertical wavenumber and altitude and, for the first time, estimate the absolute horizontal momentum fluxes and the magnitude of the associated gravity wave drag (i.e., wave acceleration), which quantify the potential effects of these waves in the Venusian middle atmosphere between 40--95 km. Observed temperature perturbations, which are indicative of atmospheric gravity wave activity, reach amplitudes of approximately $\pm$10 K, and significant momentum flux (10--30 m$^2$ s$^{-2}$) and wave drag (0.003--0.03 m s$^{-2}$) are detected across all analyzed profiles. The inferred wave drag represents a lower bound on the total gravity wave-induced drag in the Venusian atmosphere. Momentum flux tends to increase exponentially with altitude below approximately 50--60 km, then peaks and attenuates at higher altitudes. Wave drag becomes prominent where momentum flux begins to decrease, which is a consequence of wave dissipation. Both quantities exhibit multiple altitude-localized maxima, which is consistent with upward wave propagation followed by dissipation at different altitudes for different vertical wavelengths. Damping due to gravity wave nonlinear interactions is likely to play the major role in limiting the growth of wave amplitudes and fluxes with height. These features are observed across a range of latitudes and local times. Overall, the results provide observational constraints on gravity wave momentum transport and dissipation in the Venusian middle atmosphere and could guide numerical models in their effort to quantify wave-mean flow interactions in Venus&#x27;s atmosphere." data-keypoints="利用晓无线电掩星测量的温度反演，我们将重力波活动描述为垂直波数和高度的函数，并首次估计了绝对水平动量通量和相关重力波阻力（即波加速度）的大小，从而量化了这些波在40--95公里之间的金星中层大气中的潜在影响。|观测到的温度扰动表明大气重力波活动，振幅达到约 $\pm$10 K，并且在所有分析剖面中检测到显着的动量通量 (10--30 m$^2$ s$^{-2}$) 和波阻力 (0.003--0.03 m s$^{-2}$)。|推断的波阻力代表金星大气中重力波引起的总阻力的下限。|动量通量往往随着海拔高度低于约 50--60 公里呈指数增加，然后在更高的海拔处达到峰值并衰减。" data-concepts="" data-url="http://arxiv.org/abs/2605.22793v1">
+  <div class="card-body">
+    <div class="card-header">
+      <div class="card-num">10</div>
+      <div class="card-title">从晓任务中获取的金星重力波绝对动量通量和阻力的变化</div>
+    </div>
+    <div class="card-meta">👤 Erdal Yiğit、Emilia Sloan &nbsp;&nbsp;📅 2026-05-21</div>
+    <div class="card-brief">利用晓无线电掩星测量的温度反演，我们将重力波活动描述为垂直波数和高度的函数，并首次估计了绝对水平动量通量和相关重力波阻力（即波加速度）的大小，从而量化了这些波在40--95公里之间…</div>
+  </div>
+  <div class="card-hint">点击查看详情 ↓</div>
+</div>
+<div class="card" style="animation-delay:0.44" onclick="openModal(this)" data-title="跟随摆动：在 Gaia FPR 中检测天体测量双小行星的统计方法" data-title-en="Follow the wobble: Statistical methods to detect astrometric binary asteroids in Gaia FPR" data-meta="Luana Liberato、Paolo Tanga、David Mary 等 · 2026-05-21" data-summary="在上一篇文章中，我们获得了第一份天体测量双小行星候选列表。其中一些候选人现已得到确认。然而，在之前的工作中，没有提供统计方法的细节。我们的首要目标是提供用于检测二进制文件的方法的方法细节和性能评估。我们的第二个目标是建立来自 Gaia FPR 天体测量残差探索的双小行星候选者的更新列表，其中我们考虑了 FPR 数据的统计特性。我们考虑了 FPR 的天体测量不确定性，并改进了数据的统计模型，我们在 MC 模拟中使用该模型来评估各个检测的强度；我们在残差中建立了趋势检测方法，并应用了专用的周期搜索算法；我们更新统计选择流程以建立候选人名单；我们建立了一种在连续观察的多个窗口中检测对象的方法；我们改进了这些参数的置信区间估计方法，并且更好地限制了物理参数的选择。我们检测到 343 个双小行星候选者，对应于天体测量数据中连续观测的 410 个窗口。我们表明，在纯噪声控制模拟中，典型的检测数量比 FPR 数据低 88%。我们还检测到 9 个已知的二进制文件，其中 25 个候选文件与 Pan-STARSS 调查重叠，99 个候选文件与我们之前在 DR3 中的二进制搜索重叠。最后，我们报告了对 45 个物体的检测，其残差趋势表明存在广泛的二元系统。我们的结果和分析表明，尽管由于信号水平较低，检测双小行星是一个难题，但所提出的方法可能会提供可靠的检测列表，包括传统技术难以访问的系统。" data-summary-en="In a previous article, we obtained the first-ever list of astrometric binary asteroid candidates. Some of these candidates have now been confirmed. In that previous work, however, the details of the statistical methods were not provided. Our first aim is to provide methodological details and performance evaluation of the approach used for detecting binaries. Our second aim is to establish an updated list of binary asteroid candidates from Gaia FPR astrometric residuals exploration, where we account for the statistical properties of FPR data. We account for the astrometric uncertainties from FPR and we refine the statistical model of the data, which we use in MC simulation to evaluate the strength of the individual detections; we set up a trend detection method in the residuals and apply a dedicated period search algorithm; we update the statistical selection process to build the list of candidates; we set up a method for detecting objects in multiple windows of consecutive observation; we refine the method for confidence interval estimation of these parameters and we better constrain the physical parameter selection. We detect 343 binary asteroid candidates corresponding to 410 windows of consecutive observations in the astrometric data. We show that in noise-only control simulations, the typical number of detections is 88% lower than in the FPR data. We also detect 9 known binaries, 25 candidates overlapping with the Pan-STARSS survey and 99 overlapping with our previous binary search in DR3. Finally, we report the detection of 45 objects with trends in residuals suggestive of wide binary systems. Our results and analyses demonstrate that although detecting binary asteroids is a difficult problem due to their low signal level, the proposed method is likely to provide a reliable list of detections, including systems poorly accessible to conventional techniques." data-keypoints="在上一篇文章中，我们获得了第一份天体测量双小行星候选列表。|然而，在之前的工作中，没有提供统计方法的细节。|我们的首要目标是提供用于检测二进制文件的方法的方法细节和性能评估。|我们的第二个目标是建立来自 Gaia FPR 天体测量残差探索的双小行星候选者的更新列表，其中我们考虑了 FPR 数据的统计特性。" data-concepts="FPR|MC|STARSS|DR3" data-url="http://arxiv.org/abs/2605.22702v1">
+  <div class="card-body">
+    <div class="card-header">
+      <div class="card-num">11</div>
+      <div class="card-title">跟随摆动：在 Gaia FPR 中检测天体测量双小行星的统计方法</div>
+    </div>
+    <div class="card-meta">👤 Luana Liberato、Paolo Tanga、David Mary 等 &nbsp;&nbsp;📅 2026-05-21</div>
+    <div class="card-brief">在上一篇文章中，我们获得了第一份天体测量双小行星候选列表。</div>
+    <div class="card-front-chips"><span class="c-chip">FPR</span><span class="c-chip">MC</span><span class="c-chip">STARSS</span></div>
+  </div>
+  <div class="card-hint">点击查看详情 ↓</div>
+</div>
+<div class="card" style="animation-delay:0.48" onclick="openModal(this)" data-title="将海王星外物体重定向到撞击火星的轨道的能量可行性：连续推力和重力辅助轨迹" data-title-en="Energetic Feasibility of Redirecting Trans-Neptunian Objects onto Mars-Impacting Orbits: Continuous Thrust and Gravity Assist Trajectories" data-meta="Ryszard Gabryszewski、Leszek Czechowski、Arkadiusz Hess · 2026-05-21" data-summary="我们评估了使用连续低推力推进和单次重力辅助遭遇将小型挥发性海王星外天体（TNO）重定向到撞击火星轨道的动力学可行性。该研究考虑了两种具有代表性的动力学类别：类经典柯伊伯带和类散盘初始轨道，并确定了在指定转移时间 $ΔT$ 内将物体驱动到撞击火星轨道所需的最小特征速度增量 $ΔV$。动力学在包含固定最大低推力的二体问题中进行建模，允许计算出的 $ΔV$ 代表独立于特定推进技术实现的动力学下限。研究了三种轨迹类别：（i）向内螺旋转移，（ii）通过全局进化算法优化的时间相关推力方向转向，以及（iii）将低推力与单次海王星飞越相结合的混合转移。纯螺旋轨迹产生非常高的速度消耗 ($ΔV \gtrsim 22~\mathrm{km~s^{-1}}$) 和数千年的持续时间，证实单调向内迁移对于 TNO 重定向来说是动态低效的。相比之下，优化的转向策略系统地增加轨道偏心率，并在 380--540 年的时间尺度上以 $ΔV \approx 2.5$--$3.2~\mathrm{km~s^{-1}}$ 实现撞击火星的几何形状。在有利的情况下，一次海王星遭遇进一步减少了总 $ΔV$，最小值低于直接优化传输的值。这些结果建立了从外太阳系向火星输入挥发物的能量成本的定量下限，表明当从轨道相空间的有利区域选择目标体时，在适度的 $ΔV$ 预算下，受控重定向是可行的。" data-summary-en="We assess the dynamical feasibility of redirecting small volatile-bearing trans-Neptunian objects (TNOs) onto Mars-impacting orbits using continuous low-thrust propulsion and a single gravity-assist encounter. The study considers two representative dynamical classes: classical Kuiper Belt--like and Scattered Disk--like initial orbits, and determines the minimum characteristic velocity increment $ΔV$ required to drive the objects onto a Mars-impacting trajectory within a specified transfer time $ΔT$. The dynamics is modelled in the two-body problem with a fixed maximum low thrust included, allowing the computed $ΔV$ to represent a dynamical lower bound independent of specific propulsion-technical implementation. Three trajectory classes are investigated: (i) inward spiral transfer, (ii) time-dependent thrust-direction steering optimized via global evolutionary algorithms, and (iii) hybrid transfers combining low thrust with a single Neptune flyby. Pure spiral trajectories yield very high velocity expenditures ($ΔV \gtrsim 22~\mathrm{km~s^{-1}}$) and millennia durations, confirming that monotonic inward migration is dynamically inefficient for TNO redirection. In contrast, optimized steering strategies systematically increase orbital eccentricity and achieve Mars-impacting geometries with $ΔV \approx 2.5$--$3.2~\mathrm{km~s^{-1}}$ over 380--540 yr timescales. A single Neptune encounter further reduces the total $ΔV$ in favourable cases, with minimum values falling below those of direct optimized transfers. These results establish a quantitative lower bound on the energy cost of importing volatiles from the outer Solar System to Mars, showing that controlled redirection is feasible under modest $ΔV$ budgets when target bodies are chosen from favourable regions of orbital phase space." data-keypoints="我们评估了使用连续低推力推进和单次重力辅助遭遇将小型挥发性海王星外天体（TNO）重定向到撞击火星轨道的动力学可行性。|该研究考虑了两种具有代表性的动力学类别：类经典柯伊伯带和类散盘初始轨道，并确定了在指定转移时间 $ΔT$ 内将物体驱动到撞击火星轨道所需的最小特征速度增量 $ΔV$。|动力学在包含固定最大低推力的二体问题中进行建模，允许计算出的 $ΔV$ 代表独立于特定推进技术实现的动力学下限。|研究了三种轨迹类别：（i）向内螺旋转移，（ii）通过全局进化算法优化的时间相关推力方向转向，以及（iii）将低推力与单次海王星飞越相结合的混合转移。" data-concepts="TNO" data-url="http://arxiv.org/abs/2605.22682v1">
+  <div class="card-body">
+    <div class="card-header">
+      <div class="card-num">12</div>
+      <div class="card-title">将海王星外物体重定向到撞击火星的轨道的能量可行性：连续推力和重力辅助轨迹</div>
+    </div>
+    <div class="card-meta">👤 Ryszard Gabryszewski、Leszek Czechowski、Arkadiusz Hess &nbsp;&nbsp;📅 2026-05-21</div>
+    <div class="card-brief">我们评估了使用连续低推力推进和单次重力辅助遭遇将小型挥发性海王星外天体（TNO）重定向到撞击火星轨道的动力学可行性。</div>
+    <div class="card-front-chips"><span class="c-chip">TNO</span></div>
+  </div>
+  <div class="card-hint">点击查看详情 ↓</div>
+</div>
+<div class="card" style="animation-delay:0.52" onclick="openModal(this)" data-title="基于 50 颗凌日褐矮星和低质量伴星的半径暴胀证据" data-title-en="Evidence of Radius Inflation Based on 50 Transiting Brown Dwarfs and Low-mass Stellar Companions" data-meta="Aarushi Mehrotra、Chih-Chun Hsu、Jason J. Wang 等 · 2026-05-21" data-summary="恒星参数的统计评估可以验证和改进理论模型。我们编制了 85 个凌日恒星和亚恒星伴星的样本，质量范围为 $\sim$13-100 $M_\mathrm{Jup}$。我们重点分析 50 个具有可靠年龄和模型约束的凌日伴星，并评估半径膨胀程度与质量、分离、平衡温度和金属丰度的关系。我们对测量半径和模型半径之间差异的评估表明，整个样本的半径膨胀为 $8.7\pm1.9$%，差异为 $4.6σ$，验证了凌日褐矮星在种群水平上存在半径膨胀。对于分离为 $\leq 0.05$ au 的棕矮星，我们发现了更高的暴胀半径，在 $2.7σ$ 时的中值暴胀为 $16\pm6$%，并且暴胀随着分离距离的增大而减小，这可能是由于恒星辐射减少。最后，我们提供我们的汇编供社区使用。" data-summary-en="Statistical assessment of stellar parameters enables validation and improvements in theoretical models. We compiled a sample of 85 transiting stellar and substellar companions, with masses ranging from $\sim$13-100 $M_\mathrm{Jup}$. We focus on analyzing 50 transiting companions with robust ages and model constraints, and evaluate the degree of radius inflation versus mass, separation, equilibrium temperature, and metallicity. Our evaluation of the differences between measured and model radii indicates an $8.7\pm1.9$% radius inflation for the full sample, at $4.6σ$ discrepancy, validating the existence of radius inflation at a population level in transiting brown dwarfs. For brown dwarfs at separations $\leq 0.05$ au, we find an even higher radius inflation, with a median inflation of $16\pm6$% at $2.7σ$, and the inflation decreases toward wider separations, likely due to reduced stellar irradiation. Finally, we provide our compilation for the community to use." data-keypoints="恒星参数的统计评估可以验证和改进理论模型。|我们编制了 85 个凌日恒星和亚恒星伴星的样本，质量范围为 $\sim$13-100 $M_\mathrm{Jup}$。|我们重点分析 50 个具有可靠年龄和模型约束的凌日伴星，并评估半径膨胀程度与质量、分离、平衡温度和金属丰度的关系。|我们对测量半径和模型半径之间差异的评估表明，整个样本的半径膨胀为 $8.7\pm1.9$%，差异为 $4.6σ$，验证了凌日褐矮星在种群水平上存在半径膨胀。" data-concepts="" data-url="http://arxiv.org/abs/2605.22655v1">
+  <div class="card-body">
+    <div class="card-header">
+      <div class="card-num">13</div>
+      <div class="card-title">基于 50 颗凌日褐矮星和低质量伴星的半径暴胀证据</div>
+    </div>
+    <div class="card-meta">👤 Aarushi Mehrotra、Chih-Chun Hsu、Jason J. Wang 等 &nbsp;&nbsp;📅 2026-05-21</div>
+    <div class="card-brief">恒星参数的统计评估可以验证和改进理论模型。</div>
+  </div>
+  <div class="card-hint">点击查看详情 ↓</div>
+</div>
+<div class="card" style="animation-delay:0.56" onclick="openModal(this)" data-title="HWO 目标恒星和系统：宜居世界天文台潜在目标恒星的活动和自转目录 (ARC)" data-title-en="HWO Target Stars and Systems: Activity and Rotation Catalog (ARC) of Potential Target Stars for the Habitable Worlds Observatory" data-meta="Tara Fetherolf、Arvind F. Gupta、Elisabeth R. Newton 等 · 2026-05-21" data-summary="宜居世界天文台（HWO）的一个主要目标是精确描述系外行星及其大气层的特征。然而，系外行星宿主恒星的磁活动会使恒星和行星特性的测量复杂化，并且恒星活动可能是我们解释系外行星演化历史的一个重要因素。在这项工作中，我们通过整理在广泛的光度和光谱数据集中发布的相关可观测数据的档案测量结果，评估了潜在 HWO 目标恒星磁活动特征的程度。我们描述了我们的数据收集策略，概述了潜在 HWO 目标恒星的活动和自转目录 (ARC) 中当前已知的活动和自转属性，并简要回顾了恒星倾角、自转、活动和年龄之间的已知关系。总体而言，我们发现至少 70% 的系统的恒星活动（S-index 和 R&#x27;HK）和旋转（v sin i 和 Prot）特性已被测量，这些系统目前作为潜在的 HWO 大气特征目标受到高度关注。然而，恒星活动本质上是暂时的，因此应定期监测活动特性，以便及时了解最新情况，为未来的观测提供信息。特别是，我们发现只有不到 20% 的高兴趣潜在 HWO 目标恒星测量到了恒星活动周期。测量恒星的活动周期对于预测在计划的 HWO 观测期间可能出现较高水平的磁活动的时间至关重要，这可能会干扰测量精确的系外行星大气特征。" data-summary-en="A major goal of the Habitable Worlds Observatory (HWO) is to precisely characterize exoplanets and their atmospheres. However, magnetic activity from an exoplanet&#x27;s host star can complicate measurements of both the stellar and planetary properties, and stellar activity can be an important factor in our interpretation of the evolutionary history of an exoplanet. In this work, we assess the extent to which magnetic activity has been characterized for potential HWO target stars by collating archival measurements of relevant observables as published in a broad range of photometric and spectroscopic datasets. We describe our data collection strategy, provide an overview of currently known activity and rotation properties in the Activity and Rotation Catalog (ARC) for potential HWO target stars, and briefly review known relationships between stellar inclination, rotation, activity, and age. Overall, we find that stellar activity (S-index and R&#x27;HK) and rotation (v sin i and Prot) properties have been measured for at least 70% systems that are currently of high interest as potential HWO atmospheric characterization targets. However, stellar activity is temporal in nature, such that activity properties should be regularly monitored in order to remain up-to-date for informing future observations. In particular, we find that stellar activity cycles are measured for fewer than 20% of high interest potential HWO target stars. Measuring a star&#x27;s activity cycle is critical for anticipating times when higher levels of magnetic activity may occur during planned HWO observations, which may interfere with measuring precise exoplanet atmospheric characteristics." data-keypoints="宜居世界天文台（HWO）的一个主要目标是精确描述系外行星及其大气层的特征。|然而，系外行星宿主恒星的磁活动会使恒星和行星特性的测量复杂化，并且恒星活动可能是我们解释系外行星演化历史的一个重要因素。|在这项工作中，我们通过整理在广泛的光度和光谱数据集中发布的相关可观测数据的档案测量结果，评估了潜在 HWO 目标恒星磁活动特征的程度。|我们描述了我们的数据收集策略，概述了潜在 HWO 目标恒星的活动和自转目录 (ARC) 中当前已知的活动和自转属性，并简要回顾了恒星倾角、自转、活动和年龄之间的已知关系。" data-concepts="HWO|ARC|HK" data-url="http://arxiv.org/abs/2605.22618v1">
+  <div class="card-body">
+    <div class="card-header">
+      <div class="card-num">14</div>
+      <div class="card-title">HWO 目标恒星和系统：宜居世界天文台潜在目标恒星的活动和自转目录 (ARC)</div>
+    </div>
+    <div class="card-meta">👤 Tara Fetherolf、Arvind F. Gupta、Elisabeth R. Newton 等 &nbsp;&nbsp;📅 2026-05-21</div>
+    <div class="card-brief">宜居世界天文台（HWO）的一个主要目标是精确描述系外行星及其大气层的特征。</div>
+    <div class="card-front-chips"><span class="c-chip">HWO</span><span class="c-chip">ARC</span><span class="c-chip">HK</span></div>
+  </div>
+  <div class="card-hint">点击查看详情 ↓</div>
+</div>
+<div class="card" style="animation-delay:0.60" onclick="openModal(this)" data-title="搜索粒子加速碰撞风双星 WR 147 和 HD 167971 中的射电偏振" data-title-en="Search for radio polarization in the particle-accelerating colliding-wind binaries WR 147 and HD 167971" data-meta="A. B. Blanco、M. De Becker、P. Benaglia 等 · 2026-05-21" data-summary="粒子加速碰撞风双星（PACWB）是多个大质量恒星系统，其中强烈的恒星风碰撞，将粒子加速到相对论能量。这群相对论粒子发射 NT 辐射，包括无线电领域的同步加速器辐射。这种发射预计是线性偏振的，但尚未检测到 PACWB 的偏振特征。我们的目标是量化两个著名的 PACWB 中同步加速器辐射的线性偏振，并在这些特定 NT 发射器的物理框架内解释我们的测量结果。我们在 L 和 C 频段（分别为 1-2 和 4-8 GHz）观察了带有甚大阵列 (VLA) 无线电干涉仪的 PACWB WR 147 和 HD 167971，其中同步加速器发射预计更为突出。我们进行了偏振校准并分析了所得的斯托克斯图。即使考虑使用较窄的波段来减轻带通去偏振的影响，我们也没有在两个波段中的任何一个中检测到两个目标中任何一个的任何偏振特征。对于两个目标来说，偏振度的最保守上限约为 1%。两个目标缺乏线性偏振可能是由多种效应造成的，包括同步加速器发射区域磁场的湍流性质，以及基于法拉第旋转的去极化过程，这些过程在这些源中肯定很活跃。它们复杂的几何形状，在这些频率下无法被 VLA 解析，很可能导致光束去偏振。我们强调，与其他标准同步加速器源相比，PACWB 也会受到热稀释。这对于恒星的系统尤其重要，这些恒星的风足够强大，足以产生大量的热发射，例如那些拥有沃尔夫-拉叶组件的系统。" data-summary-en="Particle-accelerating colliding-wind binaries (PACWBs) are multiple systems of massive stars in which strong stellar winds collide, accelerating particles to relativistic energies. This population of relativistic particles emits NT radiation, including synchrotron radiation in the radio domain. This emission is expected to be linearly polarized, but the polarization signature has not yet been detected for a PACWB. Our objective is to quantify the linear polarization of synchrotron radiation in two well-known PACWBs and to interpret our measurements within the framework of the physics of these specific NT emitters. We observed the PACWBs WR 147 and HD 167971 with the Very Large Array (VLA) radio interferometer in the frequency bands L and C (1-2 and 4-8 GHz, respectively), where synchrotron emission is expected to be more prominent. We performed polarization calibration and analyzed the resulting Stokes maps. We did not detect any polarization signature for either of the two targets in either of the two bands, even when considering narrower bands to mitigate the effect of bandpass depolarization. The most conservative upper limit on the polarization degree is on the order of 1% for both targets. The lack of linear polarization for the two targets is likely attributable to a combination of effects, including the turbulent nature of the magnetic field in the synchrotron-emitting region, and depolarization processes based on Faraday rotation that are certainly active in these sources. Their complex geometry, unresolved by the VLA at these frequencies, is most likely to lead to beam depolarization. We emphasize that, in contrast to other canonical synchrotron sources, PACWBs are also subject to thermal dilution. This is especially relevant for systems with stars whose winds are strong enough to contribute copiously to thermal emission, such as those harboring a Wolf-Rayet component." data-keypoints="粒子加速碰撞风双星（PACWB）是多个大质量恒星系统，其中强烈的恒星风碰撞，将粒子加速到相对论能量。|这群相对论粒子发射 NT 辐射，包括无线电领域的同步加速器辐射。|这种发射预计是线性偏振的，但尚未检测到 PACWB 的偏振特征。|我们的目标是量化两个著名的 PACWB 中同步加速器辐射的线性偏振，并在这些特定 NT 发射器的物理框架内解释我们的测量结果。" data-concepts="WR|HD|PACWB|NT|VLA::甚大阵射电望远镜阵列（Very Large Array）。" data-url="http://arxiv.org/abs/2605.22617v1">
+  <div class="card-body">
+    <div class="card-header">
+      <div class="card-num">15</div>
+      <div class="card-title">搜索粒子加速碰撞风双星 WR 147 和 HD 167971 中的射电偏振</div>
+    </div>
+    <div class="card-meta">👤 A. B. Blanco、M. De Becker、P. Benaglia 等 &nbsp;&nbsp;📅 2026-05-21</div>
+    <div class="card-brief">粒子加速碰撞风双星（PACWB）是多个大质量恒星系统，其中强烈的恒星风碰撞，将粒子加速到相对论能量。</div>
+    <div class="card-front-chips"><span class="c-chip">WR</span><span class="c-chip">HD</span><span class="c-chip">PACWB</span></div>
+  </div>
+  <div class="card-hint">点击查看详情 ↓</div>
+</div>
+<div class="card" style="animation-delay:0.64" onclick="openModal(this)" data-title="使用 3D MHD 模拟解码太阳光斑的径向速度特征" data-title-en="Decoding the Radial Velocity Signatures of Solar Faculae with 3D MHD Simulations" data-meta="Florian Kröll、Sowmya Krishnamurthy、Alexander Shapiro 等 · 2026-05-21" data-summary="我们对由光斑引起的太阳径向速度 (RV) 信号进行了建模，光斑是类太阳恒星中 RV 变化的主要贡献者。我们使用太阳旋转时光斑斑块穿过可见太阳盘的代表性案例来解开对 RV 信号产生影响的各种物理效应。我们的方法基于使用 MURaM 代码对太阳光球层和上对流区进行 3D 辐射磁流体动力学 (MHD) 模拟以及使用 MPS-ATLAS 代码进行光谱合成。我们表明，光斑引起的 RV 强烈依赖于太阳盘上的光斑位置。在圆盘中心附近，光斑磁场抑制对流蓝移，从而产生太阳光谱的相对红移。令人惊讶的是，当靠近肢体时，即日心角大于约 $60^\circ$ 时，光斑会产生相对蓝移。这种从红移到蓝移的转变是由磁场对水平流的影响引起的，水平流主导着肢体附近的信号，以及对这些流的可见性的影响。与太阳自转相结合，光斑效应的中心到肢体依赖性导致光斑传输过程中出现复杂的 RV 轮廓，特别是导致 RV 信号最大值与中央子午线光斑交叉之间的相位滞后。我们进一步表明，与恒星反射运动相反，光斑信号强烈依赖于测量它的谱线。" data-summary-en="We model the solar radial velocity (RV) signal induced by faculae, the dominant contributor to RV variability in Sun-like stars. We use a representative case of a facular patch transiting the visible solar disk as the Sun rotates to disentangle various physical effects contributing to the RV signal. Our approach is based on 3D radiative magnetohydrodynamic (MHD) simulations of the solar photosphere and upper convection zone with the MURaM code and spectral synthesis with the MPS-ATLAS code. We show that the faculae-induced RV strongly depends on the facular position on the solar disk. Near disk centre, facular magnetic fields inhibit the convective blueshift and thus produce a relative redshift of the solar spectrum. Surprisingly, when located closer to the limb, namely at heliocentric angles greater than about $60^\circ$, faculae produce a relative blueshift. This transition from redshift to blueshift is caused by the effect of magnetic fields on horizontal flows, which dominate the signal near the limb, and on the visibility of these flows. In combination with solar rotation, this centre-to-limb dependence of the facular effect leads to a complex RV profile during the facular transit and, in particular, to a phase lag between the maximum of the RV signal and the facular crossing of the central meridian. We further show that, in contrast to stellar reflex motion, the facular signal strongly depends on the spectral line in which it is measured." data-keypoints="我们对由光斑引起的太阳径向速度 (RV) 信号进行了建模，光斑是类太阳恒星中 RV 变化的主要贡献者。|我们使用太阳旋转时光斑斑块穿过可见太阳盘的代表性案例来解开对 RV 信号产生影响的各种物理效应。|我们的方法基于使用 MURaM 代码对太阳光球层和上对流区进行 3D 辐射磁流体动力学 (MHD) 模拟以及使用 MPS-ATLAS 代码进行光谱合成。|我们表明，光斑引起的 RV 强烈依赖于太阳盘上的光斑位置。" data-concepts="MHD|RV|MPS|ATLAS" data-url="http://arxiv.org/abs/2605.22615v1">
+  <div class="card-body">
+    <div class="card-header">
+      <div class="card-num">16</div>
+      <div class="card-title">使用 3D MHD 模拟解码太阳光斑的径向速度特征</div>
+    </div>
+    <div class="card-meta">👤 Florian Kröll、Sowmya Krishnamurthy、Alexander Shapiro 等 &nbsp;&nbsp;📅 2026-05-21</div>
+    <div class="card-brief">我们对由光斑引起的太阳径向速度 (RV) 信号进行了建模，光斑是类太阳恒星中 RV 变化的主要贡献者。</div>
+    <div class="card-front-chips"><span class="c-chip">MHD</span><span class="c-chip">RV</span><span class="c-chip">MPS</span></div>
+  </div>
+  <div class="card-hint">点击查看详情 ↓</div>
+</div>
+<div class="card" style="animation-delay:0.68" onclick="openModal(this)" data-title="原行星盘中飞越引起的扭曲的散射光特征" data-title-en="Scattered light signatures of flyby-induced warps in protoplanetary discs" data-meta="Katie L. Milsom、Tim J. Harries、C. J. Nixon · 2026-05-21" data-summary="我们探索原恒星盘散射光图像中飞越的观测特征。使用一维扭曲传播理论与模拟引起的阴影的快速辐射传输代码相结合来对扭曲进行建模。我们考虑两种情况，即在与盘平面正交和成一定角度的平面上飞越。在这两种模型中，外盘都会扭曲（导致外盘中出现宽阔的阴影），并且扭曲波来回传播（导致阴影振荡）。我们发现内盘虽然倾斜，但没有扭曲，因此没有阴影。对于低粘度光盘 ($α=10^{-4}$)，扭曲会持续光盘寿命的大部分时间 ($τ\sim 10^6\,$years)，并且在 $50\%$ 时间内，散射光图像的表面亮度的方位方差 $σ^2$ 高于 $0.01$，这意味着光盘中的阴影很明显。我们发现附近恒星形成区域的大部分盘应该经历了足以引起可观察到的扭曲的飞越，并且对阴影盘的调查可以提供盘粘度的有价值的探测。" data-summary-en="We explore the observational signatures of flybys in scattered light images of protostellar discs. The warps are modelled using 1D warp propagation theory coupled to a fast radiative transfer code that simulates the shadows induced. We consider two scenarios, namely a flyby in a plane orthogonal to, and at an angle with, the disc plane. In both models the outer disc becomes warped (leading to a broad shadow in the outer disc) and the warp wave propagates back and forth (causing the shadow to oscillate). We find that the inner disc, although tilted, is not warped and is therefore not shadowed. For a low viscosity disc ($α=10^{-4}$) the warp lasts for most of the disc&#x27;s lifetime ($τ\sim 10^6\,$years), and for $50\%$ of the time the azimuthal variance of the surface brightness from the scattered light images, $σ^2$, is above $0.01$, meaning that the shadow in the disc is significant. We find that a significant fraction of discs in nearby star forming regions should have undergone a flyby sufficient to induce an observable warp, and that surveys of shadowed discs could provide a valuable probe of disc viscosity." data-keypoints="我们探索原恒星盘散射光图像中飞越的观测特征。|使用一维扭曲传播理论与模拟引起的阴影的快速辐射传输代码相结合来对扭曲进行建模。|我们考虑两种情况，即在与盘平面正交和成一定角度的平面上飞越。|在这两种模型中，外盘都会扭曲（导致外盘中出现宽阔的阴影），并且扭曲波来回传播（导致阴影振荡）。" data-concepts="" data-url="http://arxiv.org/abs/2605.22592v1">
+  <div class="card-body">
+    <div class="card-header">
+      <div class="card-num">17</div>
+      <div class="card-title">原行星盘中飞越引起的扭曲的散射光特征</div>
+    </div>
+    <div class="card-meta">👤 Katie L. Milsom、Tim J. Harries、C. J. Nixon &nbsp;&nbsp;📅 2026-05-21</div>
+    <div class="card-brief">我们探索原恒星盘散射光图像中飞越的观测特征。</div>
+  </div>
+  <div class="card-hint">点击查看详情 ↓</div>
+</div>
+<div class="card" style="animation-delay:0.72" onclick="openModal(this)" data-title="X 级太阳耀斑中的铁荧光：Aditya-L1/SoLEXS 观测" data-title-en="Iron Fluorescence in X-class Solar Flares: Aditya-L1/SoLEXS Observations" data-meta="Abhilash R. Sarwade、K. Sankarasubramanian、Monoj Bug 等 · 2026-05-21" data-summary="铁荧光是耀斑期间日冕 X 射线照射太阳光球层而产生的。这项研究首次对印度 Aditya-L1 任务中太阳能低能 X 射线光谱仪 (SoLEXS) 首次观测到的 47 个 X 级耀斑中的铁 K$α$ 荧光特征进行了全面分析。利用现代硅漂移探测器 (SDD) 的能力进行同步宽带连续谱和线测量，对每个事件的 Fe K$α$ 通量和激励通量 ($F_{&gt;7.11 \text{ keV}}$) 进行量化，在整个样本中建立它们之间明确的关系。得出的荧光效率表现出与理论模型一致的中心到肢体依赖性，为探测日冕源高度和观察几何形状提供了潜在的诊断。虽然统计不确定性目前限制了在短时间尺度上跟踪快速高度变化的能力，但耀斑峰值期间的平均荧光效率对有效日冕源高度提供了潜在的限制。然而，这种推导仍然存在根本性的简并性，因为如果不假设光球铁丰度的特定值，则无法唯一确定估计的源高度。这些发现表明，尽管 SDD 的光谱分辨率低于传统晶体光谱仪，但仍为太阳铁荧光观测提供了新的诊断方法。" data-summary-en="Iron fluorescence is produced by the irradiation of the solar photosphere by coronal X-rays during flares. This study presents the first comprehensive analysis of iron K$α$ fluorescence characteristics in 47 X-class flares observed during the inaugural year of the Solar Low Energy X-ray Spectrometer (SoLEXS) on board India&#x27;s Aditya-L1 mission. Leveraging the capability of modern silicon drift detectors (SDDs) for simultaneous broadband continuum and line measurements, the Fe K$α$ flux and the exciting flux ($F_{&gt;7.11 \text{ keV}}$) are quantified for each event, establishing a well-determined relationship between them across the sample. The derived fluorescence efficiencies exhibit a center-to-limb dependence consistent with theoretical models, offering a potential diagnostic to probe coronal source heights and viewing geometries. While statistical uncertainties currently limit the ability to track rapid height variations on short timescales, the mean fluorescence efficiency during the flare peak provides a potential constraint on the effective coronal source height. However, this derivation remains subject to a fundamental degeneracy, as the estimated source height cannot be uniquely determined without assuming a specific value for the photospheric iron abundance. These findings demonstrate that SDDs, despite having lower spectral resolution than traditional crystal spectrometers, provide a new diagnostic for the solar iron fluorescence observations." data-keypoints="铁荧光是耀斑期间日冕 X 射线照射太阳光球层而产生的。|这项研究首次对印度 Aditya-L1 任务中太阳能低能 X 射线光谱仪 (SoLEXS) 首次观测到的 47 个 X 级耀斑中的铁 K$α$ 荧光特征进行了全面分析。|利用现代硅漂移探测器 (SDD) 的能力进行同步宽带连续谱和线测量，对每个事件的 Fe K$α$ 通量和激励通量 ($F_{&gt;7.11 \text{ keV}}$) 进行量化，在整个样本中建立它们之间明确的关系。|得出的荧光效率表现出与理论模型一致的中心到肢体依赖性，为探测日冕源高度和观察几何形状提供了潜在的诊断。" data-concepts="SDD" data-url="http://arxiv.org/abs/2605.22573v1">
+  <div class="card-body">
+    <div class="card-header">
+      <div class="card-num">18</div>
+      <div class="card-title">X 级太阳耀斑中的铁荧光：Aditya-L1/SoLEXS 观测</div>
+    </div>
+    <div class="card-meta">👤 Abhilash R. Sarwade、K. Sankarasubramanian、Monoj Bug 等 &nbsp;&nbsp;📅 2026-05-21</div>
+    <div class="card-brief">铁荧光是耀斑期间日冕 X 射线照射太阳光球层而产生的。</div>
+    <div class="card-front-chips"><span class="c-chip">SDD</span></div>
+  </div>
+  <div class="card-hint">点击查看详情 ↓</div>
+</div>
+<div class="card" style="animation-delay:0.76" onclick="openModal(this)" data-title="受多技术观察约束的 $ xi $ Tau 系统的配置" data-title-en="Configuration of the $ξ$ Tau system constrained by multi-technique observations" data-meta="M. Brož、P. Doležal、D. Vokrouhlický 等 · 2026-05-21" data-summary="$ψ$ Tau 是最紧凑的多恒星系统之一，它足够近（67 颗），可以受到各种观测的限制。为了更好地限制其当前配置，我们利用了新的观测数据：（i）来自 TESS 的光度测量和来自 WDS 的天体测量，以及（ii）我们自己来自 MOST 航天器的光度测量和来自 CTIO 天文台的光谱学。[...]给定$ Ψ $ Tau的层次结构，((Aa+Ab)+B)+C，我们检测到所有时间尺度上的轨道演化。周期 $P$ 的振荡发生在最短的轨道时间尺度上（$P_1$、$P_2$）；偏心率 $e_1$ 的变化范围为 0 到 0.008，$e_2$ 的变化范围为 0.202 到 0.207。预计 $i$、$Ω$ 的振荡是耦合的，并且发生在大约 7000 天的长期时间尺度上。内部食对 (Aa+Ab) 的倾角 $i_1$ 从 $86.1^\circ$ 变为 $87.1^\circ$，这在食深度中清晰可见。由于外轨道 ($P_3 \doteq 18900\,{\rm d}$) 还存在一个长期趋势，其中 C 分量经过近日点（“凹凸”），这在径向速度中表现出来。三个轨道平面 ${\simeq}\,0.5^\circ$ 和 $71^\circ$ 之间的相互倾角非常不同。由于快速进动速率 $\dotω_2$ 抑制了 Kozai 振荡，从而确保了长期稳定性。最佳模型需要内部双星的潮汐耗散（时滞为 ${\sim}100\,{\rm s}$）和五个分量，其中分量 C 是双星 (Ca+Cb)。尽管三个成分（$2.27$、$2.15$、$3.78\,M_\odot$）的质量现在被限制在 1% 以内，但偏移了 $600\,{\rm mas}$ 的可疑二元 (Ca+Cb) 应该得到更好的表征。一个关键问题仍然是这个明亮的恒星系统是否包含额外的低质量矮星或系外行星成分。持续监测$Ψ$ Tau 是非常可取的。" data-summary-en="$ξ$ Tau is one of the most compact multiple stellar systems, which is sufficiently close (67 pc) to be constrained by all kinds of observations. To better constrain its current configuration, we utilized new observational data: (i) photometry from TESS and astrometry from WDS, and (ii) our own photometry from the MOST spacecraft and spectroscopy from the CTIO observatory. [...] Given the hierarchical architecture of $ξ$ Tau, ((Aa+Ab)+B)+C, we detected the orbital evolution on all time scales. Oscillations of periods $P$ occur on the shortest, orbital time scales ($P_1$, $P_2$); the variation of eccentricity $e_1$ is from 0 to 0.008, and of $e_2$ from 0.202 to 0.207, respectively. Oscillations of projected $i$, $Ω$ are coupled, and occur on the secular time scale of about 7000 d. The inclination $i_1$ of the inner, eclipsing pair (Aa+Ab) changes from $86.1^\circ$ to $87.1^\circ$, which is clearly manifested in eclipse depths. There is also a long-term trend due to the outer orbit ($P_3 \doteq 18900\,{\rm d}$), with a perihelion passage (a `bump&#x27;) of component C, which is manifested in radial velocities. The mutual inclinations between the three orbital planes, ${\simeq}\,0.5^\circ$ and $71^\circ$, are very different. Long-term stability is ensured by suppressing Kozai oscillations due to the fast precession rate $\dotω_2$. The best model requires tidal dissipation in the inner binary (with the time lag of ${\sim}100\,{\rm s}$) and five components, where component C is a binary (Ca+Cb). Although the masses of the three components ($2.27$, $2.15$, $3.78\,M_\odot$) are now constrained to within 1%, the suspected binary (Ca+Cb), offset by $600\,{\rm mas}$, should be better characterized. A key question remains whether this bright stellar system contains additional dwarf or exoplanetary components with low masses. Continuing monitoring of $ξ$ Tau is highly desirable." data-keypoints="$ψ$ Tau 是最紧凑的多恒星系统之一，它足够近（67 颗），可以受到各种观测的限制。|为了更好地限制其当前配置，我们利用了新的观测数据：（i）来自 TESS 的光度测量和来自 WDS 的天体测量，以及（ii）我们自己来自 MOST 航天器的光度测量和来自 CTIO 天文台的光谱学。|[...]给定$ Ψ $ Tau的层次结构，((Aa+Ab)+B)+C，我们检测到所有时间尺度上的轨道演化。|周期 $P$ 的振荡发生在最短的轨道时间尺度上（$P_1$、$P_2$）；偏心率 $e_1$ 的变化范围为 0 到 0.008，$e_2$ 的变化范围为 0.202 到 0.207。" data-concepts="TESS::凌星系外行星巡天卫星（Transiting Exoplanet Survey Satellite）。|WDS|CTIO" data-url="http://arxiv.org/abs/2605.22545v1">
+  <div class="card-body">
+    <div class="card-header">
+      <div class="card-num">19</div>
+      <div class="card-title">受多技术观察约束的 $ xi $ Tau 系统的配置</div>
+    </div>
+    <div class="card-meta">👤 M. Brož、P. Doležal、D. Vokrouhlický 等 &nbsp;&nbsp;📅 2026-05-21</div>
+    <div class="card-brief">$ψ$ Tau 是最紧凑的多恒星系统之一，它足够近（67 颗），可以受到各种观测的限制。</div>
+    <div class="card-front-chips"><span class="c-chip">TESS</span><span class="c-chip">WDS</span><span class="c-chip">CTIO</span></div>
+  </div>
+  <div class="card-hint">点击查看详情 ↓</div>
+</div>
+<div class="card" style="animation-delay:0.80" onclick="openModal(this)" data-title="$γ$ 剑鱼座恒星 KIC 2309579 中磁场的地震特征" data-title-en="Seismic signature of a magnetic field in the $γ$ Doradus star KIC 2309579" data-meta="S. Ihallaine、J. Ballot、F. Lignières 等 · 2026-05-21" data-summary="最近利用星震学在红巨星的辐射核心中检测和测量了内部磁场。作为红巨星的前身之一并表现出高径向级重力模式，$γ$剑鱼座恒星也是在其辐射包层中保持可检测磁场的良好候选者。我们的目标是通过其对开尔文引力惯性模式传播的影响，首次探测快速旋转的$γ$剑鱼座恒星的内部磁场。我们使用地震变量 $δK_a$，定义为开尔文模式频率的组合，它对磁场的存在敏感。检测后，我们按照贝叶斯方法对考虑磁性成分的星体振荡频谱进行了建模。我们在 KIC 2309579 的辐射包层中发现了磁性特征。如果位于核心正上方，在先前对流的层中，磁场将达到 $\sim$ 4 kG。" data-summary-en="Internal magnetic fields have recently been detected and measured in the radiative core of red giant stars using asteroseismology. Being one of red giant stars progenitors and exhibiting high radial order gravity modes, $γ$ Doradus stars are also good candidates to hold detectable magnetic fields in their radiative envelope. We aim to detect internal magnetic field in a rapidly rotating $γ$ Doradus star for the first time, through its influence on the propagation of Kelvin gravito-inertial modes. We used the seismic variable $δK_a$, defined as a combination of Kelvin modes frequencies, which is sensible to the presence of a magnetic field. Following the detection, we carried out a modelling of the star oscillation spectrum considering a magnetic component following a Bayesian approach. We found a magnetic signature into the radiative envelope of KIC 2309579. If located just above the core, in the layers that were previously convective, the magnetic field would reach $\sim$ 4 kG." data-keypoints="最近利用星震学在红巨星的辐射核心中检测和测量了内部磁场。|作为红巨星的前身之一并表现出高径向级重力模式，$γ$剑鱼座恒星也是在其辐射包层中保持可检测磁场的良好候选者。|我们的目标是通过其对开尔文引力惯性模式传播的影响，首次探测快速旋转的$γ$剑鱼座恒星的内部磁场。|我们使用地震变量 $δK_a$，定义为开尔文模式频率的组合，它对磁场的存在敏感。" data-concepts="KIC" data-url="http://arxiv.org/abs/2605.22533v1">
+  <div class="card-body">
+    <div class="card-header">
+      <div class="card-num">20</div>
+      <div class="card-title">$γ$ 剑鱼座恒星 KIC 2309579 中磁场的地震特征</div>
+    </div>
+    <div class="card-meta">👤 S. Ihallaine、J. Ballot、F. Lignières 等 &nbsp;&nbsp;📅 2026-05-21</div>
+    <div class="card-brief">最近利用星震学在红巨星的辐射核心中检测和测量了内部磁场。</div>
+    <div class="card-front-chips"><span class="c-chip">KIC</span></div>
+  </div>
+  <div class="card-hint">点击查看详情 ↓</div>
+</div>
+</div>
+<div class="sec-anchor" id="sec-高能天体物理"></div>
+<div class="section-head">
+  <div class="section-icon">💥</div>
+  <h2>高能天体物理</h2>
+  <span class="count">5 篇</span>
+</div>
+<div class="card-grid">
+<div class="card" style="animation-delay:0.84" onclick="openModal(this)" data-title="中子星中微子冷却产生量子湍流" data-title-en="Generation of Quantum Turbulence by Neutrino Cooling in Neutron Stars" data-meta="J. A. Sauls · 2026-05-21" data-summary="中子星的内部地壳和大部分液体核心被认为是中子和质子超流体以及相对论电子液体的量子液体混合物。中子超流体中的量子化涡流和质子超导体中的量子化通量线是这些强子凝聚体的拓扑缺陷。我考虑在中微子冷却速率所施加的非平衡条件下年轻中子星超流体态的形成。非平衡相变意味着超流性的开始伴随着量子化漩涡的产生，该机制基于基布尔在膨胀宇宙的演化模型中宇宙弦形成的背景下设想的机制，并由 Zurek 进一步发展用于量子液体（如 Hefour）中的非平衡相变。我从温度接近 $T_c$ 的库珀对波动传播器开始讨论拓扑缺陷形成的 Kibble-Zurek 机制 (KZM) 和标度关系。然后，我根据几个超流体间隙模型和内部中子超流体的转变温度模型，根据中子星核心中的 Urca 和改进的 Urca 冷却机制计算预测的涡旋密度。在所有研究的情况下，KZM 都会导致凝聚相中出现大量拓扑缺陷，这些缺陷在 3D 中形成涡线和环的随机网络，即产生量子湍流。" data-summary-en="The interior crust and much of the liquid core of neutron stars is believed to be a quantum liquid mixture of neutron and proton superfluids and a relativistic electron liquid. Quantized vortices in the neutron superfluid and quantized flux lines in the proton superconductor are topological defects of these hadronic condensates. I consider the formation of the superfluid state in young neutron stars under non-equilibrium conditions imposed by the neutrino cooling rate. The nonequilibrium phase transition implies that the onset of superfluidity is accompanied by the generation of quantized vortices based on the mechanism envisioned by Kibble in the context cosmic string formation in an evolutionary models of an expanding universe, and further developed by Zurek for nonequilibrium phase transitions in quantum liquids such as \Hefour. I discuss the Kibble-Zurek mechanism (KZM) and scaling relations for topological defect formation starting from the Cooper pair fluctuation propagator for temperatures approaching $T_c$. I then calculate the predicted vortex densities based on Urca and modified Urca cooling mechanisms in the cores of neutron stars for several models of the superfluid gap and transition temperature of the interior neutron superfluid. In all cases studied the KZM leads to a large density of topological defects in the condensate phase, which in 3D form a random network of vortex lines and loops, i.e. the generation of quantum turbulence." data-keypoints="中子星的内部地壳和大部分液体核心被认为是中子和质子超流体以及相对论电子液体的量子液体混合物。|中子超流体中的量子化涡流和质子超导体中的量子化通量线是这些强子凝聚体的拓扑缺陷。|我考虑在中微子冷却速率所施加的非平衡条件下年轻中子星超流体态的形成。|非平衡相变意味着超流性的开始伴随着量子化漩涡的产生，该机制基于基布尔在膨胀宇宙的演化模型中宇宙弦形成的背景下设想的机制，并由 Zurek 进一步发展用于量子液体（如 Hefour）中的非平衡相变。" data-concepts="KZM" data-url="http://arxiv.org/abs/2605.22768v1">
+  <div class="card-body">
+    <div class="card-header">
+      <div class="card-num">21</div>
+      <div class="card-title">中子星中微子冷却产生量子湍流</div>
+    </div>
+    <div class="card-meta">👤 J. A. Sauls &nbsp;&nbsp;📅 2026-05-21</div>
+    <div class="card-brief">中子星的内部地壳和大部分液体核心被认为是中子和质子超流体以及相对论电子液体的量子液体混合物。</div>
+    <div class="card-front-chips"><span class="c-chip">KZM</span></div>
+  </div>
+  <div class="card-hint">点击查看详情 ↓</div>
+</div>
+<div class="card" style="animation-delay:0.88" onclick="openModal(this)" data-title="银河宇宙射线质子密度的三维层析成像重建" data-title-en="A Three-Dimensional Tomographic Reconstruction of the Galactic Cosmic-Ray Proton Density" data-meta="Hanieh Zandinejad、Jakob Roth、Vo Hong Minh Phan 等 · 2026-05-21" data-summary="宇宙射线（CR）是星际介质（ISM）中普遍存在的非热成分。数据驱动的三维 (3D) 分布图对于理解 CR 传输和限制其来源的空间分布至关重要。在这项工作中，我们重建了银河宇宙射线质子 (CRp) 密度的 3D 空间分布。我们对 CRps 和星际气体之间的非弹性强子相互作用产生的弥散伽马射线发射进行了建模。使用基于十年费米 LAT 观测的与尘埃相关的弥漫伽马射线发射图以及三维气体密度模型，我们通过形态匹配方法推断了空间 CRp 分布。对数 CRp 密度场由球次径向网格上定义的高斯过程描述，而该场及其相关结构是使用迭代图表细化同时推断的。使用几何变分推理来近似重建的 3D CRp 密度场的后验分布。重建的 CRp 密度在整个银盘上表现出平滑但空间结构化的分布，动态范围有限。我们发现朝向内星系的 CRp 密度适度增强。推断的太阳位置归一化与 AMS-02 仪器的本地 CR 测量结果一致。" data-summary-en="Cosmic rays (CRs) are a ubiquitous non-thermal component of the interstellar medium (ISM). A data-driven three-dimensional (3D) map of their distribution is essential for understanding CR transport and constraining the spatial distribution of their sources. In this work, we reconstructed the 3D spatial distribution of the Galactic cosmic-ray proton (CRp) density. We model the diffuse gamma-ray emission arising from inelastic hadronic interactions between CRps and interstellar gas. Using a map of dust-correlated diffuse gamma-ray emission based on ten years of Fermi-LAT observations together with a three-dimensional gas density model, we infer the spatial CRp distribution through a morphological matching approach. The logarithmic CRp density field is described by a Gaussian process defined on a spherical-times-radial grid, while both the field and its correlation structure are inferred simultaneously using Iterative Charted Refinement. The posterior distribution of the reconstructed 3D CRp density field is approximated using geometric variational inference. The reconstructed CRp density exhibits a smooth but spatially structured distribution with a limited dynamical range across the Galactic disk. We find a moderate enhancement of the CRp density toward the inner Galaxy. The inferred normalization at the Solar position is consistent with local CR measurements by the AMS-02 instrument." data-keypoints="宇宙射线（CR）是星际介质（ISM）中普遍存在的非热成分。|数据驱动的三维 (3D) 分布图对于理解 CR 传输和限制其来源的空间分布至关重要。|在这项工作中，我们重建了银河宇宙射线质子 (CRp) 密度的 3D 空间分布。|我们对 CRps 和星际气体之间的非弹性强子相互作用产生的弥散伽马射线发射进行了建模。" data-concepts="CR|ISM::星际介质（Interstellar Medium）——恒星之间的气体和尘埃。|LAT|AMS" data-url="http://arxiv.org/abs/2605.22739v1">
+  <div class="card-body">
+    <div class="card-header">
+      <div class="card-num">22</div>
+      <div class="card-title">银河宇宙射线质子密度的三维层析成像重建</div>
+    </div>
+    <div class="card-meta">👤 Hanieh Zandinejad、Jakob Roth、Vo Hong Minh Phan 等 &nbsp;&nbsp;📅 2026-05-21</div>
+    <div class="card-brief">宇宙射线（CR）是星际介质（ISM）中普遍存在的非热成分。</div>
+    <div class="card-front-chips"><span class="c-chip">CR</span><span class="c-chip">ISM</span><span class="c-chip">LAT</span></div>
+  </div>
+  <div class="card-hint">点击查看详情 ↓</div>
+</div>
+<div class="card" style="animation-delay:0.92" onclick="openModal(this)" data-title="偏振 3D 合成湍流 I：磁场线随机游走" data-title-en="Polarized 3D Synthetic Turbulence I: Magnetic Field Line Random Walk" data-meta="Matthieu Bouchet、Yoann Génolini、Silvio S. Cerri 等 · 2026-05-21" data-summary="湍流等离子体中磁场线的行为是介质的关键特性，对等离子体动力学和带电粒子输运具有重要影响。我们研究了合成湍流中磁场线的扩散特性，该湍流具有不同的磁扰动极化配置，如现有的磁流体动力学模式（即阿尔夫尼和磁声）所规定。然后将这些湍流场实现与各向同性（或随机）偏振情况进行比较，这是文献中通常采用的情况。我们构建了偏振合成湍流模拟，并通过运行扩散系数研究场线的特性。我们的主要发现可以概括如下：（i）磁力线漂移强烈依赖于极化配置，（ii）我们揭示了磁力线的次扩散相位高度依赖于极化，并且在低湍流水平状态下基于 Corrsin 假设的理论预测很好地再现了，（iii）特别是类磁声极化中渐近扩散系数的标度为 $(δB/B)^4$，与$(δB/B)^2$ 尺度在随机极化的准线性区域中发现，(iv) 有趣的是，我们注意到类磁声极化中场线输运的次扩散阶段与最近高分辨率 MHD 湍流模拟中观察到的阶段密切相关，当在此类模拟中研究 FL 输运时，我们最后给出了警告。" data-summary-en="The behavior of magnetic field lines in a turbulent plasma is a key property of the medium, with important consequences for plasma dynamics and charged-particle transport. We study the diffusion properties of magnetic field lines in synthetic turbulence featuring different polarization configurations for the magnetic perturbations, as prescribed by the existing magnetohydrodynamic modes (namely, Alfvénic and magnetosonic). These turbulent field realizations are then compared with the isotropic (or, random) polarization case, which is the one typically adopted in the literature. We construct polarized synthetic turbulence simulations and study the properties of field lines through the running diffusion coefficient. Our key findings can be summarized as follow: (i) field line wandering is strongly dependent on polarization configurations, (ii) we unveil that the sub-diffusive phase of field line is highly dependent on the polarization and is well reproduced by theoretical predictions based on Corrsin&#x27;s hypothesis in the low turbulence level regime, (iii) in particular the scaling of the asymptotic diffusion coefficient in magnetosonic-like polarization is $(δB/B)^4$ at odd with the $(δB/B)^2$ scaling found in the quasi-linear regime for random polarization, (iv) interestingly we note that the subdiffusive phase of field line transport in the magnetosonic-like polarization follows closely the one observed in recent high resolution MHD turbulence simulations, we end giving a word of caution when FL transport is investigated in such simulations." data-keypoints="湍流等离子体中磁场线的行为是介质的关键特性，对等离子体动力学和带电粒子输运具有重要影响。|我们研究了合成湍流中磁场线的扩散特性，该湍流具有不同的磁扰动极化配置，如现有的磁流体动力学模式（即阿尔夫尼和磁声）所规定。|然后将这些湍流场实现与各向同性（或随机）偏振情况进行比较，这是文献中通常采用的情况。|我们构建了偏振合成湍流模拟，并通过运行扩散系数研究场线的特性。" data-concepts="MHD|FL" data-url="http://arxiv.org/abs/2605.22729v1">
+  <div class="card-body">
+    <div class="card-header">
+      <div class="card-num">23</div>
+      <div class="card-title">偏振 3D 合成湍流 I：磁场线随机游走</div>
+    </div>
+    <div class="card-meta">👤 Matthieu Bouchet、Yoann Génolini、Silvio S. Cerri 等 &nbsp;&nbsp;📅 2026-05-21</div>
+    <div class="card-brief">湍流等离子体中磁场线的行为是介质的关键特性，对等离子体动力学和带电粒子输运具有重要影响。</div>
+    <div class="card-front-chips"><span class="c-chip">MHD</span><span class="c-chip">FL</span></div>
+  </div>
+  <div class="card-hint">点击查看详情 ↓</div>
+</div>
+<div class="card" style="animation-delay:0.96" onclick="openModal(this)" data-title="Ar$^{18+}$ 和 O$^{8+}$ 离子与中性粒子碰撞的 X 射线和极紫外光谱" data-title-en="X-ray and extreme-ultraviolet spectra from collisions of Ar$^{18+}$ and O$^{8+}$ ions with neutrals" data-meta="Stepan Dobrodey、Chintan Shah、Sonja Bernitt 等 · 2026-05-21" data-summary="我们展示了在电子束离子阱内以小碰撞能量完全电离的氩气与各种中性气体目标进行电荷交换后 K 壳层 X 射线发射的测量结果。我们还解析了同一陷阱中最初裸露的氧离子和类氢氧离子在极紫外光谱中电子捕获的主量子数。我们使用基于多通道朗道-齐纳方法的理论模型分析了这些测量值以及之前测量值之间的差异。" data-summary-en="We present measurements of K-shell x-ray emission following charge exchange of fully ionized argon with various neutral gaseous targets at small collision energies inside an electron beam ion trap. We also resolve the principal quantum number of electron capture in extreme-ultraviolet spectra from initially bare and hydrogen-like oxygen ions held in the same trap. We analyze discrepancies between these as well as previous measurements with theoretical models based on the multichannel Landau-Zener approach." data-keypoints="我们展示了在电子束离子阱内以小碰撞能量完全电离的氩气与各种中性气体目标进行电荷交换后 K 壳层 X 射线发射的测量结果。|我们还解析了同一陷阱中最初裸露的氧离子和类氢氧离子在极紫外光谱中电子捕获的主量子数。|我们使用基于多通道朗道-齐纳方法的理论模型分析了这些测量值以及之前测量值之间的差异。" data-concepts="" data-url="http://arxiv.org/abs/2605.22689v1">
+  <div class="card-body">
+    <div class="card-header">
+      <div class="card-num">24</div>
+      <div class="card-title">Ar$^{18+}$ 和 O$^{8+}$ 离子与中性粒子碰撞的 X 射线和极紫外光谱</div>
+    </div>
+    <div class="card-meta">👤 Stepan Dobrodey、Chintan Shah、Sonja Bernitt 等 &nbsp;&nbsp;📅 2026-05-21</div>
+    <div class="card-brief">我们展示了在电子束离子阱内以小碰撞能量完全电离的氩气与各种中性气体目标进行电荷交换后 K 壳层 X 射线发射的测量结果。</div>
+  </div>
+  <div class="card-hint">点击查看详情 ↓</div>
+</div>
+<div class="card" style="animation-delay:0.99" onclick="openModal(this)" data-title="《JWST》对行星状星云的观测支持喷射驱动的核心塌缩超新星遗迹 RCW 103 的爆炸" data-title-en="JWST observations of a planetary nebula support jet-driven explosion of core-collapse supernova remnant RCW 103" data-meta="Aleksei Klimov、Noam Soker · 2026-05-21" data-summary="我们表明，核心塌陷超新星（CCSN）残余物RCW 103的形态与最近发布的喷射状行星状星云（PN）PMR 1的JWST红外图像中最亮区域的形态非常相似，并得出结论，两对能量喷射流形成了RCW 103，与抖动喷射爆炸机制（JJEM）兼容。PN PMR 1 红外图像显示了两个相对的、大的、突出的耳朵，有一个狭窄、微弱的区域通过中心（一根管道）将它们连接起来。观测和模拟表明，一对喷流使 PNe 中的一对耳朵膨胀。 PN PMR 1 的最亮区域形成两个块状扇区，每个扇区的形状都像一块宽的披萨片，它们之间有一个微弱的区域； CCSN 残余物 RCW 103 具有非常相似的形态。我们在 RCW 103 的 X 射线图像中识别出两个壳层，并表明两对靠近的高能喷流塑造了这个 CCSN 遗迹。我们在 RCW 103 中只发现了四个预期耳朵中的两个痕迹。RCW 103 中的耳朵已经分散并且非常微弱。更深入的 X 射线观察可能会发现它们。这种能量错位的喷流对与 JJEM 兼容，JJEM 预测大多数 CCSN 爆炸是由几对到大约 20 对喷流造成的。" data-summary-en="We show that the morphology of the core-collapse supernova (CCSN) remnant RCW 103 is very similar to the morphology of the brightest regions in the recently released JWST IR images of the jet-shaped planetary nebula (PN) PMR 1, and conclude that two energetic pairs of jets shaped RCW 103, compatible with the jittering-jets explosion mechanism (JJEM). The PN PMR 1 IR image exhibits two opposite, large, and prominent ears with a narrow, faint region connecting them through the center, a pipe. Observations and simulations have shown that a pair of jets inflates such a pair of ears in PNe. The brightest regions of PN PMR 1 form two clumpy sectors, each shaped like a wide pizza slice, with a faint region between them; the CCSN remnant RCW 103 has a very similar morphology. We identify two shells in the X-ray image of RCW 103 and suggest that two close pairs of energetic jets shaped this CCSN remnant. We find only traces of two of the four expected ears in RCW 103. The ears in RCW 103 were already dispersed and are very faint. Deeper X-ray observations might detect them. Such energetically misaligned pairs of jets are compatible with the JJEM, which predicts that a few to about 20 pairs of jets are responsible for most CCSN explosions." data-keypoints="我们表明，核心塌陷超新星（CCSN）残余物RCW 103的形态与最近发布的喷射状行星状星云（PN）PMR 1的JWST红外图像中最亮区域的形态非常相似，并得出结论，两对能量喷射流形成了RCW 103，与抖动喷射爆炸机制（JJEM）兼容。|PN PMR 1 红外图像显示了两个相对的、大的、突出的耳朵，有一个狭窄、微弱的区域通过中心（一根管道）将它们连接起来。|观测和模拟表明，一对喷流使 PNe 中的一对耳朵膨胀。|PN PMR 1 的最亮区域形成两个块状扇区，每个扇区的形状都像一块宽的披萨片，它们之间有一个微弱的区域； CCSN 残余物 RCW 103 具有非常相似的形态。" data-concepts="JWST::詹姆斯·韦伯空间望远镜（James Webb Space Telescope）。|RCW|CCSN|PN|PMR|JJEM" data-url="http://arxiv.org/abs/2605.22575v1">
+  <div class="card-body">
+    <div class="card-header">
+      <div class="card-num">25</div>
+      <div class="card-title">《JWST》对行星状星云的观测支持喷射驱动的核心塌缩超新星遗迹 RCW 103 的爆炸</div>
+    </div>
+    <div class="card-meta">👤 Aleksei Klimov、Noam Soker &nbsp;&nbsp;📅 2026-05-21</div>
+    <div class="card-brief">我们表明，核心塌陷超新星（CCSN）残余物RCW 103的形态与最近发布的喷射状行星状星云（PN）PMR 1的JWST红外图像中最亮区域的形态非常相似，并得出结论，两对能量喷射流形…</div>
+    <div class="card-front-chips"><span class="c-chip">JWST</span><span class="c-chip">RCW</span><span class="c-chip">CCSN</span></div>
+  </div>
+  <div class="card-hint">点击查看详情 ↓</div>
+</div>
+</div>
+
+</div>
+
+<!-- MODAL -->
+<div class="modal-overlay" id="modalOverlay" onclick="closeModal(event)">
+  <div class="modal-box" onclick="event.stopPropagation()">
+    <div class="modal-header">
+      <button class="modal-close" onclick="closeModal()">✕</button>
+      <div class="modal-title" id="mTitle">论文标题</div>
+      <div class="modal-meta" id="mMeta">作者 · 日期</div>
+    </div>
+    <div class="modal-body">
+      <div class="modal-section">
+        <div class="modal-label">📋 摘要</div>
+        <div class="modal-text" id="mSummary">摘要内容...</div>
+      </div>
+      <div class="modal-section" id="mKeySection">
+        <div class="modal-label">🔑 关键发现</div>
+        <ul class="kf-list" id="mKeyPoints"></ul>
+      </div>
+      <div class="modal-section" id="mConceptSection">
+        <div class="modal-label">📖 概念批注</div>
+        <div class="modal-concepts" id="mConcepts"></div>
+      </div>
+      <div class="modal-section" style="display:flex;gap:10px;flex-wrap:wrap;">
+        <a class="modal-link" id="mLink" href="#" target="_blank" rel="noopener noreferrer">📄 在 arXiv 查看原文 →</a>
+        <button class="modal-link" onclick="closeModal()" style="background:linear-gradient(135deg,#64748b,#475569);border:none;cursor:pointer;">← 返回卡片列表</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<div class="footer">
+  今日共 <strong>25</strong> 篇论文 &nbsp;|&nbsp;
+  数据来源：<a href="https://arxiv.org/list/astro-ph/recent" target="_blank" rel="noopener noreferrer">arXiv astro-ph</a> &nbsp;|&nbsp;
+  由 AstroDaily 自动生成
+</div>
+
+<script>
+/* ===== Modal ===== */
+function openModal(el) {
+  document.getElementById('mTitle').textContent = el.dataset.title || '';
+  document.getElementById('mMeta').textContent = el.dataset.meta || '';
+  document.getElementById('mSummary').textContent = el.dataset.summary || '';
+  document.getElementById('mLink').href = el.dataset.url || '#';
+
+  // Key points
+  var kp = document.getElementById('mKeyPoints');
+  kp.innerHTML = '';
+  var points = (el.dataset.keypoints || '').split('|').filter(function(s){ return s.trim(); });
+  if(points.length) {
+    points.forEach(function(p){
+      var li = document.createElement('li');
+      li.textContent = p.trim();
+      kp.appendChild(li);
+    });
+    document.getElementById('mKeySection').style.display = 'block';
+  } else {
+    document.getElementById('mKeySection').style.display = 'none';
+  }
+
+  // Concepts
+  var cs = document.getElementById('mConcepts');
+  cs.innerHTML = '';
+  var concepts = (el.dataset.concepts || '').split('|').filter(function(s){ return s.trim(); });
+  if(concepts.length) {
+    concepts.forEach(function(c){
+      var parts = c.split('::');
+      var name = parts[0].trim();
+      var tip = parts[1] ? parts[1].trim() : '';
+      var span = document.createElement('span');
+      span.className = 'c-badge';
+      if(tip) {
+        span.title = tip;
+        span.innerHTML = name + '<span class="c-tip">' + tip + '</span>';
+      } else {
+        span.textContent = name;
+      }
+      cs.appendChild(span);
+    });
+    document.getElementById('mConceptSection').style.display = 'block';
+  } else {
+    document.getElementById('mConceptSection').style.display = 'none';
+  }
+
+  document.getElementById('modalOverlay').classList.add('active');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeModal(e) {
+  if(e && e.target !== document.getElementById('modalOverlay')) return;
+  document.getElementById('modalOverlay').classList.remove('active');
+  document.body.style.overflow = '';
+}
+
+document.addEventListener('keydown', function(e){
+  if(e.key === 'Escape') closeModal();
+});
+
+/* ===== Nav highlight ===== */
+(function(){
+  var secs = document.querySelectorAll('.sec-anchor');
+  var links = document.querySelectorAll('.nav-link');
+  window.addEventListener('scroll', function(){
+    var cur = '';
+    secs.forEach(function(s){ if(window.scrollY >= s.offsetTop - 70) cur = s.id; });
+    links.forEach(function(l){ l.classList.remove('active'); if(l.getAttribute('href')==='#'+cur) l.classList.add('active'); });
+  });
+  /* Card fade-in */
+  if('IntersectionObserver' in window){
+    var obs = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){ if(e.isIntersecting){ e.target.style.animationPlayState='running'; obs.unobserve(e.target); } });
+    }, {threshold:0.1});
+    document.querySelectorAll('.card').forEach(function(c){ obs.observe(c); });
+  }
+})();
+</script>
+</body>
+</html>
