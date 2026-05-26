@@ -2,13 +2,14 @@ name: AstroDaily 每日自动更新
 
 on:
   schedule:
+    # 每天早上 9:00 北京时间 = 凌晨 1:00 UTC
     - cron: '0 1 * * *'
   workflow_dispatch:
 
 jobs:
   update-and-deploy:
     runs-on: ubuntu-latest
-    
+
     steps:
     - name: 检出代码
       uses: actions/checkout@v4
@@ -41,24 +42,7 @@ jobs:
         SURGE_TOKEN: ${{ secrets.SURGE_TOKEN }}
       run: |
         npm install -g surge
-        mkdir -p deploy
-        cp -r astro-daily-archives/ deploy/
-        cp index.html deploy/
-        LATEST=$(ls -t astro-daily-archives/astro-daily-*.html 2>/dev/null | head -1)
-        if grep -q "今日暂无新论文" "$LATEST" 2>/dev/null; then
-          for f in $(ls -t astro-daily-archives/astro-daily-*.html 2>/dev/null); do
-            if ! grep -q "今日暂无新论文" "$f" 2>/dev/null; then
-              cp "$f" deploy/index.html
-              echo "valid: $f"
-              break
-            fi
-          done
-        else
-          cp "$LATEST" deploy/index.html
-          echo "latest: $LATEST"
-        fi
-        ls -la deploy/
-        surge --project ./deploy --domain astro-daily-latest.surge.sh
+        surge --project ./ --domain astro-daily-latest.surge.sh
 
     - name: 输出访问地址
       run: echo "https://astro-daily-latest.surge.sh"
