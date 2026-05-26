@@ -33,7 +33,7 @@ jobs:
       run: |
         git config user.name "AstroDaily Bot"
         git config user.email "bot@astrodaily.local"
-        git add astro-daily-archives/ index.html || true
+        git add index.html || true
         git diff --cached --quiet || (git commit -m "更新日报 $(date +%Y-%m-%d)" && git push) || true
 
     - name: 部署到 Surge
