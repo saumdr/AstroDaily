@@ -2,103 +2,1111 @@
 <html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>AstroDaily · 天体物理日报存档</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🌌 AstroDaily · 天体物理日报 · 2026-05-25</title>
 <style>
 :root {
-  --bg: #0a0e1a; --surface: #111827; --card: #1a2236;
-  --accent: #6366f1; --accent2: #8b5cf6; --gold: #f59e0b;
-  --text: #e2e8f0; --text-dim: #94a3b8;
+  --bg: #0a0e1a;
+  --surface: #111827;
+  --card: #1a2236;
+  --modal-bg: #0f1629;
+  --accent: #6366f1;
+  --accent2: #8b5cf6;
+  --gold: #f59e0b;
+  --green: #22c55e;
+  --text: #e2e8f0;
+  --text-dim: #94a3b8;
+  --border: rgba(99,102,241,0.18);
+  --radius: 14px;
   --font: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
 }
 * { margin:0; padding:0; box-sizing:border-box; }
-body { font-family:var(--font); background:var(--bg); color:var(--text); min-height:100vh; }
+body { font-family:var(--font); background:var(--bg); color:var(--text); line-height:1.6; min-height:100vh; }
 
+/* ===== HERO ===== */
 .hero {
   background: linear-gradient(160deg, #0f172a 0%, #1e1b4b 40%, #312e81 100%);
-  padding: 56px 24px 44px; text-align:center; position:relative; overflow:hidden;
+  padding: 48px 24px 40px; position: relative; overflow: hidden;
 }
 .hero::before {
-  content:''; position:absolute; top:-30%; left:50%; transform:translateX(-50%);
-  width:600px; height:600px;
-  background:radial-gradient(circle, rgba(99,102,241,0.1), transparent 70%);
+  content:''; position:absolute; top:-40%; right:-15%;
+  width:500px; height:500px;
+  background: radial-gradient(circle, rgba(99,102,241,0.15), transparent 70%);
   border-radius:50%;
 }
-.hero-inner { position:relative; z-index:1; }
+.hero-inner { max-width:1100px; margin:0 auto; position:relative; z-index:1; }
+.hero-date { font-size:13px; color:var(--text-dim); letter-spacing:2px; margin-bottom:6px; }
 .hero-title {
   font-size:36px; font-weight:800;
-  background:linear-gradient(90deg, #a5b4fc, #c084fc, #f59e0b);
+  background: linear-gradient(90deg, #a5b4fc, #c084fc, #f59e0b);
   -webkit-background-clip:text; -webkit-text-fill-color:transparent;
-  margin-bottom:8px;
+  margin-bottom:4px;
 }
-.hero-sub { font-size:15px; color:var(--text-dim); }
+.hero-sub { font-size:15px; color:var(--text-dim); margin-bottom:28px; }
+.hero-stats { display:flex; gap:12px; flex-wrap:wrap; }
+.hero-stat {
+  background:rgba(99,102,241,0.12); border:1px solid var(--border);
+  border-radius:10px; padding:12px 18px; flex:1; min-width:100px;
+}
+.hero-stat-num { font-size:26px; font-weight:800; color:var(--gold); line-height:1.1; }
+.hero-stat-label { font-size:12px; color:var(--text-dim); margin-top:2px; }
 
-.main { max-width:900px; margin:0 auto; padding:40px 16px 60px; }
+/* ===== NAV ===== */
+.nav-bar {
+  background:var(--surface); border-bottom:1px solid var(--border);
+  position:sticky; top:0; z-index:100; box-shadow:0 2px 12px rgba(0,0,0,0.4);
+}
+.nav-inner { max-width:1100px; margin:0 auto; display:flex; gap:4px; padding:8px 12px; overflow-x:auto; }
+.nav-link {
+  padding:6px 14px; border-radius:20px; font-size:12px; font-weight:600;
+  color:var(--text-dim); text-decoration:none; white-space:nowrap; transition:all 0.2s;
+}
+.nav-link:hover, .nav-link.active {
+  background:linear-gradient(135deg, var(--accent), var(--accent2)); color:#fff;
+}
+
+/* ===== MAIN ===== */
+.main { max-width:1100px; margin:0 auto; padding:32px 16px 60px; }
+.sec-anchor { scroll-margin-top:56px; }
 .section-head {
-  font-size:20px; font-weight:700; margin-bottom:20px; padding-bottom:10px;
-  border-bottom:2px solid var(--accent); display:flex; align-items:center; gap:10px;
+  display:flex; align-items:center; gap:12px;
+  margin:36px 0 18px; padding-bottom:10px;
+  border-bottom:2px solid transparent;
+  border-image:linear-gradient(90deg, var(--accent), var(--accent2)) 1;
 }
-.grid { display:grid; grid-template-columns:repeat(auto-fill, minmax(260px,1fr)); gap:14px; }
+.section-icon {
+  width:36px; height:36px; border-radius:10px;
+  display:flex; align-items:center; justify-content:center;
+  font-size:18px;
+  background:linear-gradient(135deg, var(--accent), var(--accent2));
+  flex-shrink:0;
+}
+.section-head h2 { font-size:18px; font-weight:700; }
+.section-head .count {
+  margin-left:auto;
+  background:linear-gradient(135deg, var(--accent), var(--accent2));
+  color:#fff; font-size:11px; font-weight:700;
+  padding:3px 10px; border-radius:12px;
+}
 
-.idx-card {
-  display:block; background:var(--card); border-radius:12px; padding:18px 20px;
-  text-decoration:none; color:var(--text);
-  border:1px solid rgba(99,102,241,0.15);
-  transition:transform 0.2s, box-shadow 0.2s, border-color 0.2s;
+/* ===== CARDS (Compact Front) ===== */
+.card-grid { display:grid; grid-template-columns:repeat(auto-fill, minmax(300px,1fr)); gap:14px; }
+.card {
+  background:var(--card); border-radius:var(--radius);
+  box-shadow:0 2px 12px rgba(0,0,0,0.3);
+  border:1px solid var(--border);
+  opacity:0; transform:translateY(20px);
+  animation:fadeUp 0.5s ease forwards;
+  transition:transform 0.25s, box-shadow 0.25s, border-color 0.25s;
+  cursor:pointer; overflow:hidden;
+  position:relative;
 }
-.idx-card:hover {
-  transform:translateY(-3px); box-shadow:0 6px 20px rgba(99,102,241,0.2);
-  border-color:var(--accent);
+.card:hover {
+  transform:translateY(-4px);
+  box-shadow:0 8px 24px rgba(99,102,241,0.2);
+  border-color:rgba(99,102,241,0.4);
 }
-.idx-date { font-size:15px; font-weight:700; margin-bottom:4px; }
-.idx-file { font-size:11px; color:var(--text-dim); font-family:monospace; }
+@keyframes fadeUp { to { opacity:1; transform:translateY(0); } }
 
+.card-body { padding:18px; }
+.card-header { display:flex; align-items:flex-start; gap:10px; margin-bottom:10px; }
+.card-num {
+  background:linear-gradient(135deg, var(--accent), var(--accent2));
+  color:#fff; font-size:11px; font-weight:800;
+  width:26px; height:26px; border-radius:8px;
+  display:flex; align-items:center; justify-content:center;
+  flex-shrink:0; margin-top:2px;
+}
+.card-title { font-size:14px; font-weight:700; line-height:1.45; color:var(--text); }
+.card-meta { font-size:11px; color:var(--text-dim); margin-bottom:8px; }
+
+/* One-line brief */
+.card-brief {
+  font-size:12.5px; color:var(--text-dim); line-height:1.6;
+  margin-bottom:10px;
+  display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden;
+}
+
+/* Concept chips on front */
+.card-front-chips { display:flex; flex-wrap:wrap; gap:5px; }
+.c-chip {
+  font-size:10px; font-weight:600;
+  background:rgba(99,102,241,0.12); color:#a5b4fc;
+  border:1px solid rgba(99,102,241,0.25);
+  padding:2px 8px; border-radius:6px;
+}
+
+/* Expand hint */
+.card-hint {
+  text-align:center; font-size:11px; color:var(--text-dim);
+  padding:8px; background:rgba(99,102,241,0.06);
+  border-top:1px solid var(--border);
+}
+.card:hover .card-hint { color:var(--gold); }
+
+/* ===== MODAL ===== */
+.modal-overlay {
+  position:fixed; inset:0;
+  background:rgba(0,0,0,0.75);
+  backdrop-filter:blur(6px);
+  z-index:1000;
+  display:none; align-items:center; justify-content:center;
+  padding:20px;
+}
+.modal-overlay.active { display:flex; }
+.modal-box {
+  background:var(--modal-bg);
+  border:1px solid var(--border);
+  border-radius:var(--radius);
+  width:100%; max-width:720px;
+  max-height:85vh; overflow-y:auto;
+  box-shadow:0 20px 60px rgba(0,0,0,0.5);
+  animation:modalIn 0.3s ease;
+}
+@keyframes modalIn {
+  from { opacity:0; transform:translateY(30px) scale(0.96); }
+  to   { opacity:1; transform:translateY(0) scale(1); }
+}
+.modal-header {
+  padding:24px 24px 16px;
+  border-bottom:1px solid var(--border);
+  position:sticky; top:0; background:var(--modal-bg); z-index:2;
+}
+.modal-close {
+  position:absolute; top:14px; right:18px;
+  width:32px; height:32px; border-radius:8px;
+  background:rgba(255,255,255,0.08);
+  border:1px solid var(--border);
+  color:var(--text-dim); font-size:20px; cursor:pointer;
+  display:flex; align-items:center; justify-content:center;
+  transition:all 0.2s;
+}
+.modal-close:hover { background:rgba(230,57,70,0.2); color:#fff; border-color:rgba(230,57,70,0.4); }
+.modal-title { font-size:18px; font-weight:700; line-height:1.45; padding-right:40px; }
+.modal-meta { font-size:12px; color:var(--text-dim); margin-top:8px; }
+
+.modal-body { padding:20px 24px 28px; }
+.modal-section { margin-bottom:22px; }
+.modal-section:last-child { margin-bottom:0; }
+.modal-label {
+  font-size:11px; font-weight:700; letter-spacing:1.5px; text-transform:uppercase;
+  color:var(--gold); margin-bottom:8px; display:flex; align-items:center; gap:6px;
+}
+.modal-text { font-size:13.5px; color:var(--text-dim); line-height:1.7; }
+
+/* Key findings */
+.kf-list { list-style:none; }
+.kf-list li {
+  position:relative; padding-left:22px; margin-bottom:8px;
+  font-size:13px; color:var(--text); line-height:1.65;
+}
+.kf-list li::before {
+  content:'✦'; position:absolute; left:0; top:1px;
+  color:var(--green); font-size:12px;
+}
+
+/* Concept badges in modal */
+.modal-concepts { display:flex; flex-wrap:wrap; gap:8px; }
+.c-badge {
+  font-size:12px; font-weight:600;
+  background:rgba(245,158,11,0.12); color:var(--gold);
+  border:1px solid rgba(245,158,11,0.3);
+  padding:5px 12px; border-radius:8px;
+  cursor:help; transition:background 0.2s;
+}
+.c-badge:hover { background:rgba(245,158,11,0.25); }
+.c-badge .c-tip {
+  display:block; font-size:10.5px; color:#d4a84b; margin-top:2px; font-weight:400; line-height:1.4;
+}
+
+/* Link button */
+.modal-link {
+  display:inline-flex; align-items:center; gap:8px;
+  background:linear-gradient(135deg, var(--accent), var(--accent2));
+  color:#fff; font-size:13px; font-weight:600;
+  padding:10px 20px; border-radius:10px;
+  text-decoration:none; transition:opacity 0.2s, transform 0.2s;
+}
+.modal-link:hover { opacity:0.9; transform:translateY(-1px); }
+
+/* ===== FOOTER ===== */
 .footer {
-  text-align:center; padding:20px; font-size:12px; color:var(--text-dim);
-  border-top:1px solid rgba(99,102,241,0.15); background:var(--surface);
+  text-align:center; padding:20px 16px 28px;
+  font-size:12px; color:var(--text-dim);
+  border-top:1px solid var(--border); background:var(--surface);
 }
 .footer a { color:var(--gold); text-decoration:none; }
 
+/* ===== Responsive ===== */
 @media (max-width:640px) {
-  .hero { padding:36px 16px 28px; }
+  .hero { padding:32px 16px 24px; }
   .hero-title { font-size:24px; }
-  .grid { grid-template-columns:1fr; }
+  .hero-stat { min-width:0; flex:1 1 40%; padding:10px 12px; }
+  .hero-stat-num { font-size:20px; }
+  .card-grid { grid-template-columns:1fr; }
+  .modal-box { max-height:90vh; }
+  .modal-header { padding:18px 16px 12px; }
+  .modal-body { padding:16px; }
 }
+
+/* ===== Lang Toggle ===== */
+.lang-toggle {
+  margin-left:auto;
+  background:linear-gradient(135deg, var(--accent), var(--accent2));
+  color:#fff; border:none; border-radius:20px;
+  padding:6px 16px; font-size:12px; font-weight:700;
+  cursor:pointer; transition:opacity 0.2s;
+  flex-shrink:0;
+}
+.lang-toggle:hover { opacity:0.85; }
 </style>
 </head>
 <body>
 
+<!-- HERO -->
 <div class="hero">
   <div class="hero-inner">
-    <div class="hero-title">🌌 AstroDaily</div>
-    <div class="hero-sub">天体物理日报存档 · 共 3 期</div>
+    <div class="hero-date">AstroDaily · arXiv astro-ph 每日简报</div>
+    <div class="hero-title">🌌 2026-05-25 天体物理日报</div>
+    <div class="hero-sub">捕捉昨日 arXiv 最值得关注的天体物理研究动态 · 点击卡片查看完整内容</div>
+    <div class="hero-stats">
+      <div class="hero-stat"><div class="hero-stat-num">30</div><div class="hero-stat-label">全部论文</div></div>
+        <div class="hero-stat"><div class="hero-stat-num" style="color:#a5b4fc">9</div><div class="hero-stat-label">星系与宇宙学</div></div>
+  <div class="hero-stat"><div class="hero-stat-num" style="color:#34d399">11</div><div class="hero-stat-label">恒星与系外行星</div></div>
+  <div class="hero-stat"><div class="hero-stat-num" style="color:#f87171">8</div><div class="hero-stat-label">高能天体物理</div></div>
+  <div class="hero-stat"><div class="hero-stat-num" style="color:#fbbf24">2</div><div class="hero-stat-label">仪器与方法</div></div>
+
+    </div>
   </div>
 </div>
 
+<!-- NAV -->
+<nav class="nav-bar"><div class="nav-inner">
+    <a class="nav-link" href="#sec-星系与宇宙学">星系与宇宙学 (9)</a>
+  <a class="nav-link" href="#sec-恒星与系外行星">恒星与系外行星 (11)</a>
+  <a class="nav-link" href="#sec-高能天体物理">高能天体物理 (8)</a>
+  <a class="nav-link" href="#sec-仪器与方法">仪器与方法 (2)</a>
+
+  <button class="lang-toggle" id="langToggle" onclick="toggleLang()">中文</button>
+</div></nav>
+
+<!-- MAIN -->
 <div class="main">
-  <div class="section-head">📚 往期日报</div>
-  <div class="grid">
-      <a class="idx-card" href="astro-daily-archives/astro-daily-2026-05-25.html">
-    <div class="idx-date">📅 2026 年 05 月 25 日</div>
-    <div class="idx-file">astro-daily-2026-05-25.html</div>
-  </a>
-  <a class="idx-card" href="astro-daily-archives/astro-daily-2026-05-24.html">
-    <div class="idx-date">📅 2026 年 05 月 24 日</div>
-    <div class="idx-file">astro-daily-2026-05-24.html</div>
-  </a>
-  <a class="idx-card" href="astro-daily-archives/astro-daily-2026-05-21.html">
-    <div class="idx-date">📅 2026 年 05 月 21 日</div>
-    <div class="idx-file">astro-daily-2026-05-21.html</div>
-  </a>
+<div class="sec-anchor" id="sec-星系与宇宙学"></div>
+<div class="section-head">
+  <div class="section-icon">🌌</div>
+  <h2>星系与宇宙学</h2>
+  <span class="count">9</span>
+</div>
+<div class="card-grid">
+<div class="card" style="animation-delay:0.00s" onclick="openModal(this)" data-en-title="Unifying Early and Late Dark Energy: Dynamical Requirements and Obstructions" data-en-summary="We investigate whether early- and late-time dark energy could arise from a single scalar field. Adopting a bottom-up perspective, we first identify the sequence of dynamical regimes that any unified scenario must traverse to account for both an early dark energy phase relevant for pre-recombination solutions of the Hubble tension and the late-time acceleration of the Universe. We derive the corresponding requirements on the scalar energy density and equation of state. We then adopt a complementary top-down perspective and translate these requirements into constraints on the phase-space structure of minimally coupled scalar fields with tracking-like dynamics. We show that satisfying all requirements necessitates a potential with three distinct slopes, arranged in a steep-steeper-shallow hierarchy. This conclusion remains unchanged in the presence of conformal couplings to dark matter. These results place strong constraints on attempts to construct unified models of early- and late-time dark energy. We discuss implications for model-building." data-title="Unifying Early and Late Dark Energy: Dynamical Requirements and Obstructions" data-summary="We investigate whether early- and late-time dark energy could arise from a single scalar field. Adopting a bottom-up perspective, we first identify the sequence of dynamical regimes that any unified scenario must traverse to account for both an early dark energy phase relevant for pre-recombination solutions of the Hubble tension and the late-time acceleration of the Universe. We derive the corresponding requirements on the scalar energy density and equation of state. We then adopt a complementary top-down perspective and translate these requirements into constraints on the phase-space structure of minimally coupled scalar fields with tracking-like dynamics. We show that satisfying all requirements necessitates a potential with three distinct slopes, arranged in a steep-steeper-shallow hierarchy. This conclusion remains unchanged in the presence of conformal couplings to dark matter. These results place strong constraints on attempts to construct unified models of early- and late-time dark energy. We discuss implications for model-building." data-meta="William Giarè、Jeremy Sakstein · 2026-05-25" data-keypoints="We investigate whether early- and late-time dark energy could arise from a single scalar field.|Adopting a bottom-up perspective, we first identify the sequence of dynamical regimes that any unified scenario must traverse to account for both an early dark energy phase relevant for pre-recombination solutions of the Hubble tension and the late-time acceleration of the Universe.|We derive the corresponding requirements on the scalar energy density and equation of state." data-concepts="" data-url="http://arxiv.org/abs/2605.26116v1" data-layman="这篇论文研究暗物质——宇宙中看不见但占据大部分质量的神秘物质。研究发现：首次获得了相关观测证据。这是理解宇宙组成和命运的关键，暗物质和暗能量占据了宇宙总能量的95%以上就像通过观察烟雾的飘动来推断看不见的风的方向，天文学家也是通过各种蛛丝马迹来探索宇宙的奥秘。">
+  <div class="card-body">
+    <div class="card-header">
+      <div class="card-num">1</div>
+      <div class="card-title translatable" data-en="Unifying Early and Late Dark Energy: Dynamical Requirements and Obstructions">Unifying Early and Late Dark Energy: Dynamical Requirements and Obstructions</div>
+    </div>
+    <div class="card-meta">William Giarè、Jeremy Sakstein · 2026-05-25</div>
+    <div class="card-brief translatable" data-en="We investigate whether early- and late-time dark energy could arise from a single scalar field. Adopting a bottom-up perspective, we first identify the sequence of dynamical regimes that any unified scenario must traverse to account for both an early dark energy phase relevant for pre-recombination solutions of the Hubble tension and the late-time acceleration of the Universe">We investigate whether early- and late-time dark energy could arise from a single scalar field. Adopting a bottom-up perspective, we first identify the sequence of dynamical regimes that any unified scenario must traverse to account for both an early dark energy phase relevant for pre-recombination solutions of the Hubble tension and the late-time acceleration of the Universe</div>
+    <div class="card-hint">点击查看完整内容</div>
+  </div>
+</div>
+<div class="card" style="animation-delay:0.04s" onclick="openModal(this)" data-en-title="GRB 260310A / SN 2026fgk: A Multi-Wavelength Study of a Nearby Underluminous Long GRB and SN with a Complex Afterglow" data-en-summary="We present a comprehensive multi-wavelength study of GRB 260310A / SN 2026fgk, a nearby ($z=0.153$), long-duration gamma-ray burst (GRB) with an exceptionally underluminous prompt $γ$-ray emission and a Comptonized spectrum. It is located at the edge of a blue host galaxy with a projected distance of 15 kpc, which is one of the largest offsets reported for a long GRB. The bright optical afterglow, with dense coverage from COLIBRÍ, likely peaked at a few to several hours post-burst, followed by a shallow decay not expected from canonical afterglow models. Both the optical and X-ray light curves show a brief chromatic plateau from $4-7$ days and a more standard decay thereafter only terminated with a rebrightening at $\sim20$ days. We demonstrate that this feature is best described by a combination of emission from the Ic-BL supernova, as identified in GTC spectra, and a late-time refreshed shock. The broadband optical to X-ray spectral energy distribution is well described by synchrotron emission from the forward shock, while the radio observations demand an additional emission component. We model the afterglow using (a) an on-axis uniform jet from a dirty fireball with late-time energy injection and (b) a misaligned jet with power-law angular structure, both having material emitting along our line-of-sight (LOS) moving with an initial Lorentz factor of $Γ_0\sim20-35$. Had this GRB occurred at a more typical redshift ($z\gtrsim0.5$), its prompt emission would likely have remained undetected by current $γ$-ray monitors while its optical afterglow would still have been readily detectable, placing it observationally among orphan afterglows or gamma-ray quiet fast X-ray transients." data-title="GRB 260310A / SN 2026fgk: A Multi-Wavelength Study of a Nearby Underluminous Long GRB and SN with a Complex Afterglow" data-summary="We present a comprehensive multi-wavelength study of GRB 260310A / SN 2026fgk, a nearby ($z=0.153$), long-duration gamma-ray burst (GRB) with an exceptionally underluminous prompt $γ$-ray emission and a Comptonized spectrum. It is located at the edge of a blue host galaxy with a projected distance of 15 kpc, which is one of the largest offsets reported for a long GRB. The bright optical afterglow, with dense coverage from COLIBRÍ, likely peaked at a few to several hours post-burst, followed by a shallow decay not expected from canonical afterglow models. Both the optical and X-ray light curves show a brief chromatic plateau from $4-7$ days and a more standard decay thereafter only terminated with a rebrightening at $\sim20$ days. We demonstrate that this feature is best described by a combination of emission from the Ic-BL supernova, as identified in GTC spectra, and a late-time refreshed shock. The broadband optical to X-ray spectral energy distribution is well described by synchrotron emission from the forward shock, while the radio observations demand an additional emission component. We model the afterglow using (a) an on-axis uniform jet from a dirty fireball with late-time energy injection and (b) a misaligned jet with power-law angular structure, both having material emitting along our line-of-sight (LOS) moving with an initial Lorentz factor of $Γ_0\sim20-35$. Had this GRB occurred at a more typical redshift ($z\gtrsim0.5$), its prompt emission would likely have remained undetected by current $γ$-ray monitors while its optical afterglow would still have been readily detectable, placing it observationally among orphan afterglows or gamma-ray quiet fast X-ray transients." data-meta="Ramandeep Gill、Rosa L. Becerra、Antonio de Ugarte Postigo 等 · 2026-05-25" data-keypoints="We present a comprehensive multi-wavelength study of GRB 260310A / SN 2026fgk, a nearby ($z=0.153$), long-duration gamma-ray burst (GRB) with an exceptionally underluminous prompt $γ$-ray emission and a Comptonized spectrum.|It is located at the edge of a blue host galaxy with a projected distance of 15 kpc, which is one of the largest offsets reported for a long GRB.|The bright optical afterglow, with dense coverage from COLIBRÍ, likely peaked at a few to several hours post-burst, followed by a shallow decay not expected from canonical afterglow models." data-concepts="" data-url="http://arxiv.org/abs/2605.26091v1" data-layman="这篇论文研究超新星爆发——恒星死亡时的剧烈爆炸，亮度可超过整个星系。科学家通过观测的方法，用望远镜收集来自宇宙的光信号，深入探索了其物理机制。星系是宇宙的基本建筑单元，理解它们的演化就是理解宇宙的演化就像考古学家通过挖掘化石来还原远古生物的样子，天文学家也是通过各种蛛丝马迹来探索宇宙的奥秘。">
+  <div class="card-body">
+    <div class="card-header">
+      <div class="card-num">2</div>
+      <div class="card-title translatable" data-en="GRB 260310A / SN 2026fgk: A Multi-Wavelength Study of a Nearby Underluminous Long GRB and SN with a Complex Afterglow">GRB 260310A / SN 2026fgk: A Multi-Wavelength Study of a Nearby Underluminous Long GRB and SN with a Complex Afterglow</div>
+    </div>
+    <div class="card-meta">Ramandeep Gill、Rosa L. Becerra、Antonio de Ugarte Postigo 等 · 2026-05-25</div>
+    <div class="card-brief translatable" data-en="We present a comprehensive multi-wavelength study of GRB 260310A / SN 2026fgk, a nearby ($z=0.153$), long-duration gamma-ray burst (GRB) with an exceptionally underluminous prompt $γ$-ray emission and a Comptonized spectrum. It is located at the edge of a blue host galaxy with a projected distance of 15 kpc, which is one of the largest offsets reported for a long GRB">We present a comprehensive multi-wavelength study of GRB 260310A / SN 2026fgk, a nearby ($z=0.153$), long-duration gamma-ray burst (GRB) with an exceptionally underluminous prompt $γ$-ray emission and a Comptonized spectrum. It is located at the edge of a blue host galaxy with a projected distance of 15 kpc, which is one of the largest offsets reported for a long GRB</div>
+    <div class="card-hint">点击查看完整内容</div>
+  </div>
+</div>
+<div class="card" style="animation-delay:0.08s" onclick="openModal(this)" data-en-title="Early- and Late-Time Modifications to $Λ$CDM: Implications for the Hubble Tension" data-en-summary="We investigate an extension of $Λ$CDM in which a fraction of cold Dark Matter (DM) decays into invisible dark radiation (DR) around the radiation-matter equality epoch, together with a non-standard dark energy (DE) equation of state characterized by $w_0$. The decaying DM component modifies the early expansion history and reduces the sound horizon at baryon drag, while the DE alters the expansion rate at the late times. A comprehensive analysis combining \texttt{Planck 2018+ACT DR6+DESI DR2+CMB lensing} datasets has been carried out to explore the viability of this framework in addressing the $H_0$ tension. This model yields a Hubble constant of $H_0 = 69.83 \pm 0.98~\mathrm{km\,s^{-1}\,Mpc^{-1}}$, reducing the discrepancy with SH0ES measurement to ${\sim}2.2σ$ and local distance network measurement (H0DN) to ${\sim}2.9σ$. Further, considering \texttt{SH0ES} and \texttt{Pantheon+}, the inferred value of the Hubble constant becomes $H_0 = 70.20 \pm 0.66~\mathrm{km\,s^{-1}\,Mpc^{-1}}$. The Bayesian evidence suggests that this framework offers a fit to the relevant cosmological datasets at a statistically similar level as $Λ$CDM. It is observed that correlated early- and late-time modifications to the cosmological expansion history provide a more effective route to reducing the $H_0$ tension than either class of modification alone." data-title="Early- and Late-Time Modifications to $Λ$CDM: Implications for the Hubble Tension" data-summary="We investigate an extension of $Λ$CDM in which a fraction of cold Dark Matter (DM) decays into invisible dark radiation (DR) around the radiation-matter equality epoch, together with a non-standard dark energy (DE) equation of state characterized by $w_0$. The decaying DM component modifies the early expansion history and reduces the sound horizon at baryon drag, while the DE alters the expansion rate at the late times. A comprehensive analysis combining \texttt{Planck 2018+ACT DR6+DESI DR2+CMB lensing} datasets has been carried out to explore the viability of this framework in addressing the $H_0$ tension. This model yields a Hubble constant of $H_0 = 69.83 \pm 0.98~\mathrm{km\,s^{-1}\,Mpc^{-1}}$, reducing the discrepancy with SH0ES measurement to ${\sim}2.2σ$ and local distance network measurement (H0DN) to ${\sim}2.9σ$. Further, considering \texttt{SH0ES} and \texttt{Pantheon+}, the inferred value of the Hubble constant becomes $H_0 = 70.20 \pm 0.66~\mathrm{km\,s^{-1}\,Mpc^{-1}}$. The Bayesian evidence suggests that this framework offers a fit to the relevant cosmological datasets at a statistically similar level as $Λ$CDM. It is observed that correlated early- and late-time modifications to the cosmological expansion history provide a more effective route to reducing the $H_0$ tension than either class of modification alone." data-meta="Rahul Dhyani、Purba Mukherjee、Arindam Chatterjee 等 · 2026-05-25" data-keypoints="We investigate an extension of $Λ$CDM in which a fraction of cold Dark Matter (DM) decays into invisible dark radiation (DR) around the radiation-matter equality epoch, together with a non-standard dark energy (DE) equation of state characterized by $w_0$.|The decaying DM component modifies the early expansion history and reduces the sound horizon at baryon drag, while the DE alters the expansion rate at the late times.|A comprehensive analysis combining \texttt{Planck 2018+ACT DR6+DESI DR2+CMB lensing} datasets has been carried out to explore the viability of this framework in addressing the $H_0$ tension." data-concepts="" data-url="http://arxiv.org/abs/2605.26050v1" data-layman="这篇论文研究暗物质——宇宙中看不见但占据大部分质量的神秘物质。科学家通过观测的方法，用望远镜收集来自宇宙的光信号，找到了支持某种理论的新证据。这是理解宇宙组成和命运的关键，暗物质和暗能量占据了宇宙总能量的95%以上就像通过观察烟雾的飘动来推断看不见的风的方向，天文学家也是通过各种蛛丝马迹来探索宇宙的奥秘。">
+  <div class="card-body">
+    <div class="card-header">
+      <div class="card-num">3</div>
+      <div class="card-title translatable" data-en="Early- and Late-Time Modifications to $Λ$CDM: Implications for the Hubble Tension">Early- and Late-Time Modifications to $Λ$CDM: Implications for the Hubble Tension</div>
+    </div>
+    <div class="card-meta">Rahul Dhyani、Purba Mukherjee、Arindam Chatterjee 等 · 2026-05-25</div>
+    <div class="card-brief translatable" data-en="We investigate an extension of $Λ$CDM in which a fraction of cold Dark Matter (DM) decays into invisible dark radiation (DR) around the radiation-matter equality epoch, together with a non-standard dark energy (DE) equation of state characterized by $w_0$. The decaying DM component modifies the early expansion history and reduces the sound horizon at baryon drag, while the DE alters the expansion rate at the late times">We investigate an extension of $Λ$CDM in which a fraction of cold Dark Matter (DM) decays into invisible dark radiation (DR) around the radiation-matter equality epoch, together with a non-standard dark energy (DE) equation of state characterized by $w_0$. The decaying DM component modifies the early expansion history and reduces the sound horizon at baryon drag, while the DE alters the expansion rate at the late times</div>
+    <div class="card-hint">点击查看完整内容</div>
+  </div>
+</div>
+<div class="card" style="animation-delay:0.12s" onclick="openModal(this)" data-en-title="Polarized Anisotropic Stochastic Gravitational Wave Background Search with Ground-Based Detector Networks" data-en-summary="Gravitational waves admit a Stokes decomposition into intensity ($I$), circular polarization ($V$), and linear polarization ($Q$, $U$), analogous to Cosmic Microwave Background (CMB) polarimetry. We implement a full-Stokes maximum-likelihood SGWB map-making analysis for ground-based detector networks, promoting the standard cross-correlation data products used in existing pipelines to a joint reconstruction of $I$, $V$, $Q$, $U$. Applied to LVK O3 data, we constrain the polarized angular spectra $C^{VV}_\ell$, $C^{EE}_\ell$, $C^{BB}_\ell$ and $|C^{IV}_\ell|$. We show that an intensity-only model is biased when polarized sky components are present, since the detector-network Fisher inner product does not generally make the Stokes responses orthogonal. For transient CBC foregrounds, polarized shot noise is not parametrically suppressed relative to ordinary CBC intensity shot noise. The full Stokes framework separates the Stokes sectors while providing access to polarized anisotropies invisible to conventional intensity-only searches." data-title="Polarized Anisotropic Stochastic Gravitational Wave Background Search with Ground-Based Detector Networks" data-summary="Gravitational waves admit a Stokes decomposition into intensity ($I$), circular polarization ($V$), and linear polarization ($Q$, $U$), analogous to Cosmic Microwave Background (CMB) polarimetry. We implement a full-Stokes maximum-likelihood SGWB map-making analysis for ground-based detector networks, promoting the standard cross-correlation data products used in existing pipelines to a joint reconstruction of $I$, $V$, $Q$, $U$. Applied to LVK O3 data, we constrain the polarized angular spectra $C^{VV}_\ell$, $C^{EE}_\ell$, $C^{BB}_\ell$ and $|C^{IV}_\ell|$. We show that an intensity-only model is biased when polarized sky components are present, since the detector-network Fisher inner product does not generally make the Stokes responses orthogonal. For transient CBC foregrounds, polarized shot noise is not parametrically suppressed relative to ordinary CBC intensity shot noise. The full Stokes framework separates the Stokes sectors while providing access to polarized anisotropies invisible to conventional intensity-only searches." data-meta="Töre Boybeyi、Vuk Mandic · 2026-05-25" data-keypoints="Gravitational waves admit a Stokes decomposition into intensity ($I$), circular polarization ($V$), and linear polarization ($Q$, $U$), analogous to Cosmic Microwave Background (CMB) polarimetry.|We implement a full-Stokes maximum-likelihood SGWB map-making analysis for ground-based detector networks, promoting the standard cross-correlation data products used in existing pipelines to a joint reconstruction of $I$, $V$, $Q$, $U$.|Applied to LVK O3 data, we constrain the polarized angular spectra $C^{VV}_\ell$, $C^{EE}_\ell$, $C^{BB}_\ell$ and $|C^{IV}_\ell|$." data-concepts="" data-url="http://arxiv.org/abs/2605.25772v1" data-layman="这篇论文研究引力波——时空的涟漪，像石头扔进水面产生的波纹。科学家通过观测的方法，用望远镜收集来自宇宙的光信号，对现有理论模型提出了更精确的限制。引力波为人类打开了一扇全新的观测宇宙的窗口，让我们能&#x27;听&#x27;到宇宙的动静就像通过水面涟漪来推断水下发生了什么，天文学家也是通过各种蛛丝马迹来探索宇宙的奥秘。">
+  <div class="card-body">
+    <div class="card-header">
+      <div class="card-num">4</div>
+      <div class="card-title translatable" data-en="Polarized Anisotropic Stochastic Gravitational Wave Background Search with Ground-Based Detector Networks">Polarized Anisotropic Stochastic Gravitational Wave Background Search with Ground-Based Detector Networks</div>
+    </div>
+    <div class="card-meta">Töre Boybeyi、Vuk Mandic · 2026-05-25</div>
+    <div class="card-brief translatable" data-en="Gravitational waves admit a Stokes decomposition into intensity ($I$), circular polarization ($V$), and linear polarization ($Q$, $U$), analogous to Cosmic Microwave Background (CMB) polarimetry. We implement a full-Stokes maximum-likelihood SGWB map-making analysis for ground-based detector networks, promoting the standard cross-correlation data products used in existing pipelines to a joint reconstruction of $I$, $V$, $Q$, $U$">Gravitational waves admit a Stokes decomposition into intensity ($I$), circular polarization ($V$), and linear polarization ($Q$, $U$), analogous to Cosmic Microwave Background (CMB) polarimetry. We implement a full-Stokes maximum-likelihood SGWB map-making analysis for ground-based detector networks, promoting the standard cross-correlation data products used in existing pipelines to a joint reconstruction of $I$, $V$, $Q$, $U$</div>
+    <div class="card-hint">点击查看完整内容</div>
+  </div>
+</div>
+<div class="card" style="animation-delay:0.16s" onclick="openModal(this)" data-en-title="Reassessing high-energy emission correlations in gamma-ray bursts using a large, homogeneous sample of X-ray afterglows" data-en-summary="Gamma-ray bursts (GRBs) show diverse X-ray afterglow light-curves, including breaks and plateaus, whose physical origins remain debated. Previous claims linked high-energy ($E \ge 100$ MeV) detection to X-ray afterglow complexity or plateau incidence, but they were often based on small or heterogeneous samples. We present a large-scale, uniform, model-independent analysis of the complete Swift-XRT GRB afterglow catalog, including more than 1400 events. Our automated pipeline performs flare removal and segmented power-law fitting consistently across the sample. We find that both light-curve complexity and plateau incidence are strongly governed by the XRT observation start time, $t_{XRT}$. Apparent correlations between high-energy emission and X-ray morphology arise when $t_{XRT}$ is ignored, but vanish when the sample is stratified or controlled for this variable. X-ray complexity and plateaus are therefore not directly coupled to high-energy detectability, and early X-ray morphology is not predictive of high-energy emission. These results resolve conflicting claims in the literature and show that controlling for $t_{XRT}$ is essential in large-sample GRB studies. The automated pipeline provides a reproducible basis for future analyses of GRB afterglows from Swift and upcoming missions such as SVOM, Einstein Probe, and THESEUS." data-title="Reassessing high-energy emission correlations in gamma-ray bursts using a large, homogeneous sample of X-ray afterglows" data-summary="Gamma-ray bursts (GRBs) show diverse X-ray afterglow light-curves, including breaks and plateaus, whose physical origins remain debated. Previous claims linked high-energy ($E \ge 100$ MeV) detection to X-ray afterglow complexity or plateau incidence, but they were often based on small or heterogeneous samples. We present a large-scale, uniform, model-independent analysis of the complete Swift-XRT GRB afterglow catalog, including more than 1400 events. Our automated pipeline performs flare removal and segmented power-law fitting consistently across the sample. We find that both light-curve complexity and plateau incidence are strongly governed by the XRT observation start time, $t_{XRT}$. Apparent correlations between high-energy emission and X-ray morphology arise when $t_{XRT}$ is ignored, but vanish when the sample is stratified or controlled for this variable. X-ray complexity and plateaus are therefore not directly coupled to high-energy detectability, and early X-ray morphology is not predictive of high-energy emission. These results resolve conflicting claims in the literature and show that controlling for $t_{XRT}$ is essential in large-sample GRB studies. The automated pipeline provides a reproducible basis for future analyses of GRB afterglows from Swift and upcoming missions such as SVOM, Einstein Probe, and THESEUS." data-meta="A. A. Vigliano、F. Longo、Ž. Bošnjak · 2026-05-25" data-keypoints="Gamma-ray bursts (GRBs) show diverse X-ray afterglow light-curves, including breaks and plateaus, whose physical origins remain debated.|Previous claims linked high-energy ($E \ge 100$ MeV) detection to X-ray afterglow complexity or plateau incidence, but they were often based on small or heterogeneous samples.|We present a large-scale, uniform, model-independent analysis of the complete Swift-XRT GRB afterglow catalog, including more than 1400 events." data-concepts="" data-url="http://arxiv.org/abs/2605.25644v1" data-layman="这篇论文研究恒星——像太阳一样自身发光的天体。科学家通过观测的方法，用望远镜收集来自宇宙的光信号，深入探索了其物理机制。这一研究加深了我们对宇宙运行机制的理解就像考古学家通过挖掘化石来还原远古生物的样子，天文学家也是通过各种蛛丝马迹来探索宇宙的奥秘。">
+  <div class="card-body">
+    <div class="card-header">
+      <div class="card-num">5</div>
+      <div class="card-title translatable" data-en="Reassessing high-energy emission correlations in gamma-ray bursts using a large, homogeneous sample of X-ray afterglows">Reassessing high-energy emission correlations in gamma-ray bursts using a large, homogeneous sample of X-ray afterglows</div>
+    </div>
+    <div class="card-meta">A. A. Vigliano、F. Longo、Ž. Bošnjak · 2026-05-25</div>
+    <div class="card-brief translatable" data-en="Gamma-ray bursts (GRBs) show diverse X-ray afterglow light-curves, including breaks and plateaus, whose physical origins remain debated. Previous claims linked high-energy ($E \ge 100$ MeV) detection to X-ray afterglow complexity or plateau incidence, but they were often based on small or heterogeneous samples">Gamma-ray bursts (GRBs) show diverse X-ray afterglow light-curves, including breaks and plateaus, whose physical origins remain debated. Previous claims linked high-energy ($E \ge 100$ MeV) detection to X-ray afterglow complexity or plateau incidence, but they were often based on small or heterogeneous samples</div>
+    <div class="card-hint">点击查看完整内容</div>
+  </div>
+</div>
+<div class="card" style="animation-delay:0.20s" onclick="openModal(this)" data-en-title="Legacy analysis of Milky Way dwarf spheroidal satellite galaxies: an update" data-en-summary="Studies of Fermi-Large Area Telescope (LAT) data coincident with dwarf spheroidal satellite galaxies (dSphs) of the Milky Way (MW) have put the most stringent constraints on models of annihilating dark matter (DM) with candidate masses in the GeV-TeV range. Recent results found the presence of small, local significance excesses from these targets, at the 2-3 sigma level. However, these excesses disagree on the predicted properties of the DM candidate, and their significance vanishes when considering the correction factors for the number of trials. In this work, we apply key improvements to the analysis of the dSphs. We use stricter cuts on the data, implement a method to adaptively model the background, and assume an updated framework for DM annihilation. We find that our improved background modeling leads to a better agreement between the model and the data. This produces an increase in the local and global significance of the dSphs excess compared to previous studies. Finally, we find that the DM properties obtained in this work are less dependent on the sample of dSphs being considered compared to previous studies, while remaining in agreement with the predictions from the Galactic center excess observed by the Fermi-LAT and the antiproton excess observed by the Alpha Magnetic Spectrometer (AMS-02). Considering our improvements, a future significant increase in the number of dwarfs may lead to a definitive confirmation or exclusion of the DM interpretation of the Galactic center excess." data-title="Legacy analysis of Milky Way dwarf spheroidal satellite galaxies: an update" data-summary="Studies of Fermi-Large Area Telescope (LAT) data coincident with dwarf spheroidal satellite galaxies (dSphs) of the Milky Way (MW) have put the most stringent constraints on models of annihilating dark matter (DM) with candidate masses in the GeV-TeV range. Recent results found the presence of small, local significance excesses from these targets, at the 2-3 sigma level. However, these excesses disagree on the predicted properties of the DM candidate, and their significance vanishes when considering the correction factors for the number of trials. In this work, we apply key improvements to the analysis of the dSphs. We use stricter cuts on the data, implement a method to adaptively model the background, and assume an updated framework for DM annihilation. We find that our improved background modeling leads to a better agreement between the model and the data. This produces an increase in the local and global significance of the dSphs excess compared to previous studies. Finally, we find that the DM properties obtained in this work are less dependent on the sample of dSphs being considered compared to previous studies, while remaining in agreement with the predictions from the Galactic center excess observed by the Fermi-LAT and the antiproton excess observed by the Alpha Magnetic Spectrometer (AMS-02). Considering our improvements, a future significant increase in the number of dwarfs may lead to a definitive confirmation or exclusion of the DM interpretation of the Galactic center excess." data-meta="A. Circiello、M. Di Mauro、M. Ajello 等 · 2026-05-25" data-keypoints="Studies of Fermi-Large Area Telescope (LAT) data coincident with dwarf spheroidal satellite galaxies (dSphs) of the Milky Way (MW) have put the most stringent constraints on models of annihilating dark matter (DM) with candidate masses in the GeV-TeV range.|Recent results found the presence of small, local significance excesses from these targets, at the 2-3 sigma level.|However, these excesses disagree on the predicted properties of the DM candidate, and their significance vanishes when considering the correction factors for the number of trials." data-concepts="" data-url="http://arxiv.org/abs/2605.25586v1" data-layman="这篇论文研究星系——由数千亿颗恒星组成的巨大天体系统。科学家通过观测的方法，用望远镜收集来自宇宙的光信号，验证了此前科学家的理论预测。这是理解宇宙组成和命运的关键，暗物质和暗能量占据了宇宙总能量的95%以上就像考古学家通过挖掘化石来还原远古生物的样子，天文学家也是通过各种蛛丝马迹来探索宇宙的奥秘。">
+  <div class="card-body">
+    <div class="card-header">
+      <div class="card-num">6</div>
+      <div class="card-title translatable" data-en="Legacy analysis of Milky Way dwarf spheroidal satellite galaxies: an update">Legacy analysis of Milky Way dwarf spheroidal satellite galaxies: an update</div>
+    </div>
+    <div class="card-meta">A. Circiello、M. Di Mauro、M. Ajello 等 · 2026-05-25</div>
+    <div class="card-brief translatable" data-en="Studies of Fermi-Large Area Telescope (LAT) data coincident with dwarf spheroidal satellite galaxies (dSphs) of the Milky Way (MW) have put the most stringent constraints on models of annihilating dark matter (DM) with candidate masses in the GeV-TeV range. Recent results found the presence of small, local significance excesses from these targets, at the 2-3 sigma level">Studies of Fermi-Large Area Telescope (LAT) data coincident with dwarf spheroidal satellite galaxies (dSphs) of the Milky Way (MW) have put the most stringent constraints on models of annihilating dark matter (DM) with candidate masses in the GeV-TeV range. Recent results found the presence of small, local significance excesses from these targets, at the 2-3 sigma level</div>
+    <div class="card-hint">点击查看完整内容</div>
+  </div>
+</div>
+<div class="card" style="animation-delay:0.24s" onclick="openModal(this)" data-en-title="The Gas-Phase Mass-Metallicity Relation of Dwarf Galaxies Across Large-Scale Environments Using the CAVITY Parent Sample" data-en-summary="The gas-phase mass-metallicity relation (MZR) of galaxies shows a noticeable break in slope and increased scatter at low stellar masses, suggesting that the physical processes governing chemical enrichment differ between dwarf and high-mass systems. Dwarf galaxies are highly susceptible to internal and environmental mechanisms due to shallow potential wells. We assess whether a single MZR describes dwarf galaxies across diverse large-scale environments using the CAVITY parent sample. We examine the MZR and star formation rate (SFR) of dwarfs with stellar masses 8.9 &lt; log(M_star/M_sun) &lt; 9.5. Using SDSS optical spectra, we measured emission line fluxes via the pyPipe3D pipeline to derive the MZR and SFR for 353, 311, and 22 dwarf galaxies in voids, filaments, and clusters, respectively. We find a systematic variation in the MZR slope, which is steeper in voids (0.28 +/- 0.03) and progressively flatter in clusters (0.17 +/- 0.08), indicating an environmental dependence in this mass regime. When separated by local environment, isolated and non-isolated dwarfs in voids show no significant differences. Isolated dwarfs in filaments exhibit properties similar to void counterparts. However, non-isolated filament galaxies display flatter MZR slopes, comparable to cluster dwarfs. We report both large- and local-scale environmental dependencies in the gas-phase metallicity and MZR slope. Consistent with the pre-processing framework, our results indicate that the local environment becomes significant within cosmic web filaments, affecting the chemical enrichment and star formation of low-mass systems. This suggests that part of the MZR scatter in dwarf galaxies arises from environmental effects." data-title="The Gas-Phase Mass-Metallicity Relation of Dwarf Galaxies Across Large-Scale Environments Using the CAVITY Parent Sample" data-summary="The gas-phase mass-metallicity relation (MZR) of galaxies shows a noticeable break in slope and increased scatter at low stellar masses, suggesting that the physical processes governing chemical enrichment differ between dwarf and high-mass systems. Dwarf galaxies are highly susceptible to internal and environmental mechanisms due to shallow potential wells. We assess whether a single MZR describes dwarf galaxies across diverse large-scale environments using the CAVITY parent sample. We examine the MZR and star formation rate (SFR) of dwarfs with stellar masses 8.9 &lt; log(M_star/M_sun) &lt; 9.5. Using SDSS optical spectra, we measured emission line fluxes via the pyPipe3D pipeline to derive the MZR and SFR for 353, 311, and 22 dwarf galaxies in voids, filaments, and clusters, respectively. We find a systematic variation in the MZR slope, which is steeper in voids (0.28 +/- 0.03) and progressively flatter in clusters (0.17 +/- 0.08), indicating an environmental dependence in this mass regime. When separated by local environment, isolated and non-isolated dwarfs in voids show no significant differences. Isolated dwarfs in filaments exhibit properties similar to void counterparts. However, non-isolated filament galaxies display flatter MZR slopes, comparable to cluster dwarfs. We report both large- and local-scale environmental dependencies in the gas-phase metallicity and MZR slope. Consistent with the pre-processing framework, our results indicate that the local environment becomes significant within cosmic web filaments, affecting the chemical enrichment and star formation of low-mass systems. This suggests that part of the MZR scatter in dwarf galaxies arises from environmental effects." data-meta="Bahar Bidaran、Salvador Duarte Puertas、Isabel Pérez 等 · 2026-05-25" data-keypoints="The gas-phase mass-metallicity relation (MZR) of galaxies shows a noticeable break in slope and increased scatter at low stellar masses, suggesting that the physical processes governing chemical enrichment differ between dwarf and high-mass systems.|Dwarf galaxies are highly susceptible to internal and environmental mechanisms due to shallow potential wells.|We assess whether a single MZR describes dwarf galaxies across diverse large-scale environments using the CAVITY parent sample." data-concepts="" data-url="http://arxiv.org/abs/2605.25557v1" data-layman="这篇论文研究太阳——我们太阳系的中心恒星。研究发现：深入探索了其物理机制。恒星是宇宙的炼金术士，研究它们的诞生有助于理解元素的起源就像通过脚印来推断走过的是什么动物，天文学家也是通过各种蛛丝马迹来探索宇宙的奥秘。">
+  <div class="card-body">
+    <div class="card-header">
+      <div class="card-num">7</div>
+      <div class="card-title translatable" data-en="The Gas-Phase Mass-Metallicity Relation of Dwarf Galaxies Across Large-Scale Environments Using the CAVITY Parent Sample">The Gas-Phase Mass-Metallicity Relation of Dwarf Galaxies Across Large-Scale Environments Using the CAVITY Parent Sample</div>
+    </div>
+    <div class="card-meta">Bahar Bidaran、Salvador Duarte Puertas、Isabel Pérez 等 · 2026-05-25</div>
+    <div class="card-brief translatable" data-en="The gas-phase mass-metallicity relation (MZR) of galaxies shows a noticeable break in slope and increased scatter at low stellar masses, suggesting that the physical processes governing chemical enrichment differ between dwarf and high-mass systems. Dwarf galaxies are highly susceptible to internal and environmental mechanisms due to shallow potential wells">The gas-phase mass-metallicity relation (MZR) of galaxies shows a noticeable break in slope and increased scatter at low stellar masses, suggesting that the physical processes governing chemical enrichment differ between dwarf and high-mass systems. Dwarf galaxies are highly susceptible to internal and environmental mechanisms due to shallow potential wells</div>
+    <div class="card-hint">点击查看完整内容</div>
+  </div>
+</div>
+<div class="card" style="animation-delay:0.28s" onclick="openModal(this)" data-en-title="Gravitational Wave Propagation in K-essence Cosmology: Theory and Observational Constraints" data-en-summary="Gravitational waves (GWs) provide a powerful, theory-independent probe of the dynamical structure of spacetime and the cosmological background. We study linearized GW propagation in k-essence cosmology, where a non-canonical scalar field describes the dark sector. In the high-frequency (short-wavelength) approximation on a Friedmann--Lemaître--Robertson--Walker (FLRW) background, and restricting to the transverse-traceless tensor sector, we derive a modified evolution equation for tensor perturbations. The GW speed remains strictly luminal, consistent with multimessenger bounds such as GW170817, but the interaction with the background field $\barφ$ induces a time-dependent effective mass-like term $m_{\rm eff}$. This background-induced mass modifies the dispersion relation without introducing additional propagating degrees of freedom, leading to a cumulative, frequency-dependent phase shift in the waveform over cosmological distances. We show that $m_{\rm eff}$ is uniquely determined by background cosmological parameters and can be written as a redshift-dependent function, $m_{\rm eff}(z)$, directly linking GW observables to scalar-field dynamics, while the GW luminosity distance remains identical to its electromagnetic counterpart, preserving standard-siren consistency. We test the scenario through a joint Bayesian analysis that combines cosmic chronometers (CC), BAO, Pantheon+SH0ES, and standard-siren data from GWTC-2.1/3/4. The reconstruction is consistent with current constraints and reproduces the late-time expansion history, while the evolution of $m_{\rm eff}(z)$ offers a new mechanism that may help alleviate the $H_0$ tension." data-title="Gravitational Wave Propagation in K-essence Cosmology: Theory and Observational Constraints" data-summary="Gravitational waves (GWs) provide a powerful, theory-independent probe of the dynamical structure of spacetime and the cosmological background. We study linearized GW propagation in k-essence cosmology, where a non-canonical scalar field describes the dark sector. In the high-frequency (short-wavelength) approximation on a Friedmann--Lemaître--Robertson--Walker (FLRW) background, and restricting to the transverse-traceless tensor sector, we derive a modified evolution equation for tensor perturbations. The GW speed remains strictly luminal, consistent with multimessenger bounds such as GW170817, but the interaction with the background field $\barφ$ induces a time-dependent effective mass-like term $m_{\rm eff}$. This background-induced mass modifies the dispersion relation without introducing additional propagating degrees of freedom, leading to a cumulative, frequency-dependent phase shift in the waveform over cosmological distances. We show that $m_{\rm eff}$ is uniquely determined by background cosmological parameters and can be written as a redshift-dependent function, $m_{\rm eff}(z)$, directly linking GW observables to scalar-field dynamics, while the GW luminosity distance remains identical to its electromagnetic counterpart, preserving standard-siren consistency. We test the scenario through a joint Bayesian analysis that combines cosmic chronometers (CC), BAO, Pantheon+SH0ES, and standard-siren data from GWTC-2.1/3/4. The reconstruction is consistent with current constraints and reproduces the late-time expansion history, while the evolution of $m_{\rm eff}(z)$ offers a new mechanism that may help alleviate the $H_0$ tension." data-meta="Sougata Bhunia、Eduardo Guendelman、Debashis Gangopadhyay 等 · 2026-05-25" data-keypoints="Gravitational waves (GWs) provide a powerful, theory-independent probe of the dynamical structure of spacetime and the cosmological background.|We study linearized GW propagation in k-essence cosmology, where a non-canonical scalar field describes the dark sector.|In the high-frequency (short-wavelength) approximation on a Friedmann--Lemaître--Robertson--Walker (FLRW) background, and restricting to the transverse-traceless tensor sector, we derive a modified evolution equation for tensor perturbations." data-concepts="" data-url="http://arxiv.org/abs/2605.25466v1" data-layman="这篇论文研究引力波——时空的涟漪，像石头扔进水面产生的波纹。科学家通过观测的方法，用望远镜收集来自宇宙的光信号，对现有理论模型提出了更精确的限制。引力波为人类打开了一扇全新的观测宇宙的窗口，让我们能&#x27;听&#x27;到宇宙的动静就像通过水面涟漪来推断水下发生了什么，天文学家也是通过各种蛛丝马迹来探索宇宙的奥秘。">
+  <div class="card-body">
+    <div class="card-header">
+      <div class="card-num">8</div>
+      <div class="card-title translatable" data-en="Gravitational Wave Propagation in K-essence Cosmology: Theory and Observational Constraints">Gravitational Wave Propagation in K-essence Cosmology: Theory and Observational Constraints</div>
+    </div>
+    <div class="card-meta">Sougata Bhunia、Eduardo Guendelman、Debashis Gangopadhyay 等 · 2026-05-25</div>
+    <div class="card-brief translatable" data-en="Gravitational waves (GWs) provide a powerful, theory-independent probe of the dynamical structure of spacetime and the cosmological background. We study linearized GW propagation in k-essence cosmology, where a non-canonical scalar field describes the dark sector">Gravitational waves (GWs) provide a powerful, theory-independent probe of the dynamical structure of spacetime and the cosmological background. We study linearized GW propagation in k-essence cosmology, where a non-canonical scalar field describes the dark sector</div>
+    <div class="card-hint">点击查看完整内容</div>
+  </div>
+</div>
+<div class="card" style="animation-delay:0.32s" onclick="openModal(this)" data-en-title="Compact dusty starbursts at cosmic noon linked to high-energy neutrinos" data-en-summary="The origin of high-energy astrophysical neutrinos remains unresolved, and secure electromagnetic counterparts to individual events are rare despite rapid follow-up. Dusty star-forming galaxies (DSFGs) at cosmic noon (z ~ 1-4) are natural cosmic-ray calorimeters, yet observational links between DSFGs and neutrinos have remained elusive. Here we report a compact-core DSFG within an IceCube localization, JCMT0402-0424, a quadruply lensed galaxy at z = 2.988 located inside the 90% containment region of the IceCube event IC 210922A. ALMA imaging and lens modeling resolve a highly magnified, compact starburst with no bright gamma-ray or X-ray counterpart above current sensitivity limits. Considering the positional agreement, the low chance-coincidence probability (less than about 1%) for such an extreme submillimeter source, the absence of equally plausible alternatives in the field, and the compact, gas-rich core revealed by ALMA, JCMT0402-0424 is the most plausible electromagnetic counterpart candidate within the IC 210922A localization. In a population context, compact-core starbursts at cosmic noon can provide a non-negligible population-level contribution to the diffuse high-energy neutrino background, even though the neutrino yield from any single DSFG is modest. This result connects high-energy neutrino production to the peak epoch of cosmic star formation, opening a new avenue to probe galaxy evolution and cosmic-ray acceleration across cosmic time." data-title="Compact dusty starbursts at cosmic noon linked to high-energy neutrinos" data-summary="The origin of high-energy astrophysical neutrinos remains unresolved, and secure electromagnetic counterparts to individual events are rare despite rapid follow-up. Dusty star-forming galaxies (DSFGs) at cosmic noon (z ~ 1-4) are natural cosmic-ray calorimeters, yet observational links between DSFGs and neutrinos have remained elusive. Here we report a compact-core DSFG within an IceCube localization, JCMT0402-0424, a quadruply lensed galaxy at z = 2.988 located inside the 90% containment region of the IceCube event IC 210922A. ALMA imaging and lens modeling resolve a highly magnified, compact starburst with no bright gamma-ray or X-ray counterpart above current sensitivity limits. Considering the positional agreement, the low chance-coincidence probability (less than about 1%) for such an extreme submillimeter source, the absence of equally plausible alternatives in the field, and the compact, gas-rich core revealed by ALMA, JCMT0402-0424 is the most plausible electromagnetic counterpart candidate within the IC 210922A localization. In a population context, compact-core starbursts at cosmic noon can provide a non-negligible population-level contribution to the diffuse high-energy neutrino background, even though the neutrino yield from any single DSFG is modest. This result connects high-energy neutrino production to the peak epoch of cosmic star formation, opening a new avenue to probe galaxy evolution and cosmic-ray acceleration across cosmic time." data-meta="Yuji Urata、Kuiyun Huang、Bunyo Hatsukade 等 · 2026-05-25" data-keypoints="The origin of high-energy astrophysical neutrinos remains unresolved, and secure electromagnetic counterparts to individual events are rare despite rapid follow-up.|Dusty star-forming galaxies (DSFGs) at cosmic noon (z ~ 1-4) are natural cosmic-ray calorimeters, yet observational links between DSFGs and neutrinos have remained elusive.|Here we report a compact-core DSFG within an IceCube localization, JCMT0402-0424, a quadruply lensed galaxy at z = 2.988 located inside the 90% containment region of the IceCube event IC 210922A." data-concepts="" data-url="http://arxiv.org/abs/2605.25412v1" data-layman="这篇论文研究星系——由数千亿颗恒星组成的巨大天体系统。科学家通过观测的方法，用望远镜收集来自宇宙的光信号，对现有理论模型提出了更精确的限制。恒星是宇宙的炼金术士，研究它们的诞生有助于理解元素的起源就像考古学家通过挖掘化石来还原远古生物的样子，天文学家也是通过各种蛛丝马迹来探索宇宙的奥秘。">
+  <div class="card-body">
+    <div class="card-header">
+      <div class="card-num">9</div>
+      <div class="card-title translatable" data-en="Compact dusty starbursts at cosmic noon linked to high-energy neutrinos">Compact dusty starbursts at cosmic noon linked to high-energy neutrinos</div>
+    </div>
+    <div class="card-meta">Yuji Urata、Kuiyun Huang、Bunyo Hatsukade 等 · 2026-05-25</div>
+    <div class="card-brief translatable" data-en="The origin of high-energy astrophysical neutrinos remains unresolved, and secure electromagnetic counterparts to individual events are rare despite rapid follow-up. Dusty star-forming galaxies (DSFGs) at cosmic noon (z ~ 1-4) are natural cosmic-ray calorimeters, yet observational links between DSFGs and neutrinos have remained elusive">The origin of high-energy astrophysical neutrinos remains unresolved, and secure electromagnetic counterparts to individual events are rare despite rapid follow-up. Dusty star-forming galaxies (DSFGs) at cosmic noon (z ~ 1-4) are natural cosmic-ray calorimeters, yet observational links between DSFGs and neutrinos have remained elusive</div>
+    <div class="card-hint">点击查看完整内容</div>
+  </div>
+</div>
+</div>
+<div class="sec-anchor" id="sec-恒星与系外行星"></div>
+<div class="section-head">
+  <div class="section-icon">🌌</div>
+  <h2>恒星与系外行星</h2>
+  <span class="count">11</span>
+</div>
+<div class="card-grid">
+<div class="card" style="animation-delay:0.00s" onclick="openModal(this)" data-en-title="Understanding hydrodynamical wave-driven shear mixing in stellar radiation zones. Looking in the mirror of the dyapicnal oceanic mixing" data-en-summary="Stellar radiation zones play a key role in the long-term magneto-rotational and chemical evolution of stars. As parts of the oceans and of the atmosphere of the Earth, their dynamics is controlled by the Archimedean buoyancy force and the Coriolis acceleration. They are the seat of an efficient extraction of angular momentum and of a mild mixing of chemicals. In this context, particle tracing in recent nonlinear hydrodynamical equatorial numerical simulations of stellar radiation zones where internal gravity waves (hereafter IGWs) are propagating led to the measurement of an effective diffusivity following the prescriptions derived by Garcia-Lopez &amp; Spruit and by Zahn for the inflectional instability of the vertical shear of low-frequency IGWs. However, the associated instability criteria are not fullfiled. This effective diffusivity is found to scale as the squared velocity of IGWs for every rotation rates. Other dependences have also been derived in the literature, for instance in the case of the Stokes displacement. To interpret these results, we propose to explore the parameterisation for the mixing of particles, which has been proposed for the oceans. A foundation stone in physical oceanography is the so-called Osborn &amp; Cox energetic balance that leads to an effective dyapicnal diffusivity for the transport of matter that scales as the ratio of the dissipation of the fluctuating flows over the squared Brunt-Väisälä stratification frequency. We demonstrate that this diffusivity is equivalent to the eddy diffusivity derived by Zahn for the inflectional instability of the vertical shear applied to low-frequency IGWs. This allows us to characterize the corresponding energetic balance where the power extracted by the waves from the mean flows is balanced by their dissipation and by the power produced by their buoyancy flux, which triggers mixing, for any rotation rate." data-title="Understanding hydrodynamical wave-driven shear mixing in stellar radiation zones. Looking in the mirror of the dyapicnal oceanic mixing" data-summary="Stellar radiation zones play a key role in the long-term magneto-rotational and chemical evolution of stars. As parts of the oceans and of the atmosphere of the Earth, their dynamics is controlled by the Archimedean buoyancy force and the Coriolis acceleration. They are the seat of an efficient extraction of angular momentum and of a mild mixing of chemicals. In this context, particle tracing in recent nonlinear hydrodynamical equatorial numerical simulations of stellar radiation zones where internal gravity waves (hereafter IGWs) are propagating led to the measurement of an effective diffusivity following the prescriptions derived by Garcia-Lopez &amp; Spruit and by Zahn for the inflectional instability of the vertical shear of low-frequency IGWs. However, the associated instability criteria are not fullfiled. This effective diffusivity is found to scale as the squared velocity of IGWs for every rotation rates. Other dependences have also been derived in the literature, for instance in the case of the Stokes displacement. To interpret these results, we propose to explore the parameterisation for the mixing of particles, which has been proposed for the oceans. A foundation stone in physical oceanography is the so-called Osborn &amp; Cox energetic balance that leads to an effective dyapicnal diffusivity for the transport of matter that scales as the ratio of the dissipation of the fluctuating flows over the squared Brunt-Väisälä stratification frequency. We demonstrate that this diffusivity is equivalent to the eddy diffusivity derived by Zahn for the inflectional instability of the vertical shear applied to low-frequency IGWs. This allows us to characterize the corresponding energetic balance where the power extracted by the waves from the mean flows is balanced by their dissipation and by the power produced by their buoyancy flux, which triggers mixing, for any rotation rate." data-meta="Stéphane Mathis · 2026-05-25" data-keypoints="Stellar radiation zones play a key role in the long-term magneto-rotational and chemical evolution of stars.|As parts of the oceans and of the atmosphere of the Earth, their dynamics is controlled by the Archimedean buoyancy force and the Coriolis acceleration.|They are the seat of an efficient extraction of angular momentum and of a mild mixing of chemicals." data-concepts="" data-url="http://arxiv.org/abs/2605.26085v1" data-layman="这篇论文研究恒星——像太阳一样自身发光的天体。科学家通过数值模拟的方法，用超级计算机模拟宇宙演化，就像用飞行模拟器训练飞行员，发现了新的现象或规律。这一研究加深了我们对宇宙运行机制的理解就像气象学家用计算机模拟台风路径来预测天气一样，天文学家也是通过各种蛛丝马迹来探索宇宙的奥秘。">
+  <div class="card-body">
+    <div class="card-header">
+      <div class="card-num">1</div>
+      <div class="card-title translatable" data-en="Understanding hydrodynamical wave-driven shear mixing in stellar radiation zones. Looking in the mirror of the dyapicnal oceanic mixing">Understanding hydrodynamical wave-driven shear mixing in stellar radiation zones. Looking in the mirror of the dyapicnal oceanic mixing</div>
+    </div>
+    <div class="card-meta">Stéphane Mathis · 2026-05-25</div>
+    <div class="card-brief translatable" data-en="Stellar radiation zones play a key role in the long-term magneto-rotational and chemical evolution of stars. As parts of the oceans and of the atmosphere of the Earth, their dynamics is controlled by the Archimedean buoyancy force and the Coriolis acceleration">Stellar radiation zones play a key role in the long-term magneto-rotational and chemical evolution of stars. As parts of the oceans and of the atmosphere of the Earth, their dynamics is controlled by the Archimedean buoyancy force and the Coriolis acceleration</div>
+    <div class="card-hint">点击查看完整内容</div>
+  </div>
+</div>
+<div class="card" style="animation-delay:0.04s" onclick="openModal(this)" data-en-title="Interstellar extinction, polarization efficiency, and grain alignment in the direction towards bright-rimmed clouds and cometary globules" data-en-summary="The polarization of starlight and thermal dust emission, resulting from non-spherical grains aligned with the interstellar magnetic field (B-field), act as a powerful tool to trace the B-field morphologies and strengths in molecular clouds and constrain the grain alignment mechanisms and grain properties. The exact alignment mechanisms of grains is not yet fully clear. However, the leading theory is the alignment induced by RAdiative Torques (RATs), known as RAT theory. In this work, we use optical polarization observations of background stars projected towards nine of Bright-Rimmed Clouds (BRCs) and Cometary Globules(CGs) to study the polarization efficiencies and the alignment mechanisms of the grains in the direction towards the outer diffuse envelopes of these clouds. We use distance and extinction data of the stars from Gaia EDR3 and StarHorse 2 Catalogue. We study the variations of the degree and position angle of polarization, and the extinction, as functions of distance of the stars. For some of the clouds, we find discrete enhancement of the extinction at certain distances along with an increase in polarization degree, signifying the presence of polarizing dust layers. We estimate the polarization efficiency of grains towards each of the clouds. We find that it decreases with increasing extinction, and also shows a slight increase with dust temperature for some clouds associated with more ordered magnetic field orientations, providing an implication for the alignment of grains by RATs. Whereas, for some other clouds, the decrease in the polarization efficiency with extinction may be caused by more fluctuations in the magnetic field orientations." data-title="Interstellar extinction, polarization efficiency, and grain alignment in the direction towards bright-rimmed clouds and cometary globules" data-summary="The polarization of starlight and thermal dust emission, resulting from non-spherical grains aligned with the interstellar magnetic field (B-field), act as a powerful tool to trace the B-field morphologies and strengths in molecular clouds and constrain the grain alignment mechanisms and grain properties. The exact alignment mechanisms of grains is not yet fully clear. However, the leading theory is the alignment induced by RAdiative Torques (RATs), known as RAT theory. In this work, we use optical polarization observations of background stars projected towards nine of Bright-Rimmed Clouds (BRCs) and Cometary Globules(CGs) to study the polarization efficiencies and the alignment mechanisms of the grains in the direction towards the outer diffuse envelopes of these clouds. We use distance and extinction data of the stars from Gaia EDR3 and StarHorse 2 Catalogue. We study the variations of the degree and position angle of polarization, and the extinction, as functions of distance of the stars. For some of the clouds, we find discrete enhancement of the extinction at certain distances along with an increase in polarization degree, signifying the presence of polarizing dust layers. We estimate the polarization efficiency of grains towards each of the clouds. We find that it decreases with increasing extinction, and also shows a slight increase with dust temperature for some clouds associated with more ordered magnetic field orientations, providing an implication for the alignment of grains by RATs. Whereas, for some other clouds, the decrease in the polarization efficiency with extinction may be caused by more fluctuations in the magnetic field orientations." data-meta="Saikhom Pravash · 2026-05-25" data-keypoints="The polarization of starlight and thermal dust emission, resulting from non-spherical grains aligned with the interstellar magnetic field (B-field), act as a powerful tool to trace the B-field morphologies and strengths in molecular clouds and constrain the grain alignment mechanisms and grain properties.|The exact alignment mechanisms of grains is not yet fully clear.|However, the leading theory is the alignment induced by RAdiative Torques (RATs), known as RAT theory." data-concepts="" data-url="http://arxiv.org/abs/2605.26030v1" data-layman="这篇论文研究恒星——像太阳一样自身发光的天体。科学家通过观测的方法，用望远镜收集来自宇宙的光信号，对现有理论模型提出了更精确的限制。这一研究加深了我们对宇宙运行机制的理解就像考古学家通过挖掘化石来还原远古生物的样子，天文学家也是通过各种蛛丝马迹来探索宇宙的奥秘。">
+  <div class="card-body">
+    <div class="card-header">
+      <div class="card-num">2</div>
+      <div class="card-title translatable" data-en="Interstellar extinction, polarization efficiency, and grain alignment in the direction towards bright-rimmed clouds and cometary globules">Interstellar extinction, polarization efficiency, and grain alignment in the direction towards bright-rimmed clouds and cometary globules</div>
+    </div>
+    <div class="card-meta">Saikhom Pravash · 2026-05-25</div>
+    <div class="card-brief translatable" data-en="The polarization of starlight and thermal dust emission, resulting from non-spherical grains aligned with the interstellar magnetic field (B-field), act as a powerful tool to trace the B-field morphologies and strengths in molecular clouds and constrain the grain alignment mechanisms and grain properties. The exact alignment mechanisms of grains is not yet fully clear">The polarization of starlight and thermal dust emission, resulting from non-spherical grains aligned with the interstellar magnetic field (B-field), act as a powerful tool to trace the B-field morphologies and strengths in molecular clouds and constrain the grain alignment mechanisms and grain properties. The exact alignment mechanisms of grains is not yet fully clear</div>
+    <div class="card-hint">点击查看完整内容</div>
+  </div>
+</div>
+<div class="card" style="animation-delay:0.08s" onclick="openModal(this)" data-en-title="Compactness Peaks and Subpopulations: Probing Stellar Physics and Formation Channels of Merging Binary Black Holes" data-en-summary="The growing catalog of gravitational-wave detections from the LIGO-Virgo-KAGRA (LVK) collaboration reveals structure in the binary black hole (BBH) mass distribution, including peaks near m1 = 10 solar masses and m1 = 35 solar masses, a high-mass suppression consistent with the pair-instability supernova gap, and a possible dearth of systems near chirp mass M = 10-12 solar masses. We apply Compactness Peaks + Channels, a stripped-star-motivated five-component population model, to 152 BBH mergers from GWTC-4.0. The model is decisively preferred over the LVK Broken Power Law + 2 Peaks baseline, with log10 Bayes factor = 7.69, and decomposes the population into isolated first-generation (1G), dynamical 1G, and hierarchical second-generation (2G) channels with fractions 0.75 (+0.11/-0.16), 0.22 (+0.16/-0.11), and 0.02 (+0.03/-0.01), respectively. The low-mass isolated component sharply localizes the 10 solar mass feature, with narrow masses, near-equal mass ratios, and low partially aligned spins, consistent with stripped-star binary evolution. The 35 solar mass feature is primarily captured by the high-mass dynamical 1G component. The hierarchical component is consistent with 2G+1G mergers, with elevated primary spins, mu_chi = 0.65 (+0.30/-0.22), and asymmetric mass ratios. We localize the compactness-peak edges at 12.3 (+2.4/-1.3) and 16.1 (+5.7/-5.3) solar masses, consistent with, but not yet requiring, a compactness-driven dearth between them. These results support a multi-component description of the BBH population and motivate further tests of compactness-driven isolated evolution." data-title="Compactness Peaks and Subpopulations: Probing Stellar Physics and Formation Channels of Merging Binary Black Holes" data-summary="The growing catalog of gravitational-wave detections from the LIGO-Virgo-KAGRA (LVK) collaboration reveals structure in the binary black hole (BBH) mass distribution, including peaks near m1 = 10 solar masses and m1 = 35 solar masses, a high-mass suppression consistent with the pair-instability supernova gap, and a possible dearth of systems near chirp mass M = 10-12 solar masses. We apply Compactness Peaks + Channels, a stripped-star-motivated five-component population model, to 152 BBH mergers from GWTC-4.0. The model is decisively preferred over the LVK Broken Power Law + 2 Peaks baseline, with log10 Bayes factor = 7.69, and decomposes the population into isolated first-generation (1G), dynamical 1G, and hierarchical second-generation (2G) channels with fractions 0.75 (+0.11/-0.16), 0.22 (+0.16/-0.11), and 0.02 (+0.03/-0.01), respectively. The low-mass isolated component sharply localizes the 10 solar mass feature, with narrow masses, near-equal mass ratios, and low partially aligned spins, consistent with stripped-star binary evolution. The 35 solar mass feature is primarily captured by the high-mass dynamical 1G component. The hierarchical component is consistent with 2G+1G mergers, with elevated primary spins, mu_chi = 0.65 (+0.30/-0.22), and asymmetric mass ratios. We localize the compactness-peak edges at 12.3 (+2.4/-1.3) and 16.1 (+5.7/-5.3) solar masses, consistent with, but not yet requiring, a compactness-driven dearth between them. These results support a multi-component description of the BBH population and motivate further tests of compactness-driven isolated evolution." data-meta="Shanika Galaudage · 2026-05-25" data-keypoints="The growing catalog of gravitational-wave detections from the LIGO-Virgo-KAGRA (LVK) collaboration reveals structure in the binary black hole (BBH) mass distribution, including peaks near m1 = 10 solar masses and m1 = 35 solar masses, a high-mass suppression consistent with the pair-instability supernova gap, and a possible dearth of systems near chirp mass M = 10-12 solar masses.|We apply Compactness Peaks + Channels, a stripped-star-motivated five-component population model, to 152 BBH mergers from GWTC-4.0.|The model is decisively preferred over the LVK Broken Power Law + 2 Peaks baseline, with log10 Bayes factor = 7.69, and decomposes the population into isolated first-generation (1G), dynamical 1G, and hierarchical second-generation (2G) channels with fractions 0.75 (+0.11/-0.16), 0.22 (+0.16/-0.11), and 0.02 (+0.03/-0.01), respectively." data-concepts="" data-url="http://arxiv.org/abs/2605.25994v1" data-layman="这篇论文研究黑洞——一种引力极强、连光都无法逃脱的天体。研究发现：首次获得了相关观测证据。黑洞是宇宙中最极端的天体，研究它能帮助我们理解引力的本质就像通过观察漩涡的水流来理解深海黑洞，天文学家也是通过各种蛛丝马迹来探索宇宙的奥秘。">
+  <div class="card-body">
+    <div class="card-header">
+      <div class="card-num">3</div>
+      <div class="card-title translatable" data-en="Compactness Peaks and Subpopulations: Probing Stellar Physics and Formation Channels of Merging Binary Black Holes">Compactness Peaks and Subpopulations: Probing Stellar Physics and Formation Channels of Merging Binary Black Holes</div>
+    </div>
+    <div class="card-meta">Shanika Galaudage · 2026-05-25</div>
+    <div class="card-brief translatable" data-en="The growing catalog of gravitational-wave detections from the LIGO-Virgo-KAGRA (LVK) collaboration reveals structure in the binary black hole (BBH) mass distribution, including peaks near m1 = 10 solar masses and m1 = 35 solar masses, a high-mass suppression consistent with the pair-instability supernova gap, and a possible dearth of systems near chirp mass M = 10-12 solar masses. We apply Compactness Peaks + Channels, a stripped-star-motivated five-component population model, to 152 BBH mergers from GWTC-4.0">The growing catalog of gravitational-wave detections from the LIGO-Virgo-KAGRA (LVK) collaboration reveals structure in the binary black hole (BBH) mass distribution, including peaks near m1 = 10 solar masses and m1 = 35 solar masses, a high-mass suppression consistent with the pair-instability supernova gap, and a possible dearth of systems near chirp mass M = 10-12 solar masses. We apply Compactness Peaks + Channels, a stripped-star-motivated five-component population model, to 152 BBH mergers from GWTC-4.0</div>
+    <div class="card-hint">点击查看完整内容</div>
+  </div>
+</div>
+<div class="card" style="animation-delay:0.12s" onclick="openModal(this)" data-en-title="Chronos: Towards a self-consistent and absolute stellar age scale. I. A Bayesian hierarchical lithium-age model: Validation on the Pleiades cluster" data-en-summary="Context. Establishing a self-consistent age scale for stellar populations requires physically well-calibrated chronometers. Among these, lithium-based diagnostics, particularly the lithium depletion boundary (LDB), provide one of the most robust age constraints for stellar populations in the low-mass regime. However, their application is limited by heterogeneous temperature scales and astrophysical dispersion, especially among FGK stars, where rotation can significantly affect lithium abundances.   Aims. As a first step towards a self-consistent age scale, our aim has been to formulate Chronos, the first version of a Bayesian hierarchical lithium-based age-dating model combined with a neural network trained on stellar evolutionary models.   Methods. We implemented a Bayesian hierarchical model that jointly infers stellar effective temperatures, lithium abundances, and the global age of a stellar association. The theoretical LDB is provided by a pre-trained multilayer perceptron based on BT--Settl evolutionary models. The model incorporates a temperature-dependent transition between fully convective ultra-cool dwarfs (UCDs) and FGKM dwarf stars, together with a two-component FGK mixture to account for rotation-induced lithium enhancement. We applied the method to the Pleiades cluster and performed a validation using synthetic datasets.   Results. For the Pleiades cluster, Chronos yields a posterior age distribution centred at $\mathrm{Age}=124.53_{-2.70}^{+3.34}$ Myr, consistent with classical LDB estimates, while simultaneously constraining both global and stellar-level rotation parameters.   Conclusions. This work demonstrates that lithium-based stellar chronology can be recast as a coherent hierarchical inference problem, providing a flexible and statistically robust framework for making age determinations for young (1--600 Myr) stellar populations." data-title="Chronos: Towards a self-consistent and absolute stellar age scale. I. A Bayesian hierarchical lithium-age model: Validation on the Pleiades cluster" data-summary="Context. Establishing a self-consistent age scale for stellar populations requires physically well-calibrated chronometers. Among these, lithium-based diagnostics, particularly the lithium depletion boundary (LDB), provide one of the most robust age constraints for stellar populations in the low-mass regime. However, their application is limited by heterogeneous temperature scales and astrophysical dispersion, especially among FGK stars, where rotation can significantly affect lithium abundances.   Aims. As a first step towards a self-consistent age scale, our aim has been to formulate Chronos, the first version of a Bayesian hierarchical lithium-based age-dating model combined with a neural network trained on stellar evolutionary models.   Methods. We implemented a Bayesian hierarchical model that jointly infers stellar effective temperatures, lithium abundances, and the global age of a stellar association. The theoretical LDB is provided by a pre-trained multilayer perceptron based on BT--Settl evolutionary models. The model incorporates a temperature-dependent transition between fully convective ultra-cool dwarfs (UCDs) and FGKM dwarf stars, together with a two-component FGK mixture to account for rotation-induced lithium enhancement. We applied the method to the Pleiades cluster and performed a validation using synthetic datasets.   Results. For the Pleiades cluster, Chronos yields a posterior age distribution centred at $\mathrm{Age}=124.53_{-2.70}^{+3.34}$ Myr, consistent with classical LDB estimates, while simultaneously constraining both global and stellar-level rotation parameters.   Conclusions. This work demonstrates that lithium-based stellar chronology can be recast as a coherent hierarchical inference problem, providing a flexible and statistically robust framework for making age determinations for young (1--600 Myr) stellar populations." data-meta="L. González-Ramírez、D. Barrado、J. Olivares 等 · 2026-05-25" data-keypoints="Establishing a self-consistent age scale for stellar populations requires physically well-calibrated chronometers.|Among these, lithium-based diagnostics, particularly the lithium depletion boundary (LDB), provide one of the most robust age constraints for stellar populations in the low-mass regime." data-concepts="" data-url="http://arxiv.org/abs/2605.25957v1" data-layman="这篇论文研究恒星——像太阳一样自身发光的天体。科学家通过观测的方法，用望远镜收集来自宇宙的光信号，首次获得了相关观测证据。这一研究加深了我们对宇宙运行机制的理解就像通过脚印来推断走过的是什么动物，天文学家也是通过各种蛛丝马迹来探索宇宙的奥秘。">
+  <div class="card-body">
+    <div class="card-header">
+      <div class="card-num">4</div>
+      <div class="card-title translatable" data-en="Chronos: Towards a self-consistent and absolute stellar age scale. I. A Bayesian hierarchical lithium-age model: Validation on the Pleiades cluster">Chronos: Towards a self-consistent and absolute stellar age scale. I. A Bayesian hierarchical lithium-age model: Validation on the Pleiades cluster</div>
+    </div>
+    <div class="card-meta">L. González-Ramírez、D. Barrado、J. Olivares 等 · 2026-05-25</div>
+    <div class="card-brief translatable" data-en="Context. Establishing a self-consistent age scale for stellar populations requires physically well-calibrated chronometers">Context. Establishing a self-consistent age scale for stellar populations requires physically well-calibrated chronometers</div>
+    <div class="card-hint">点击查看完整内容</div>
+  </div>
+</div>
+<div class="card" style="animation-delay:0.16s" onclick="openModal(this)" data-en-title="Gaia FGK Benchmark Stars: Impact of Spectral Resolution on Stellar Abundances" data-en-summary="In the era of large Milky Way spectroscopic surveys, calibrating and standardizing stellar parameters and abundance measurements is crucial. The Gaia benchmark stars (GBS) are key references points characterized by well-defined parameters derived from fundamental relations independent of spectroscopy. We analyze 30 GBS with spectra data at three different resolutions. Our goal is to evaluate the impact of spectral resolution on the measurements of the stellar parameters and chemical abundances. We also present a line selection suitable for both metal-poor and metal-rich stars. We used R~190000 (R190), R~42000 (R42), R~28 000 (R28), and R190 degraded to R28 (R190-R28) spectral data to measure abundances with synthetic fitting and equivalent widths (EW) methods, testing the needed resolution to obtain consistent results. Our comparative analysis between R28 and R190-R28 shows that gaps in wavelength coverage can lead to discrepancies in the derived stellar parameters, particularly log g. These effects are not primarily driven by resolution, but rather by the limited spectral coverage and line availability. We find overall similar abundance, emphasizing the importance of line selection for spectroscopic studies. However, some elements (e.g, Ti II, Sc II) show larger discrepancies, possibly due to blending that becomes more pronounced as resolution decreases or is HFS-sensitive. Our comparative analysis shows that the abundances for Fe I, Ni I, Ti I, and Si I present less scatter across all resolutions, including R28. Our findings indicate that for some elements, synthetic fitting and the EW method give similar abundances, especially at the highest resolution. However, we also find that the highest resolution is not always essential for chemical abundance measurements. Our results provide practical guidelines for upcoming large surveys to reconstruct the chemical history of the Milky Way." data-title="Gaia FGK Benchmark Stars: Impact of Spectral Resolution on Stellar Abundances" data-summary="In the era of large Milky Way spectroscopic surveys, calibrating and standardizing stellar parameters and abundance measurements is crucial. The Gaia benchmark stars (GBS) are key references points characterized by well-defined parameters derived from fundamental relations independent of spectroscopy. We analyze 30 GBS with spectra data at three different resolutions. Our goal is to evaluate the impact of spectral resolution on the measurements of the stellar parameters and chemical abundances. We also present a line selection suitable for both metal-poor and metal-rich stars. We used R~190000 (R190), R~42000 (R42), R~28 000 (R28), and R190 degraded to R28 (R190-R28) spectral data to measure abundances with synthetic fitting and equivalent widths (EW) methods, testing the needed resolution to obtain consistent results. Our comparative analysis between R28 and R190-R28 shows that gaps in wavelength coverage can lead to discrepancies in the derived stellar parameters, particularly log g. These effects are not primarily driven by resolution, but rather by the limited spectral coverage and line availability. We find overall similar abundance, emphasizing the importance of line selection for spectroscopic studies. However, some elements (e.g, Ti II, Sc II) show larger discrepancies, possibly due to blending that becomes more pronounced as resolution decreases or is HFS-sensitive. Our comparative analysis shows that the abundances for Fe I, Ni I, Ti I, and Si I present less scatter across all resolutions, including R28. Our findings indicate that for some elements, synthetic fitting and the EW method give similar abundances, especially at the highest resolution. However, we also find that the highest resolution is not always essential for chemical abundance measurements. Our results provide practical guidelines for upcoming large surveys to reconstruct the chemical history of the Milky Way." data-meta="Ivanna Hernández-Araya、Claudia Aguilera-Gómez、Paula Jofré 等 · 2026-05-25" data-keypoints="In the era of large Milky Way spectroscopic surveys, calibrating and standardizing stellar parameters and abundance measurements is crucial.|The Gaia benchmark stars (GBS) are key references points characterized by well-defined parameters derived from fundamental relations independent of spectroscopy.|We analyze 30 GBS with spectra data at three different resolutions." data-concepts="" data-url="http://arxiv.org/abs/2605.25912v1" data-layman="这篇论文研究星系——由数千亿颗恒星组成的巨大天体系统。科学家通过观测的方法，用望远镜收集来自宇宙的光信号，对现有理论模型提出了更精确的限制。这一研究加深了我们对宇宙运行机制的理解就像通过脚印来推断走过的是什么动物，天文学家也是通过各种蛛丝马迹来探索宇宙的奥秘。">
+  <div class="card-body">
+    <div class="card-header">
+      <div class="card-num">5</div>
+      <div class="card-title translatable" data-en="Gaia FGK Benchmark Stars: Impact of Spectral Resolution on Stellar Abundances">Gaia FGK Benchmark Stars: Impact of Spectral Resolution on Stellar Abundances</div>
+    </div>
+    <div class="card-meta">Ivanna Hernández-Araya、Claudia Aguilera-Gómez、Paula Jofré 等 · 2026-05-25</div>
+    <div class="card-brief translatable" data-en="In the era of large Milky Way spectroscopic surveys, calibrating and standardizing stellar parameters and abundance measurements is crucial. The Gaia benchmark stars (GBS) are key references points characterized by well-defined parameters derived from fundamental relations independent of spectroscopy">In the era of large Milky Way spectroscopic surveys, calibrating and standardizing stellar parameters and abundance measurements is crucial. The Gaia benchmark stars (GBS) are key references points characterized by well-defined parameters derived from fundamental relations independent of spectroscopy</div>
+    <div class="card-hint">点击查看完整内容</div>
+  </div>
+</div>
+<div class="card" style="animation-delay:0.20s" onclick="openModal(this)" data-en-title="Core-collape supernovae and supernova neutrinos" data-en-summary="Core-collapse supernovae are the terminal explosions of massive stars. After successive phases of nuclear fusion proceeding up to silicon burning, these stars form an iron core that is supported by electron degeneracy pressure. The core eventually collapses to a proto-neutron star, and in most cases the outer layers of the star are ejected by a shock wave, with a kinetic energy of order $10^{51}\,\mathrm{erg}$. Neutrinos and multi-dimensional fluid flow play a key role in extracting energy from the collapsed core to drive the explosion. After adumbrating the astrophysical context of stellar evolution and transient observations, this chapter sketches the modern theory of neutrino-driven supernova explosions, and discusses the key role of nuclear physics and neutrino interaction rates in the supernova problem. It also outlines the role of neutrinos and gravitational waves as probes into the supernova core." data-title="Core-collape supernovae and supernova neutrinos" data-summary="Core-collapse supernovae are the terminal explosions of massive stars. After successive phases of nuclear fusion proceeding up to silicon burning, these stars form an iron core that is supported by electron degeneracy pressure. The core eventually collapses to a proto-neutron star, and in most cases the outer layers of the star are ejected by a shock wave, with a kinetic energy of order $10^{51}\,\mathrm{erg}$. Neutrinos and multi-dimensional fluid flow play a key role in extracting energy from the collapsed core to drive the explosion. After adumbrating the astrophysical context of stellar evolution and transient observations, this chapter sketches the modern theory of neutrino-driven supernova explosions, and discusses the key role of nuclear physics and neutrino interaction rates in the supernova problem. It also outlines the role of neutrinos and gravitational waves as probes into the supernova core." data-meta="B. Mueller、B. Sykes · 2026-05-25" data-keypoints="Core-collapse supernovae are the terminal explosions of massive stars.|After successive phases of nuclear fusion proceeding up to silicon burning, these stars form an iron core that is supported by electron degeneracy pressure.|The core eventually collapses to a proto-neutron star, and in most cases the outer layers of the star are ejected by a shock wave, with a kinetic energy of order $10^{51}\,\mathrm{erg}$." data-concepts="" data-url="http://arxiv.org/abs/2605.25879v1" data-layman="这篇论文研究超新星爆发——恒星死亡时的剧烈爆炸，亮度可超过整个星系。科学家通过观测的方法，用望远镜收集来自宇宙的光信号，深入探索了其物理机制。引力波为人类打开了一扇全新的观测宇宙的窗口，让我们能&#x27;听&#x27;到宇宙的动静就像考古学家通过挖掘化石来还原远古生物的样子，天文学家也是通过各种蛛丝马迹来探索宇宙的奥秘。">
+  <div class="card-body">
+    <div class="card-header">
+      <div class="card-num">6</div>
+      <div class="card-title translatable" data-en="Core-collape supernovae and supernova neutrinos">Core-collape supernovae and supernova neutrinos</div>
+    </div>
+    <div class="card-meta">B. Mueller、B. Sykes · 2026-05-25</div>
+    <div class="card-brief translatable" data-en="Core-collapse supernovae are the terminal explosions of massive stars. After successive phases of nuclear fusion proceeding up to silicon burning, these stars form an iron core that is supported by electron degeneracy pressure">Core-collapse supernovae are the terminal explosions of massive stars. After successive phases of nuclear fusion proceeding up to silicon burning, these stars form an iron core that is supported by electron degeneracy pressure</div>
+    <div class="card-hint">点击查看完整内容</div>
+  </div>
+</div>
+<div class="card" style="animation-delay:0.24s" onclick="openModal(this)" data-en-title="skysurvey: a pure python package to simulate the transient sky" data-en-summary="Accurate simulation of astronomical observations is a critical element for any modern analyses, be it to measure event rates, analyses population properties, validate or train pipelines, account for selection effects, or correct biases. We present a novel pure python package named skysurvey made to enable the user to quickly simulate astrophysical transients as observed by a survey. The package is structured to make the implementation of any complex population modeling fast and easy. The skysurvey package relies on three core objects: a Target, that models how an astrophysical target exists in nature, a Survey, that specifies how the sky has been observed and, a DataSet that combine these two to generate data as they would have been acquired. In addition, we present a side stand-alone package named modeldag that contains the core structure that simplifies the parameter modeling. We present in this paper how skysurvey is structured and we clearly illustrate how the code can straightforwardly be used to simulate complex populations, such as Type Ia Supernovae with varying color-brightness $β$ term. We also illustrate how the package can be made to replicate the rate and redshift distribution of the ZTF SNe Ia DR2 dataset. The skysurvey package, already used in recent scientific publications, is now ready for general usage and paves the way for future use of simulations such as simulation based inference." data-title="skysurvey: a pure python package to simulate the transient sky" data-summary="Accurate simulation of astronomical observations is a critical element for any modern analyses, be it to measure event rates, analyses population properties, validate or train pipelines, account for selection effects, or correct biases. We present a novel pure python package named skysurvey made to enable the user to quickly simulate astrophysical transients as observed by a survey. The package is structured to make the implementation of any complex population modeling fast and easy. The skysurvey package relies on three core objects: a Target, that models how an astrophysical target exists in nature, a Survey, that specifies how the sky has been observed and, a DataSet that combine these two to generate data as they would have been acquired. In addition, we present a side stand-alone package named modeldag that contains the core structure that simplifies the parameter modeling. We present in this paper how skysurvey is structured and we clearly illustrate how the code can straightforwardly be used to simulate complex populations, such as Type Ia Supernovae with varying color-brightness $β$ term. We also illustrate how the package can be made to replicate the rate and redshift distribution of the ZTF SNe Ia DR2 dataset. The skysurvey package, already used in recent scientific publications, is now ready for general usage and paves the way for future use of simulations such as simulation based inference." data-meta="M. Rigault、M. Ginolin、L. Dellazzeri 等 · 2026-05-25" data-keypoints="Accurate simulation of astronomical observations is a critical element for any modern analyses, be it to measure event rates, analyses population properties, validate or train pipelines, account for selection effects, or correct biases.|We present a novel pure python package named skysurvey made to enable the user to quickly simulate astrophysical transients as observed by a survey.|The package is structured to make the implementation of any complex population modeling fast and easy." data-concepts="" data-url="http://arxiv.org/abs/2605.25840v1" data-layman="这篇论文研究超新星爆发——恒星死亡时的剧烈爆炸，亮度可超过整个星系。科学家通过数值模拟的方法，用超级计算机模拟宇宙演化，就像用飞行模拟器训练飞行员，深入探索了其物理机制。这一研究加深了我们对宇宙运行机制的理解就像气象学家用计算机模拟台风路径来预测天气一样，天文学家也是通过各种蛛丝马迹来探索宇宙的奥秘。">
+  <div class="card-body">
+    <div class="card-header">
+      <div class="card-num">7</div>
+      <div class="card-title translatable" data-en="skysurvey: a pure python package to simulate the transient sky">skysurvey: a pure python package to simulate the transient sky</div>
+    </div>
+    <div class="card-meta">M. Rigault、M. Ginolin、L. Dellazzeri 等 · 2026-05-25</div>
+    <div class="card-brief translatable" data-en="Accurate simulation of astronomical observations is a critical element for any modern analyses, be it to measure event rates, analyses population properties, validate or train pipelines, account for selection effects, or correct biases. We present a novel pure python package named skysurvey made to enable the user to quickly simulate astrophysical transients as observed by a survey">Accurate simulation of astronomical observations is a critical element for any modern analyses, be it to measure event rates, analyses population properties, validate or train pipelines, account for selection effects, or correct biases. We present a novel pure python package named skysurvey made to enable the user to quickly simulate astrophysical transients as observed by a survey</div>
+    <div class="card-hint">点击查看完整内容</div>
+  </div>
+</div>
+<div class="card" style="animation-delay:0.28s" onclick="openModal(this)" data-en-title="The transitional Type Ibn/IIn SN 2022pda, with pre-explosion outbursts and a double-peaked light curve" data-en-summary="We report the results of a photometric and spectroscopic follow-up campaign of the unusual interacting supernova (SN) 2022pda. Precursor variability lasting $\sim 100$ days is observed before the explosion. The SN light curve has a double peak shape. It reached a first maximum of $M_{\rm{r}} = -19.6 \pm 0.2$\,mag, followed by an initial two-month decline and a second, broad peak lasting about six months. The early spectra show a blue continuum with dominant H and He emission lines. A high-resolution pre-maximum spectrum shows that the profile of the \Hei~$λ$5876 line consists of a moderately narrow ($\sim 1900$ \kms) P~Cygni absorption superposed on a broader ($\sim 3300$ \kms) component. In the blue region, several spectral features are identified, including C {\sc iii}/N {\sc iii}/O {\sc ii} blends. Two broad bumps at 4600--5200 Å, 6400--6800~Å regions reveal a complex profile, which are likely due to blends of H, He, and other emission lines. Late-time spectra are still dominated by prominent and broad H and He lines in emission. Shock-driven model fits to the bolometric light curve suggest that the SN is powered by interaction with a massive CSM with enhanced mass loss rates $\sim 5$ \msun yr$^{-1}$, expelled during two events occurred $\sim 1$ and $\sim 0.2$ years before the explosion. The overall SN evolution indicates that SN\,2022pda is a transitional event between a H-rich SN IIn (SN\,2009ip-like) and a He-rich SN Ibn. Our findings suggest that the progenitor was likely a Luminous Blue Variable transitioning towards a Wolf--Rayet stage." data-title="The transitional Type Ibn/IIn SN 2022pda, with pre-explosion outbursts and a double-peaked light curve" data-summary="We report the results of a photometric and spectroscopic follow-up campaign of the unusual interacting supernova (SN) 2022pda. Precursor variability lasting $\sim 100$ days is observed before the explosion. The SN light curve has a double peak shape. It reached a first maximum of $M_{\rm{r}} = -19.6 \pm 0.2$\,mag, followed by an initial two-month decline and a second, broad peak lasting about six months. The early spectra show a blue continuum with dominant H and He emission lines. A high-resolution pre-maximum spectrum shows that the profile of the \Hei~$λ$5876 line consists of a moderately narrow ($\sim 1900$ \kms) P~Cygni absorption superposed on a broader ($\sim 3300$ \kms) component. In the blue region, several spectral features are identified, including C {\sc iii}/N {\sc iii}/O {\sc ii} blends. Two broad bumps at 4600--5200 Å, 6400--6800~Å regions reveal a complex profile, which are likely due to blends of H, He, and other emission lines. Late-time spectra are still dominated by prominent and broad H and He lines in emission. Shock-driven model fits to the bolometric light curve suggest that the SN is powered by interaction with a massive CSM with enhanced mass loss rates $\sim 5$ \msun yr$^{-1}$, expelled during two events occurred $\sim 1$ and $\sim 0.2$ years before the explosion. The overall SN evolution indicates that SN\,2022pda is a transitional event between a H-rich SN IIn (SN\,2009ip-like) and a He-rich SN Ibn. Our findings suggest that the progenitor was likely a Luminous Blue Variable transitioning towards a Wolf--Rayet stage." data-meta="Y. -Z. Cai、A. Pastorello、R. Chiba 等 · 2026-05-25" data-keypoints="We report the results of a photometric and spectroscopic follow-up campaign of the unusual interacting supernova (SN) 2022pda.|Precursor variability lasting $\sim 100$ days is observed before the explosion.|The SN light curve has a double peak shape." data-concepts="" data-url="http://arxiv.org/abs/2605.25823v1" data-layman="这篇论文研究超新星爆发——恒星死亡时的剧烈爆炸，亮度可超过整个星系。科学家通过观测的方法，用望远镜收集来自宇宙的光信号，首次获得了相关观测证据。这一研究加深了我们对宇宙运行机制的理解就像通过脚印来推断走过的是什么动物，天文学家也是通过各种蛛丝马迹来探索宇宙的奥秘。">
+  <div class="card-body">
+    <div class="card-header">
+      <div class="card-num">8</div>
+      <div class="card-title translatable" data-en="The transitional Type Ibn/IIn SN 2022pda, with pre-explosion outbursts and a double-peaked light curve">The transitional Type Ibn/IIn SN 2022pda, with pre-explosion outbursts and a double-peaked light curve</div>
+    </div>
+    <div class="card-meta">Y. -Z. Cai、A. Pastorello、R. Chiba 等 · 2026-05-25</div>
+    <div class="card-brief translatable" data-en="We report the results of a photometric and spectroscopic follow-up campaign of the unusual interacting supernova (SN) 2022pda. Precursor variability lasting $\sim 100$ days is observed before the explosion">We report the results of a photometric and spectroscopic follow-up campaign of the unusual interacting supernova (SN) 2022pda. Precursor variability lasting $\sim 100$ days is observed before the explosion</div>
+    <div class="card-hint">点击查看完整内容</div>
+  </div>
+</div>
+<div class="card" style="animation-delay:0.32s" onclick="openModal(this)" data-en-title="Lithium-rich M-dwarfs at the ZAMS: Evidence for planetary engulfment?" data-en-summary="We identify 6 early M-dwarfs, in 3 open clusters (NGC 2451a, Blanco 1 and NGC 2516) at ages of 50-200 Myr, that are anomalously enriched in lithium compared with Li-depleted siblings of similar spectral type. The Li-rich outliers represent 2-3 per cent of stars with $3560 &lt; T_{\rm eff}/{\rm K} &lt; 4045$ in clusters at those ages but are otherwise indistinguishable in their positions, parallaxes and kinematics from other cluster members; their placement in absolute colour-magnitude diagrams is incompatible with being much younger Li-rich interlopers, only one shows evidence of binarity and they are all slow rotators. The enhanced Li abundances are consistent with the engulfment of 3-10 $M_\oplus$ of volatile-depleted planetary material after the formation of a radiative core has ended rapid pre main sequence Li depletion. Published planetary formation simulations featuring engulfment via dynamical interactions, and the preponderance of Earth-like exoplanets in close orbits around M-dwarfs, offer some support to this scenario. The observed occurrence rate would be a lower limit to the frequency with which such engulfment events occur between ages of $\sim (30-200)$ Myr, that depends in the timescale for ongoing Li depletion at the ZAMS." data-title="Lithium-rich M-dwarfs at the ZAMS: Evidence for planetary engulfment?" data-summary="We identify 6 early M-dwarfs, in 3 open clusters (NGC 2451a, Blanco 1 and NGC 2516) at ages of 50-200 Myr, that are anomalously enriched in lithium compared with Li-depleted siblings of similar spectral type. The Li-rich outliers represent 2-3 per cent of stars with $3560 &lt; T_{\rm eff}/{\rm K} &lt; 4045$ in clusters at those ages but are otherwise indistinguishable in their positions, parallaxes and kinematics from other cluster members; their placement in absolute colour-magnitude diagrams is incompatible with being much younger Li-rich interlopers, only one shows evidence of binarity and they are all slow rotators. The enhanced Li abundances are consistent with the engulfment of 3-10 $M_\oplus$ of volatile-depleted planetary material after the formation of a radiative core has ended rapid pre main sequence Li depletion. Published planetary formation simulations featuring engulfment via dynamical interactions, and the preponderance of Earth-like exoplanets in close orbits around M-dwarfs, offer some support to this scenario. The observed occurrence rate would be a lower limit to the frequency with which such engulfment events occur between ages of $\sim (30-200)$ Myr, that depends in the timescale for ongoing Li depletion at the ZAMS." data-meta="R. D. Jeffries、R. J. Jackson、I. Baraffe · 2026-05-25" data-keypoints="We identify 6 early M-dwarfs, in 3 open clusters (NGC 2451a, Blanco 1 and NGC 2516) at ages of 50-200 Myr, that are anomalously enriched in lithium compared with Li-depleted siblings of similar spectral type.|The Li-rich outliers represent 2-3 per cent of stars with $3560 &lt; T_{\rm eff}/{\rm K} &lt; 4045$ in clusters at those ages but are otherwise indistinguishable in their positions, parallaxes and kinematics from other cluster members; their placement in absolute colour-magnitude diagrams is incompatible with being much younger Li-rich interlopers, only one shows evidence of binarity and they are all slow rotators.|The enhanced Li abundances are consistent with the engulfment of 3-10 $M_\oplus$ of volatile-depleted planetary material after the formation of a radiative core has ended rapid pre main sequence Li depletion." data-concepts="" data-url="http://arxiv.org/abs/2605.25747v1" data-layman="这篇论文研究系外行星——围绕其他恒星运转的行星，可能孕育生命。科学家通过数值模拟的方法，用超级计算机模拟宇宙演化，就像用飞行模拟器训练飞行员，对现有理论模型提出了更精确的限制。寻找系外行星是人类探索太空家园的重要一步就像气象学家用计算机模拟台风路径来预测天气一样，天文学家也是通过各种蛛丝马迹来探索宇宙的奥秘。">
+  <div class="card-body">
+    <div class="card-header">
+      <div class="card-num">9</div>
+      <div class="card-title translatable" data-en="Lithium-rich M-dwarfs at the ZAMS: Evidence for planetary engulfment?">Lithium-rich M-dwarfs at the ZAMS: Evidence for planetary engulfment?</div>
+    </div>
+    <div class="card-meta">R. D. Jeffries、R. J. Jackson、I. Baraffe · 2026-05-25</div>
+    <div class="card-brief translatable" data-en="We identify 6 early M-dwarfs, in 3 open clusters (NGC 2451a, Blanco 1 and NGC 2516) at ages of 50-200 Myr, that are anomalously enriched in lithium compared with Li-depleted siblings of similar spectral type. The Li-rich outliers represent 2-3 per cent of stars with $3560 &lt; T_{\rm eff}/{\rm K} &lt; 4045$ in clusters at those ages but are otherwise indistinguishable in their positions, parallaxes and kinematics from other cluster members; their placement in absolute colour-magnitude diagrams is incompatible with being much younger Li-rich interlopers, only one shows evidence of binarity and they are all slow rotators">We identify 6 early M-dwarfs, in 3 open clusters (NGC 2451a, Blanco 1 and NGC 2516) at ages of 50-200 Myr, that are anomalously enriched in lithium compared with Li-depleted siblings of similar spectral type. The Li-rich outliers represent 2-3 per cent of stars with $3560 &lt; T_{\rm eff}/{\rm K} &lt; 4045$ in clusters at those ages but are otherwise indistinguishable in their positions, parallaxes and kinematics from other cluster members; their placement in absolute colour-magnitude diagrams is incompatible with being much younger Li-rich interlopers, only one shows evidence of binarity and they are all slow rotators</div>
+    <div class="card-hint">点击查看完整内容</div>
+  </div>
+</div>
+<div class="card" style="animation-delay:0.36s" onclick="openModal(this)" data-en-title="Superfluid fraction and effective ion mass in the crystalline crust of a neutron star: role of interband response" data-en-summary="Neutron superfluidity in the inner crust of a neutron star is further investigated, focusing on the role of the interband response in the superfluid fraction and the effective mass of crustal ions induced by their motion through the superfluid. Calculations are performed within the linear response theory of the self-consistent time-dependent Hartree-Fock-Bogoliubov equations with Skyrme nuclear energy density functionals in the Bardeen-Cooper-Schrieffer approximation. The absence of interband response in previous analyses is clarified. The neutron superfluid density is formally shown to be consistent with the entrainment matrix derived earlier in homogeneous neutron-proton superfluid mixture, thus providing a unified description of entrainment effects in the inner crust and outer core of a neutron star within the same microscopic framework. The relative importance of the intraband and interband responses in different regions of the crust is numerically assessed from three-dimensional band-structure calculations, taking into account quantum zero-point motion of ions about their equilibrium position. The neutron superfluid fraction is found to be enhanced by the interband response, resulting in effective ion masses that remain close to the mass of quantum mechanically bound nucleons for realistic neutron pairing gaps. Results are compared to predictions from classical hydrodynamics with different prescriptions for the permeability of ions to superfluidity." data-title="Superfluid fraction and effective ion mass in the crystalline crust of a neutron star: role of interband response" data-summary="Neutron superfluidity in the inner crust of a neutron star is further investigated, focusing on the role of the interband response in the superfluid fraction and the effective mass of crustal ions induced by their motion through the superfluid. Calculations are performed within the linear response theory of the self-consistent time-dependent Hartree-Fock-Bogoliubov equations with Skyrme nuclear energy density functionals in the Bardeen-Cooper-Schrieffer approximation. The absence of interband response in previous analyses is clarified. The neutron superfluid density is formally shown to be consistent with the entrainment matrix derived earlier in homogeneous neutron-proton superfluid mixture, thus providing a unified description of entrainment effects in the inner crust and outer core of a neutron star within the same microscopic framework. The relative importance of the intraband and interband responses in different regions of the crust is numerically assessed from three-dimensional band-structure calculations, taking into account quantum zero-point motion of ions about their equilibrium position. The neutron superfluid fraction is found to be enhanced by the interband response, resulting in effective ion masses that remain close to the mass of quantum mechanically bound nucleons for realistic neutron pairing gaps. Results are compared to predictions from classical hydrodynamics with different prescriptions for the permeability of ions to superfluidity." data-meta="Nicolas Chamel · 2026-05-25" data-keypoints="Neutron superfluidity in the inner crust of a neutron star is further investigated, focusing on the role of the interband response in the superfluid fraction and the effective mass of crustal ions induced by their motion through the superfluid.|Calculations are performed within the linear response theory of the self-consistent time-dependent Hartree-Fock-Bogoliubov equations with Skyrme nuclear energy density functionals in the Bardeen-Cooper-Schrieffer approximation.|The absence of interband response in previous analyses is clarified." data-concepts="" data-url="http://arxiv.org/abs/2605.25600v1" data-layman="这篇论文研究中子星——恒星坍缩后的致密天体，密度大到一勺物质重几十亿吨。科学家通过数值模拟的方法，用超级计算机模拟宇宙演化，就像用飞行模拟器训练飞行员，发现了新的现象或规律。这一研究加深了我们对宇宙运行机制的理解就像通过脚印来推断走过的是什么动物，天文学家也是通过各种蛛丝马迹来探索宇宙的奥秘。">
+  <div class="card-body">
+    <div class="card-header">
+      <div class="card-num">10</div>
+      <div class="card-title translatable" data-en="Superfluid fraction and effective ion mass in the crystalline crust of a neutron star: role of interband response">Superfluid fraction and effective ion mass in the crystalline crust of a neutron star: role of interband response</div>
+    </div>
+    <div class="card-meta">Nicolas Chamel · 2026-05-25</div>
+    <div class="card-brief translatable" data-en="Neutron superfluidity in the inner crust of a neutron star is further investigated, focusing on the role of the interband response in the superfluid fraction and the effective mass of crustal ions induced by their motion through the superfluid. Calculations are performed within the linear response theory of the self-consistent time-dependent Hartree-Fock-Bogoliubov equations with Skyrme nuclear energy density functionals in the Bardeen-Cooper-Schrieffer approximation">Neutron superfluidity in the inner crust of a neutron star is further investigated, focusing on the role of the interband response in the superfluid fraction and the effective mass of crustal ions induced by their motion through the superfluid. Calculations are performed within the linear response theory of the self-consistent time-dependent Hartree-Fock-Bogoliubov equations with Skyrme nuclear energy density functionals in the Bardeen-Cooper-Schrieffer approximation</div>
+    <div class="card-hint">点击查看完整内容</div>
+  </div>
+</div>
+<div class="card" style="animation-delay:0.40s" onclick="openModal(this)" data-en-title="Discovery of Molecular and Atomic Gas associated with HESS J1646-458 (Westerlund 1): Spatial TeV Gamma-Ray and Interstellar Proton Correspondence" data-en-summary="We report CO and HI studies of molecular and atomic gas toward the TeV gamma-ray source HESS J1646$-$458, widely considered to be associated with the young massive cluster Westerlund 1 (Wd1). We found that molecular clouds at $V_\mathrm{LSR} \sim$$-32$ km s$^{-1}$ coincide with arc-like structures seen at 8 $μ$m, likely illuminated by strong FUV radiation from Wd1. $^{12}$CO($J$ = 3-2) emission at the same velocity reveals a cavity-like structure with an expansion velocity of $\sim$$5$ km s$^{-1}$ toward the central region of Wd1, suggesting a recently formed wind-blown bubble driven by the cluster. We also identify a complementary spatial distribution between the $V_\mathrm{LSR} \sim$$-55$ and $\sim$$-32$ km s$^{-1}$ clouds, connected by an intermediate-velocity component at $V_\mathrm{LSR} \sim$$-44$ km s$^{-1}$. These characteristics are consistent with signatures of triggered star formation through a cloud-cloud collision and imply that both clouds are physically associated with Wd1. On larger scales, the total interstellar proton column density at $V_\mathrm{LSR}$ $\sim$$-36$-$-23$ km s$^{-1}$ shows a moderate spatial correspondence with the TeV gamma-ray shell. Together with this correlation, a substantial gas mass of $\sim$$1.6 \times 10^6$ $M_\odot$, and the absence of bright synchrotron X-rays, the TeV gamma-ray emission surrounding Wd1 is consistent with the hadronic origin. The present finding allows us to calculate the total energy of accelerated cosmic-ray protons to be $\sim$$6 \times 10^{49}$ erg." data-title="Discovery of Molecular and Atomic Gas associated with HESS J1646-458 (Westerlund 1): Spatial TeV Gamma-Ray and Interstellar Proton Correspondence" data-summary="We report CO and HI studies of molecular and atomic gas toward the TeV gamma-ray source HESS J1646$-$458, widely considered to be associated with the young massive cluster Westerlund 1 (Wd1). We found that molecular clouds at $V_\mathrm{LSR} \sim$$-32$ km s$^{-1}$ coincide with arc-like structures seen at 8 $μ$m, likely illuminated by strong FUV radiation from Wd1. $^{12}$CO($J$ = 3-2) emission at the same velocity reveals a cavity-like structure with an expansion velocity of $\sim$$5$ km s$^{-1}$ toward the central region of Wd1, suggesting a recently formed wind-blown bubble driven by the cluster. We also identify a complementary spatial distribution between the $V_\mathrm{LSR} \sim$$-55$ and $\sim$$-32$ km s$^{-1}$ clouds, connected by an intermediate-velocity component at $V_\mathrm{LSR} \sim$$-44$ km s$^{-1}$. These characteristics are consistent with signatures of triggered star formation through a cloud-cloud collision and imply that both clouds are physically associated with Wd1. On larger scales, the total interstellar proton column density at $V_\mathrm{LSR}$ $\sim$$-36$-$-23$ km s$^{-1}$ shows a moderate spatial correspondence with the TeV gamma-ray shell. Together with this correlation, a substantial gas mass of $\sim$$1.6 \times 10^6$ $M_\odot$, and the absence of bright synchrotron X-rays, the TeV gamma-ray emission surrounding Wd1 is consistent with the hadronic origin. The present finding allows us to calculate the total energy of accelerated cosmic-ray protons to be $\sim$$6 \times 10^{49}$ erg." data-meta="H. Sano、Y. Fukui、S. Fujimori 等 · 2026-05-25" data-keypoints="We report CO and HI studies of molecular and atomic gas toward the TeV gamma-ray source HESS J1646$-$458, widely considered to be associated with the young massive cluster Westerlund 1 (Wd1).|We found that molecular clouds at $V_\mathrm{LSR} \sim$$-32$ km s$^{-1}$ coincide with arc-like structures seen at 8 $μ$m, likely illuminated by strong FUV radiation from Wd1.|$^{12}$CO($J$ = 3-2) emission at the same velocity reveals a cavity-like structure with an expansion velocity of $\sim$$5$ km s$^{-1}$ toward the central region of Wd1, suggesting a recently formed wind-blown bubble driven by the cluster." data-concepts="" data-url="http://arxiv.org/abs/2605.25467v1" data-layman="这篇论文研究恒星——像太阳一样自身发光的天体。研究发现：发现了新的现象或规律。恒星是宇宙的炼金术士，研究它们的诞生有助于理解元素的起源就像通过脚印来推断走过的是什么动物，天文学家也是通过各种蛛丝马迹来探索宇宙的奥秘。">
+  <div class="card-body">
+    <div class="card-header">
+      <div class="card-num">11</div>
+      <div class="card-title translatable" data-en="Discovery of Molecular and Atomic Gas associated with HESS J1646-458 (Westerlund 1): Spatial TeV Gamma-Ray and Interstellar Proton Correspondence">Discovery of Molecular and Atomic Gas associated with HESS J1646-458 (Westerlund 1): Spatial TeV Gamma-Ray and Interstellar Proton Correspondence</div>
+    </div>
+    <div class="card-meta">H. Sano、Y. Fukui、S. Fujimori 等 · 2026-05-25</div>
+    <div class="card-brief translatable" data-en="We report CO and HI studies of molecular and atomic gas toward the TeV gamma-ray source HESS J1646$-$458, widely considered to be associated with the young massive cluster Westerlund 1 (Wd1). We found that molecular clouds at $V_\mathrm{LSR} \sim$$-32$ km s$^{-1}$ coincide with arc-like structures seen at 8 $μ$m, likely illuminated by strong FUV radiation from Wd1">We report CO and HI studies of molecular and atomic gas toward the TeV gamma-ray source HESS J1646$-$458, widely considered to be associated with the young massive cluster Westerlund 1 (Wd1). We found that molecular clouds at $V_\mathrm{LSR} \sim$$-32$ km s$^{-1}$ coincide with arc-like structures seen at 8 $μ$m, likely illuminated by strong FUV radiation from Wd1</div>
+    <div class="card-hint">点击查看完整内容</div>
+  </div>
+</div>
+</div>
+<div class="sec-anchor" id="sec-高能天体物理"></div>
+<div class="section-head">
+  <div class="section-icon">🌌</div>
+  <h2>高能天体物理</h2>
+  <span class="count">8</span>
+</div>
+<div class="card-grid">
+<div class="card" style="animation-delay:0.00s" onclick="openModal(this)" data-en-title="X-ray Polarization Signatures from Comptonization by Magnetic Reconnection Plasmoids" data-en-summary="Emission from X-ray binaries in the hard spectral state is dominated by high-energy radiation attributed to the Compton scattering of seed photons. The prevalent model of the Comptonization by hot electrons or pairs faces the problem of rapid radiative cooling of the emitting particles. A proposed alternative mechanism is the Comptonization by scattering off fast plasmoids formed during magnetic reconnection. In this work, we simulate a simplified model of the plasmoid chain with Monte Carlo radiation transport and report on spectropolarimetric properties. We find that the Comptonization off trans-relativistic bulk plasmoids is not only able to reproduce the 100 keV spectral cutoff, but furthermore produces X-rays that are above 1 keV strongly polarized perpendicular to the reconnection layer. The polarization is stronger than that from the Comptonization by an isotropic hot plasma owing to the confinement of the motion of the scattering plasmoids in the plane of the reconnection layer. The dependence of polarization on azimuthal viewing angle is discussed, along with possible locations for the plasmoid chain in an equatorial current sheet or the sheath of the black hole&#x27;s relativistic jet." data-title="X-ray Polarization Signatures from Comptonization by Magnetic Reconnection Plasmoids" data-summary="Emission from X-ray binaries in the hard spectral state is dominated by high-energy radiation attributed to the Compton scattering of seed photons. The prevalent model of the Comptonization by hot electrons or pairs faces the problem of rapid radiative cooling of the emitting particles. A proposed alternative mechanism is the Comptonization by scattering off fast plasmoids formed during magnetic reconnection. In this work, we simulate a simplified model of the plasmoid chain with Monte Carlo radiation transport and report on spectropolarimetric properties. We find that the Comptonization off trans-relativistic bulk plasmoids is not only able to reproduce the 100 keV spectral cutoff, but furthermore produces X-rays that are above 1 keV strongly polarized perpendicular to the reconnection layer. The polarization is stronger than that from the Comptonization by an isotropic hot plasma owing to the confinement of the motion of the scattering plasmoids in the plane of the reconnection layer. The dependence of polarization on azimuthal viewing angle is discussed, along with possible locations for the plasmoid chain in an equatorial current sheet or the sheath of the black hole&#x27;s relativistic jet." data-meta="John Groger、Kun Hu、Henric Krawczynski · 2026-05-25" data-keypoints="Emission from X-ray binaries in the hard spectral state is dominated by high-energy radiation attributed to the Compton scattering of seed photons.|The prevalent model of the Comptonization by hot electrons or pairs faces the problem of rapid radiative cooling of the emitting particles.|A proposed alternative mechanism is the Comptonization by scattering off fast plasmoids formed during magnetic reconnection." data-concepts="" data-url="http://arxiv.org/abs/2605.26065v1" data-layman="这篇论文研究黑洞——一种引力极强、连光都无法逃脱的天体。研究发现：深入探索了其物理机制。黑洞是宇宙中最极端的天体，研究它能帮助我们理解引力的本质就像通过观察漩涡的水流来理解深海黑洞，天文学家也是通过各种蛛丝马迹来探索宇宙的奥秘。">
+  <div class="card-body">
+    <div class="card-header">
+      <div class="card-num">1</div>
+      <div class="card-title translatable" data-en="X-ray Polarization Signatures from Comptonization by Magnetic Reconnection Plasmoids">X-ray Polarization Signatures from Comptonization by Magnetic Reconnection Plasmoids</div>
+    </div>
+    <div class="card-meta">John Groger、Kun Hu、Henric Krawczynski · 2026-05-25</div>
+    <div class="card-brief translatable" data-en="Emission from X-ray binaries in the hard spectral state is dominated by high-energy radiation attributed to the Compton scattering of seed photons. The prevalent model of the Comptonization by hot electrons or pairs faces the problem of rapid radiative cooling of the emitting particles">Emission from X-ray binaries in the hard spectral state is dominated by high-energy radiation attributed to the Compton scattering of seed photons. The prevalent model of the Comptonization by hot electrons or pairs faces the problem of rapid radiative cooling of the emitting particles</div>
+    <div class="card-hint">点击查看完整内容</div>
+  </div>
+</div>
+<div class="card" style="animation-delay:0.04s" onclick="openModal(this)" data-en-title="Reversible-jump MCMC reveals binary black hole subpopulations with distinct redshift evolution" data-en-summary="Analyses of the growing catalog of binary black hole (BBH) mergers observed by the LIGO-Virgo-KAGRA detectors are beginning to resolve features in their population-level mass, spin, and redshift distributions, revealing imprints of the astrophysical processes driving their formation and evolution. We present a novel method to search for subpopulations in the data using reversible-jump Markov chain Monte Carlo, providing interpretable results while making minimal prior assumptions. We find evidence for three subpopulations: a narrow subpopulation in primary mass at $\sim 10~M_\odot$ with preferentially aligned spins and unequal masses, consistent with isolated binary evolution; a subpopulation broadly distributed around $\sim 30~M_\odot$ with isotropically-distributed spins and a strong preference for equal mass ratios, consistent with dynamical formation in clusters; and a high-spin subpopulation spanning the continuum in mass, which we interpret as the confluence of multiple subdominant formation channels. When we allow for the independent redshift evolution of each subpopulation, we find that the subpopulation encompassing the $10~M_\odot$ peak evolves more quickly than the $30~M_\odot$ subpopulation, with implications for the delay-time distribution and metallicity-dependent BBH formation efficiency. Our work lays the foundation for a novel data-driven framework to infer the formation mechanisms of BBHs." data-title="Reversible-jump MCMC reveals binary black hole subpopulations with distinct redshift evolution" data-summary="Analyses of the growing catalog of binary black hole (BBH) mergers observed by the LIGO-Virgo-KAGRA detectors are beginning to resolve features in their population-level mass, spin, and redshift distributions, revealing imprints of the astrophysical processes driving their formation and evolution. We present a novel method to search for subpopulations in the data using reversible-jump Markov chain Monte Carlo, providing interpretable results while making minimal prior assumptions. We find evidence for three subpopulations: a narrow subpopulation in primary mass at $\sim 10~M_\odot$ with preferentially aligned spins and unequal masses, consistent with isolated binary evolution; a subpopulation broadly distributed around $\sim 30~M_\odot$ with isotropically-distributed spins and a strong preference for equal mass ratios, consistent with dynamical formation in clusters; and a high-spin subpopulation spanning the continuum in mass, which we interpret as the confluence of multiple subdominant formation channels. When we allow for the independent redshift evolution of each subpopulation, we find that the subpopulation encompassing the $10~M_\odot$ peak evolves more quickly than the $30~M_\odot$ subpopulation, with implications for the delay-time distribution and metallicity-dependent BBH formation efficiency. Our work lays the foundation for a novel data-driven framework to infer the formation mechanisms of BBHs." data-meta="April Qiu Cheng、Alexandre Toubiana、Sylvia Biscoveanu 等 · 2026-05-25" data-keypoints="Analyses of the growing catalog of binary black hole (BBH) mergers observed by the LIGO-Virgo-KAGRA detectors are beginning to resolve features in their population-level mass, spin, and redshift distributions, revealing imprints of the astrophysical processes driving their formation and evolution.|We present a novel method to search for subpopulations in the data using reversible-jump Markov chain Monte Carlo, providing interpretable results while making minimal prior assumptions.|We find evidence for three subpopulations: a narrow subpopulation in primary mass at $\sim 10~M_\odot$ with preferentially aligned spins and unequal masses, consistent with isolated binary evolution; a subpopulation broadly distributed around $\sim 30~M_\odot$ with isotropically-distributed spins and a strong preference for equal mass ratios, consistent with dynamical formation in clusters; and a high-spin subpopulation spanning the continuum in mass, which we interpret as the confluence of multiple subdominant formation channels." data-concepts="" data-url="http://arxiv.org/abs/2605.25980v1" data-layman="这篇论文研究黑洞——一种引力极强、连光都无法逃脱的天体。科学家通过观测的方法，用望远镜收集来自宇宙的光信号，发现了新的现象或规律。黑洞是宇宙中最极端的天体，研究它能帮助我们理解引力的本质就像通过观察漩涡的水流来理解深海黑洞，天文学家也是通过各种蛛丝马迹来探索宇宙的奥秘。">
+  <div class="card-body">
+    <div class="card-header">
+      <div class="card-num">2</div>
+      <div class="card-title translatable" data-en="Reversible-jump MCMC reveals binary black hole subpopulations with distinct redshift evolution">Reversible-jump MCMC reveals binary black hole subpopulations with distinct redshift evolution</div>
+    </div>
+    <div class="card-meta">April Qiu Cheng、Alexandre Toubiana、Sylvia Biscoveanu 等 · 2026-05-25</div>
+    <div class="card-brief translatable" data-en="Analyses of the growing catalog of binary black hole (BBH) mergers observed by the LIGO-Virgo-KAGRA detectors are beginning to resolve features in their population-level mass, spin, and redshift distributions, revealing imprints of the astrophysical processes driving their formation and evolution. We present a novel method to search for subpopulations in the data using reversible-jump Markov chain Monte Carlo, providing interpretable results while making minimal prior assumptions">Analyses of the growing catalog of binary black hole (BBH) mergers observed by the LIGO-Virgo-KAGRA detectors are beginning to resolve features in their population-level mass, spin, and redshift distributions, revealing imprints of the astrophysical processes driving their formation and evolution. We present a novel method to search for subpopulations in the data using reversible-jump Markov chain Monte Carlo, providing interpretable results while making minimal prior assumptions</div>
+    <div class="card-hint">点击查看完整内容</div>
+  </div>
+</div>
+<div class="card" style="animation-delay:0.08s" onclick="openModal(this)" data-en-title="Building on SVOM : the CATCH satellite constellation for transient astronomy" data-en-summary="Building on the success of the French-Chinese SVOM mission, our consortium proposes CATCH (Chasing All Transients Constellation of Hunters), targeting Gamma-Ray Bursts and X-ray transients. Its first step, CATCH-PM (Precursor Mission), consists of three satellites: (i) the Trigger Scout Satellite (TSS), providing real-time detection and localization of transients from soft X-rays to gamma-rays; (ii) the X-ray Hunter Satellite (XHS), performing rapid X-ray afterglow follow-up and refined localization with Wolter-I optics; and (iii) the Infrared Hunter Satellite (IHS), enabling precise localization and follow-up in the visible and near-infrared, including obscured and high-redshift transients. CATCH-PM is both a technological demonstrator and a standalone time-domain astrophysics mission. In addition to Scout triggers, it will accept numerous external Targets of Opportunity and conduct a broad observing program. By reusing available spare hardware, a launch within five years is feasible. Operating alongside SVOM and EinsteinProbe, it would significantly enhance the overall scientific return." data-title="Building on SVOM : the CATCH satellite constellation for transient astronomy" data-summary="Building on the success of the French-Chinese SVOM mission, our consortium proposes CATCH (Chasing All Transients Constellation of Hunters), targeting Gamma-Ray Bursts and X-ray transients. Its first step, CATCH-PM (Precursor Mission), consists of three satellites: (i) the Trigger Scout Satellite (TSS), providing real-time detection and localization of transients from soft X-rays to gamma-rays; (ii) the X-ray Hunter Satellite (XHS), performing rapid X-ray afterglow follow-up and refined localization with Wolter-I optics; and (iii) the Infrared Hunter Satellite (IHS), enabling precise localization and follow-up in the visible and near-infrared, including obscured and high-redshift transients. CATCH-PM is both a technological demonstrator and a standalone time-domain astrophysics mission. In addition to Scout triggers, it will accept numerous external Targets of Opportunity and conduct a broad observing program. By reusing available spare hardware, a launch within five years is feasible. Operating alongside SVOM and EinsteinProbe, it would significantly enhance the overall scientific return." data-meta="Stéphane Schanne · 2026-05-25" data-keypoints="Building on the success of the French-Chinese SVOM mission, our consortium proposes CATCH (Chasing All Transients Constellation of Hunters), targeting Gamma-Ray Bursts and X-ray transients.|Its first step, CATCH-PM (Precursor Mission), consists of three satellites: (i) the Trigger Scout Satellite (TSS), providing real-time detection and localization of transients from soft X-rays to gamma-rays; (ii) the X-ray Hunter Satellite (XHS), performing rapid X-ray afterglow follow-up and refined localization with Wolter-I optics; and (iii) the Infrared Hunter Satellite (IHS), enabling precise localization and follow-up in the visible and near-infrared, including obscured and high-redshift transients.|CATCH-PM is both a technological demonstrator and a standalone time-domain astrophysics mission." data-concepts="" data-url="http://arxiv.org/abs/2605.25959v1" data-layman="这篇论文研究天体物理现象——宇宙中的物理过程。研究发现：首次获得了相关观测证据。这一研究加深了我们对宇宙运行机制的理解就像通过脚印来推断走过的是什么动物，天文学家也是通过各种蛛丝马迹来探索宇宙的奥秘。">
+  <div class="card-body">
+    <div class="card-header">
+      <div class="card-num">3</div>
+      <div class="card-title translatable" data-en="Building on SVOM : the CATCH satellite constellation for transient astronomy">Building on SVOM : the CATCH satellite constellation for transient astronomy</div>
+    </div>
+    <div class="card-meta">Stéphane Schanne · 2026-05-25</div>
+    <div class="card-brief translatable" data-en="Building on the success of the French-Chinese SVOM mission, our consortium proposes CATCH (Chasing All Transients Constellation of Hunters), targeting Gamma-Ray Bursts and X-ray transients. Its first step, CATCH-PM (Precursor Mission), consists of three satellites: (i) the Trigger Scout Satellite (TSS), providing real-time detection and localization of transients from soft X-rays to gamma-rays; (ii) the X-ray Hunter Satellite (XHS), performing rapid X-ray afterglow follow-up and refined localization with Wolter-I optics; and (iii) the Infrared Hunter Satellite (IHS), enabling precise localization and follow-up in the visible and near-infrared, including obscured and high-redshift transients">Building on the success of the French-Chinese SVOM mission, our consortium proposes CATCH (Chasing All Transients Constellation of Hunters), targeting Gamma-Ray Bursts and X-ray transients. Its first step, CATCH-PM (Precursor Mission), consists of three satellites: (i) the Trigger Scout Satellite (TSS), providing real-time detection and localization of transients from soft X-rays to gamma-rays; (ii) the X-ray Hunter Satellite (XHS), performing rapid X-ray afterglow follow-up and refined localization with Wolter-I optics; and (iii) the Infrared Hunter Satellite (IHS), enabling precise localization and follow-up in the visible and near-infrared, including obscured and high-redshift transients</div>
+    <div class="card-hint">点击查看完整内容</div>
+  </div>
+</div>
+<div class="card" style="animation-delay:0.12s" onclick="openModal(this)" data-en-title="Diversity of morphology of type II spicules in MURaM-ChE simulations" data-en-summary="Spicules are ubiquitous, small-scale features in the solar atmosphere, exhibiting a jet-like appearance most clearly identified by their apparent motion in off-limb observations. While they are often interpreted as narrow, thread-like structures, their true three-dimensional (3D) structure remains unknown. We aim to uncover the 3D morphology and dynamics of fast-evolving spicules (type II) using a MURaM-ChE simulation. We use a H$α$ proxy that has been developed using non-equilibrium (NE) hydrogen populations in MURaM-ChE. The proxy, modelled as an escape probability, is synthesised to isolate on-disc as well as off-limb H$α$ wing features. The 3D structure of these features is investigated using the 3D information on opacity in H$α$. We identify type II spicules, with unique 3D morphologies: the dominant being thread-like and slab-like. The appearance of spicules as slabs or threads is a function of time and Doppler velocity. The spicules extending above the spicule-forest (2Mm -3Mm above the surface) tend to be located at quasi-separatrix layers (QSLs). We find that the spatially resolved contributions to the opacity of spicules are often similar for spicules synthesised in the horizontal direction, and their on-disk rapid blueshifted excursion (RBE) synthesised in the vertical direction at the same Doppler velocity of 37km/s. This confirms that RBEs are indeed the on-disc counterparts of spicules. Furthermore, our analysis indicates that cross-field motions can significantly contribute to spicule dynamics. Spicules exhibit a range of morphologies, including both slab-like and thread-like structures. Their observed appearance depends strongly on line-of-sight projection and Doppler sampling. Spicules are preferentially located at QSLs, highlighting the role of magnetic topology in driving spicular dynamics." data-title="Diversity of morphology of type II spicules in MURaM-ChE simulations" data-summary="Spicules are ubiquitous, small-scale features in the solar atmosphere, exhibiting a jet-like appearance most clearly identified by their apparent motion in off-limb observations. While they are often interpreted as narrow, thread-like structures, their true three-dimensional (3D) structure remains unknown. We aim to uncover the 3D morphology and dynamics of fast-evolving spicules (type II) using a MURaM-ChE simulation. We use a H$α$ proxy that has been developed using non-equilibrium (NE) hydrogen populations in MURaM-ChE. The proxy, modelled as an escape probability, is synthesised to isolate on-disc as well as off-limb H$α$ wing features. The 3D structure of these features is investigated using the 3D information on opacity in H$α$. We identify type II spicules, with unique 3D morphologies: the dominant being thread-like and slab-like. The appearance of spicules as slabs or threads is a function of time and Doppler velocity. The spicules extending above the spicule-forest (2Mm -3Mm above the surface) tend to be located at quasi-separatrix layers (QSLs). We find that the spatially resolved contributions to the opacity of spicules are often similar for spicules synthesised in the horizontal direction, and their on-disk rapid blueshifted excursion (RBE) synthesised in the vertical direction at the same Doppler velocity of 37km/s. This confirms that RBEs are indeed the on-disc counterparts of spicules. Furthermore, our analysis indicates that cross-field motions can significantly contribute to spicule dynamics. Spicules exhibit a range of morphologies, including both slab-like and thread-like structures. Their observed appearance depends strongly on line-of-sight projection and Doppler sampling. Spicules are preferentially located at QSLs, highlighting the role of magnetic topology in driving spicular dynamics." data-meta="Sanghita Chandra、Robert Cameron、Damien Przybylski 等 · 2026-05-25" data-keypoints="Spicules are ubiquitous, small-scale features in the solar atmosphere, exhibiting a jet-like appearance most clearly identified by their apparent motion in off-limb observations.|While they are often interpreted as narrow, thread-like structures, their true three-dimensional (3D) structure remains unknown.|We aim to uncover the 3D morphology and dynamics of fast-evolving spicules (type II) using a MURaM-ChE simulation." data-concepts="" data-url="http://arxiv.org/abs/2605.25886v1" data-layman="这篇论文研究太阳——我们太阳系的中心恒星。科学家通过数值模拟的方法，用超级计算机模拟宇宙演化，就像用飞行模拟器训练飞行员，验证了此前科学家的理论预测。这一研究加深了我们对宇宙运行机制的理解就像气象学家用计算机模拟台风路径来预测天气一样，天文学家也是通过各种蛛丝马迹来探索宇宙的奥秘。">
+  <div class="card-body">
+    <div class="card-header">
+      <div class="card-num">4</div>
+      <div class="card-title translatable" data-en="Diversity of morphology of type II spicules in MURaM-ChE simulations">Diversity of morphology of type II spicules in MURaM-ChE simulations</div>
+    </div>
+    <div class="card-meta">Sanghita Chandra、Robert Cameron、Damien Przybylski 等 · 2026-05-25</div>
+    <div class="card-brief translatable" data-en="Spicules are ubiquitous, small-scale features in the solar atmosphere, exhibiting a jet-like appearance most clearly identified by their apparent motion in off-limb observations. While they are often interpreted as narrow, thread-like structures, their true three-dimensional (3D) structure remains unknown">Spicules are ubiquitous, small-scale features in the solar atmosphere, exhibiting a jet-like appearance most clearly identified by their apparent motion in off-limb observations. While they are often interpreted as narrow, thread-like structures, their true three-dimensional (3D) structure remains unknown</div>
+    <div class="card-hint">点击查看完整内容</div>
+  </div>
+</div>
+<div class="card" style="animation-delay:0.16s" onclick="openModal(this)" data-en-title="Pulse magnet of 10 T for power laser experiments with x-ray free-electron laser diagnostics" data-en-summary="The importance of investigating magnetized plasmas/solids in extreme conditions has grown over the last decades, particularly in the field of high energy density physics (HEDP), such as laboratory astrophysics and inertial confinement fusion. However, up to now, the unique capabilities of an X-ray free-electron laser (XFEL), such as high brilliance and low divergence have never been exploited for this type of research. In this paper, we present the first platform developed at SACLA, Japan, that combines a high-power optical laser for generating matter under extreme conditions of pressure and temperature, an XFEL probe, and an external magnetic field. The high current is produced using a 2 kV, 4.8 kJ pulsed power system giving a maximum current of 10 kA which is synchronized with the optical laser and XFEL in a vacuum environment. It flows through a split-pair coil to generate a high magnetic field (10 T at 6 kA) which has 1 cm access every 45$^{\circ}$ in the equatorial plane and 90$^{\circ}$ in the poloidal one. This platform offers new opportunities to study high-energy-density matter in strong magnetic fields, including shock propagation, instability growth, and turbulent plasma dynamics." data-title="Pulse magnet of 10 T for power laser experiments with x-ray free-electron laser diagnostics" data-summary="The importance of investigating magnetized plasmas/solids in extreme conditions has grown over the last decades, particularly in the field of high energy density physics (HEDP), such as laboratory astrophysics and inertial confinement fusion. However, up to now, the unique capabilities of an X-ray free-electron laser (XFEL), such as high brilliance and low divergence have never been exploited for this type of research. In this paper, we present the first platform developed at SACLA, Japan, that combines a high-power optical laser for generating matter under extreme conditions of pressure and temperature, an XFEL probe, and an external magnetic field. The high current is produced using a 2 kV, 4.8 kJ pulsed power system giving a maximum current of 10 kA which is synchronized with the optical laser and XFEL in a vacuum environment. It flows through a split-pair coil to generate a high magnetic field (10 T at 6 kA) which has 1 cm access every 45$^{\circ}$ in the equatorial plane and 90$^{\circ}$ in the poloidal one. This platform offers new opportunities to study high-energy-density matter in strong magnetic fields, including shock propagation, instability growth, and turbulent plasma dynamics." data-meta="Akihiko Ikeda、Kosuke Noda、Yutaro Yamanaka 等 · 2026-05-25" data-keypoints="The importance of investigating magnetized plasmas/solids in extreme conditions has grown over the last decades, particularly in the field of high energy density physics (HEDP), such as laboratory astrophysics and inertial confinement fusion.|However, up to now, the unique capabilities of an X-ray free-electron laser (XFEL), such as high brilliance and low divergence have never been exploited for this type of research.|In this paper, we present the first platform developed at SACLA, Japan, that combines a high-power optical laser for generating matter under extreme conditions of pressure and temperature, an XFEL probe, and an external magnetic field." data-concepts="" data-url="http://arxiv.org/abs/2605.25697v1" data-layman="这篇论文研究磁场——影响带电粒子运动的隐形力场。研究发现：首次获得了相关观测证据。这一研究加深了我们对宇宙运行机制的理解就像通过脚印来推断走过的是什么动物，天文学家也是通过各种蛛丝马迹来探索宇宙的奥秘。">
+  <div class="card-body">
+    <div class="card-header">
+      <div class="card-num">5</div>
+      <div class="card-title translatable" data-en="Pulse magnet of 10 T for power laser experiments with x-ray free-electron laser diagnostics">Pulse magnet of 10 T for power laser experiments with x-ray free-electron laser diagnostics</div>
+    </div>
+    <div class="card-meta">Akihiko Ikeda、Kosuke Noda、Yutaro Yamanaka 等 · 2026-05-25</div>
+    <div class="card-brief translatable" data-en="The importance of investigating magnetized plasmas/solids in extreme conditions has grown over the last decades, particularly in the field of high energy density physics (HEDP), such as laboratory astrophysics and inertial confinement fusion. However, up to now, the unique capabilities of an X-ray free-electron laser (XFEL), such as high brilliance and low divergence have never been exploited for this type of research">The importance of investigating magnetized plasmas/solids in extreme conditions has grown over the last decades, particularly in the field of high energy density physics (HEDP), such as laboratory astrophysics and inertial confinement fusion. However, up to now, the unique capabilities of an X-ray free-electron laser (XFEL), such as high brilliance and low divergence have never been exploited for this type of research</div>
+    <div class="card-hint">点击查看完整内容</div>
+  </div>
+</div>
+<div class="card" style="animation-delay:0.20s" onclick="openModal(this)" data-en-title="Extreme color-magnitude variability: connection to changing-look AGNs" data-en-summary="Context. Changing-look active galactic nuclei (CL-AGNs) challenge the unified model of AGNs and offer key insights into the physics of the accretion processes of super-massive black holes. While systematic spectroscopic comparisons have successfully identified large samples of CL-AGNs, photometric selection based on variability features provides an efficient alternative. Methods. We use the colour--magnitude (CM) variability method to continue our identification of the CL transition in AGNs, which utilizes the slope ($k$) of the CM variations to identify strong bluer-when-brighter behavior, while the variation amplitudes in optical and mid-infrared bands are also considered. The candidates thus selected from the Type-2 AGNs given in the Sloan Digital Sky Survey catalog are spectroscopically observed using the 3.6-m DOT and the 2-m HCT. Results. We confirm seven turn-on CL-AGNs among 12 candidates. Comparing them with both the general AGN populations and the spectroscopically identified CL-AGN sample, the CL-AGNs showed larger optical and MIR variations and $k$ values. The extreme CM variabilities of these sources (with optical magnitude changes $&gt;$ 0.9) occurred recently. For four sources, flare-like brightening episodes were temporally associated with the turn-on transitions within 3--7 years, suggesting that these flares may trace short-timescale accretion enhancement, central brightening, and BLR re-illumination. Conclusions. The extreme CM variability serves as a highly efficient criterion for finding CL-AGNs. The properties of the CL-AGNs thus found suggest that they may represent AGNs at a pivotal state, which likely occur CL transitions due to enhanced accretion activity, while the cause of the accretion activity, determined to have a time scale of several years, remains to be investigated." data-title="Extreme color-magnitude variability: connection to changing-look AGNs" data-summary="Context. Changing-look active galactic nuclei (CL-AGNs) challenge the unified model of AGNs and offer key insights into the physics of the accretion processes of super-massive black holes. While systematic spectroscopic comparisons have successfully identified large samples of CL-AGNs, photometric selection based on variability features provides an efficient alternative. Methods. We use the colour--magnitude (CM) variability method to continue our identification of the CL transition in AGNs, which utilizes the slope ($k$) of the CM variations to identify strong bluer-when-brighter behavior, while the variation amplitudes in optical and mid-infrared bands are also considered. The candidates thus selected from the Type-2 AGNs given in the Sloan Digital Sky Survey catalog are spectroscopically observed using the 3.6-m DOT and the 2-m HCT. Results. We confirm seven turn-on CL-AGNs among 12 candidates. Comparing them with both the general AGN populations and the spectroscopically identified CL-AGN sample, the CL-AGNs showed larger optical and MIR variations and $k$ values. The extreme CM variabilities of these sources (with optical magnitude changes $&gt;$ 0.9) occurred recently. For four sources, flare-like brightening episodes were temporally associated with the turn-on transitions within 3--7 years, suggesting that these flares may trace short-timescale accretion enhancement, central brightening, and BLR re-illumination. Conclusions. The extreme CM variability serves as a highly efficient criterion for finding CL-AGNs. The properties of the CL-AGNs thus found suggest that they may represent AGNs at a pivotal state, which likely occur CL transitions due to enhanced accretion activity, while the cause of the accretion activity, determined to have a time scale of several years, remains to be investigated." data-meta="Litao Zhu、Zhongxiang Wang、Alok C. Gupta 等 · 2026-05-25" data-keypoints="Changing-look active galactic nuclei (CL-AGNs) challenge the unified model of AGNs and offer key insights into the physics of the accretion processes of super-massive black holes.|While systematic spectroscopic comparisons have successfully identified large samples of CL-AGNs, photometric selection based on variability features provides an efficient alternative." data-concepts="" data-url="http://arxiv.org/abs/2605.25689v1" data-layman="这篇论文研究黑洞——一种引力极强、连光都无法逃脱的天体。科学家通过观测的方法，用望远镜收集来自宇宙的光信号，验证了此前科学家的理论预测。黑洞是宇宙中最极端的天体，研究它能帮助我们理解引力的本质就像通过观察漩涡的水流来理解深海黑洞，天文学家也是通过各种蛛丝马迹来探索宇宙的奥秘。">
+  <div class="card-body">
+    <div class="card-header">
+      <div class="card-num">6</div>
+      <div class="card-title translatable" data-en="Extreme color-magnitude variability: connection to changing-look AGNs">Extreme color-magnitude variability: connection to changing-look AGNs</div>
+    </div>
+    <div class="card-meta">Litao Zhu、Zhongxiang Wang、Alok C. Gupta 等 · 2026-05-25</div>
+    <div class="card-brief translatable" data-en="Context. Changing-look active galactic nuclei (CL-AGNs) challenge the unified model of AGNs and offer key insights into the physics of the accretion processes of super-massive black holes">Context. Changing-look active galactic nuclei (CL-AGNs) challenge the unified model of AGNs and offer key insights into the physics of the accretion processes of super-massive black holes</div>
+    <div class="card-hint">点击查看完整内容</div>
+  </div>
+</div>
+<div class="card" style="animation-delay:0.24s" onclick="openModal(this)" data-en-title="Machine Learning-based Separation of the He I 10830Å Chromospheric Signal: Quantitative Analysis of Chromosphere-Corona Intensity in the Quiet Sun" data-en-summary="The He I 10830Å line, a crucial optically thin chromospheric line, is frequently used to study coronal heating and vertical coupling across the chromosphere-corona interface. However, its images are severely contaminated by the strong photospheric background signal, hindering the analysis of fine chromospheric structures. Given the morphological differences between the Active Region (AR) and the Quiet Sun (QS), we proposed separating the He I 10830Å chromospheric signal using two deep learning CNN models. Our model utilizes TiO images and cross-band learning to infer the He I 10830Å photospheric background. The output is combined with an exponential absorption model to achieve quantitative analysis of the pure chromospheric component. Joint analysis of Solar Dynamics Observatory (SDO) data and the separated QS structures reveals a strong spatial negative correlation between chromospheric He I 10830Å intensities(R approx -0.84 in 304Å ), and significant layered coupling with EUV (171, 193, and 304Å) radiation. Furthermore, strong He I 10830Å absorption areas are highly correlated with regions of strong magnetic fields, while 171Å radiative enhancement areas extend to the strong magnetic field edges and the mixed-polarity regions. These findings quantify the radiation intensity relationship between He I 10830Å and EUV bands in the Quiet Sun. It also demonstrates the differences in heating characteristics between unipolar and mixed-polarity magnetic fields." data-title="Machine Learning-based Separation of the He I 10830Å Chromospheric Signal: Quantitative Analysis of Chromosphere-Corona Intensity in the Quiet Sun" data-summary="The He I 10830Å line, a crucial optically thin chromospheric line, is frequently used to study coronal heating and vertical coupling across the chromosphere-corona interface. However, its images are severely contaminated by the strong photospheric background signal, hindering the analysis of fine chromospheric structures. Given the morphological differences between the Active Region (AR) and the Quiet Sun (QS), we proposed separating the He I 10830Å chromospheric signal using two deep learning CNN models. Our model utilizes TiO images and cross-band learning to infer the He I 10830Å photospheric background. The output is combined with an exponential absorption model to achieve quantitative analysis of the pure chromospheric component. Joint analysis of Solar Dynamics Observatory (SDO) data and the separated QS structures reveals a strong spatial negative correlation between chromospheric He I 10830Å intensities(R approx -0.84 in 304Å ), and significant layered coupling with EUV (171, 193, and 304Å) radiation. Furthermore, strong He I 10830Å absorption areas are highly correlated with regions of strong magnetic fields, while 171Å radiative enhancement areas extend to the strong magnetic field edges and the mixed-polarity regions. These findings quantify the radiation intensity relationship between He I 10830Å and EUV bands in the Quiet Sun. It also demonstrates the differences in heating characteristics between unipolar and mixed-polarity magnetic fields." data-meta="Huaiming Li、Fangyu Xu、Yi Bi 等 · 2026-05-25" data-keypoints="The He I 10830Å line, a crucial optically thin chromospheric line, is frequently used to study coronal heating and vertical coupling across the chromosphere-corona interface.|However, its images are severely contaminated by the strong photospheric background signal, hindering the analysis of fine chromospheric structures.|Given the morphological differences between the Active Region (AR) and the Quiet Sun (QS), we proposed separating the He I 10830Å chromospheric signal using two deep learning CNN models." data-concepts="" data-url="http://arxiv.org/abs/2605.25634v1" data-layman="这篇论文研究太阳——我们太阳系的中心恒星。科学家通过观测的方法，用望远镜收集来自宇宙的光信号，深入探索了其物理机制。这一研究加深了我们对宇宙运行机制的理解就像通过脚印来推断走过的是什么动物，天文学家也是通过各种蛛丝马迹来探索宇宙的奥秘。">
+  <div class="card-body">
+    <div class="card-header">
+      <div class="card-num">7</div>
+      <div class="card-title translatable" data-en="Machine Learning-based Separation of the He I 10830Å Chromospheric Signal: Quantitative Analysis of Chromosphere-Corona Intensity in the Quiet Sun">Machine Learning-based Separation of the He I 10830Å Chromospheric Signal: Quantitative Analysis of Chromosphere-Corona Intensity in the Quiet Sun</div>
+    </div>
+    <div class="card-meta">Huaiming Li、Fangyu Xu、Yi Bi 等 · 2026-05-25</div>
+    <div class="card-brief translatable" data-en="The He I 10830Å line, a crucial optically thin chromospheric line, is frequently used to study coronal heating and vertical coupling across the chromosphere-corona interface. However, its images are severely contaminated by the strong photospheric background signal, hindering the analysis of fine chromospheric structures">The He I 10830Å line, a crucial optically thin chromospheric line, is frequently used to study coronal heating and vertical coupling across the chromosphere-corona interface. However, its images are severely contaminated by the strong photospheric background signal, hindering the analysis of fine chromospheric structures</div>
+    <div class="card-hint">点击查看完整内容</div>
+  </div>
+</div>
+<div class="card" style="animation-delay:0.28s" onclick="openModal(this)" data-en-title="Long-Term Clustering Pattern of Solar Active Regions and Their Potential Connection with Magneto-Rossby Waves" data-en-summary="Large solar active regions (ARs) tend to be long lived and spatially clustered, with repeated emergence occurring in persistent solar activity nests over extended timescales. By analyzing long-term spatiotemporal magnetic flux maps constructed from near-side magnetic field observations and far-side helioseismic AR maps, we investigate the recurrence and clustering properties of large ARs during Solar Cycle 24. We find that, in both hemispheres, over 63% of magnetic fluxes emerge and cluster within or near three distinct bands in the spatiotemporal maps, two of which rotate faster than the Carrington rate and one more slowly. These bands closely correspond to low-order nonaxisymmetric modes, primarily the azimuthal order m=1 mode. The drift rates of the three spatiotemporal bands are in good agreement with the phase speeds inferred for these modes. The frequencies of the dominant modes are consistent with slow magneto-Rossby waves originating in the solar tachocline, associated with odd harmonic degrees $\ell$ and a toroidal magnetic field strength of approximately 4.0 kG. Our results suggest that magneto-Rossby waves play an important role in modulating both the timing and longitudinal localization of major AR emergence. Rieger-type periodicities may arise from interactions between a dominant mode and weaker modes, while longer quasi-periodic variations on 0.6--4 yr timescales are likely linked to intersections of multiple major modes. These findings point to a potential connection between surface magnetic flux patterns and dynamical processes in the tachocline." data-title="Long-Term Clustering Pattern of Solar Active Regions and Their Potential Connection with Magneto-Rossby Waves" data-summary="Large solar active regions (ARs) tend to be long lived and spatially clustered, with repeated emergence occurring in persistent solar activity nests over extended timescales. By analyzing long-term spatiotemporal magnetic flux maps constructed from near-side magnetic field observations and far-side helioseismic AR maps, we investigate the recurrence and clustering properties of large ARs during Solar Cycle 24. We find that, in both hemispheres, over 63% of magnetic fluxes emerge and cluster within or near three distinct bands in the spatiotemporal maps, two of which rotate faster than the Carrington rate and one more slowly. These bands closely correspond to low-order nonaxisymmetric modes, primarily the azimuthal order m=1 mode. The drift rates of the three spatiotemporal bands are in good agreement with the phase speeds inferred for these modes. The frequencies of the dominant modes are consistent with slow magneto-Rossby waves originating in the solar tachocline, associated with odd harmonic degrees $\ell$ and a toroidal magnetic field strength of approximately 4.0 kG. Our results suggest that magneto-Rossby waves play an important role in modulating both the timing and longitudinal localization of major AR emergence. Rieger-type periodicities may arise from interactions between a dominant mode and weaker modes, while longer quasi-periodic variations on 0.6--4 yr timescales are likely linked to intersections of multiple major modes. These findings point to a potential connection between surface magnetic flux patterns and dynamical processes in the tachocline." data-meta="Junwei Zhao、Ruizhu Chen、Aimee A Norton · 2026-05-25" data-keypoints="Large solar active regions (ARs) tend to be long lived and spatially clustered, with repeated emergence occurring in persistent solar activity nests over extended timescales.|By analyzing long-term spatiotemporal magnetic flux maps constructed from near-side magnetic field observations and far-side helioseismic AR maps, we investigate the recurrence and clustering properties of large ARs during Solar Cycle 24.|We find that, in both hemispheres, over 63% of magnetic fluxes emerge and cluster within or near three distinct bands in the spatiotemporal maps, two of which rotate faster than the Carrington rate and one more slowly." data-concepts="" data-url="http://arxiv.org/abs/2605.25501v1" data-layman="这篇论文研究太阳——我们太阳系的中心恒星。科学家通过观测的方法，用望远镜收集来自宇宙的光信号，深入探索了其物理机制。这一研究加深了我们对宇宙运行机制的理解就像考古学家通过挖掘化石来还原远古生物的样子，天文学家也是通过各种蛛丝马迹来探索宇宙的奥秘。">
+  <div class="card-body">
+    <div class="card-header">
+      <div class="card-num">8</div>
+      <div class="card-title translatable" data-en="Long-Term Clustering Pattern of Solar Active Regions and Their Potential Connection with Magneto-Rossby Waves">Long-Term Clustering Pattern of Solar Active Regions and Their Potential Connection with Magneto-Rossby Waves</div>
+    </div>
+    <div class="card-meta">Junwei Zhao、Ruizhu Chen、Aimee A Norton · 2026-05-25</div>
+    <div class="card-brief translatable" data-en="Large solar active regions (ARs) tend to be long lived and spatially clustered, with repeated emergence occurring in persistent solar activity nests over extended timescales. By analyzing long-term spatiotemporal magnetic flux maps constructed from near-side magnetic field observations and far-side helioseismic AR maps, we investigate the recurrence and clustering properties of large ARs during Solar Cycle 24">Large solar active regions (ARs) tend to be long lived and spatially clustered, with repeated emergence occurring in persistent solar activity nests over extended timescales. By analyzing long-term spatiotemporal magnetic flux maps constructed from near-side magnetic field observations and far-side helioseismic AR maps, we investigate the recurrence and clustering properties of large ARs during Solar Cycle 24</div>
+    <div class="card-hint">点击查看完整内容</div>
+  </div>
+</div>
+</div>
+<div class="sec-anchor" id="sec-仪器与方法"></div>
+<div class="section-head">
+  <div class="section-icon">🌌</div>
+  <h2>仪器与方法</h2>
+  <span class="count">2</span>
+</div>
+<div class="card-grid">
+<div class="card" style="animation-delay:0.00s" onclick="openModal(this)" data-en-title="Beyond the [OIII]$λ$4363 auroral line: [NeIII]$λ$3868 as a direct tracer of electron temperature" data-en-summary="Auroral lines enable accurate measurements of chemical abundances in ionized gaseous nebulae thanks to their sensitivity to electron temperature. However, metal-enriched systems remain a challenge, as even deep observations cannot retrieve auroral lines due to their intrinsic faintness. To overcome this limitation, we present a novel approach to estimate electron temperatures in the conditions where the [OIII]$λ$4363 auroral line is barely detectable ($T_{e} &lt; 11,000$ K). This approach relies on the detection of [NeIII]$λ$3868 and [OIII]$λ$4959,5007, which are among the brightest rest-frame optical emission lines. By means of detailed photoionization models, we derive a tight relation between the O3Ne3$\equiv$[OIII]$λ$4959,5007/[NeIII]$λ$3868 ratio and the electron temperature weighted in the O$^{++}$ dominated region. We test the validity of this relation in a large sample of galaxies that cover a wide range of redshifts z$\sim$0-9 and extragalactic HII regions. Our results show that the O3Ne3 ratio, in combination with the O3O2 ratio (tracer of ionization), yields electron temperature estimates consistent within the uncertainties with those based on [OIII]$λ$4363. The proposed relation can be used to estimate electron temperature in the cool (equivalently high-metal) regime [6,000, 13,500 K] where the emissivity of [OIII]$λ$4363 drops drastically." data-title="Beyond the [OIII]$λ$4363 auroral line: [NeIII]$λ$3868 as a direct tracer of electron temperature" data-summary="Auroral lines enable accurate measurements of chemical abundances in ionized gaseous nebulae thanks to their sensitivity to electron temperature. However, metal-enriched systems remain a challenge, as even deep observations cannot retrieve auroral lines due to their intrinsic faintness. To overcome this limitation, we present a novel approach to estimate electron temperatures in the conditions where the [OIII]$λ$4363 auroral line is barely detectable ($T_{e} &lt; 11,000$ K). This approach relies on the detection of [NeIII]$λ$3868 and [OIII]$λ$4959,5007, which are among the brightest rest-frame optical emission lines. By means of detailed photoionization models, we derive a tight relation between the O3Ne3$\equiv$[OIII]$λ$4959,5007/[NeIII]$λ$3868 ratio and the electron temperature weighted in the O$^{++}$ dominated region. We test the validity of this relation in a large sample of galaxies that cover a wide range of redshifts z$\sim$0-9 and extragalactic HII regions. Our results show that the O3Ne3 ratio, in combination with the O3O2 ratio (tracer of ionization), yields electron temperature estimates consistent within the uncertainties with those based on [OIII]$λ$4363. The proposed relation can be used to estimate electron temperature in the cool (equivalently high-metal) regime [6,000, 13,500 K] where the emissivity of [OIII]$λ$4363 drops drastically." data-meta="Borja Pérez-Díaz、José M. Vílchez、Marco Castellano 等 · 2026-05-25" data-keypoints="Auroral lines enable accurate measurements of chemical abundances in ionized gaseous nebulae thanks to their sensitivity to electron temperature.|However, metal-enriched systems remain a challenge, as even deep observations cannot retrieve auroral lines due to their intrinsic faintness.|To overcome this limitation, we present a novel approach to estimate electron temperatures in the conditions where the [OIII]$λ$4363 auroral line is barely detectable ($T_{e} &lt; 11,000$ K)." data-concepts="" data-url="http://arxiv.org/abs/2605.25691v1" data-layman="这篇论文研究天体物理现象——宇宙中的物理过程。科学家通过观测的方法，用望远镜收集来自宇宙的光信号，对现有理论模型提出了更精确的限制。这一研究加深了我们对宇宙运行机制的理解就像考古学家通过挖掘化石来还原远古生物的样子，天文学家也是通过各种蛛丝马迹来探索宇宙的奥秘。">
+  <div class="card-body">
+    <div class="card-header">
+      <div class="card-num">1</div>
+      <div class="card-title translatable" data-en="Beyond the [OIII]$λ$4363 auroral line: [NeIII]$λ$3868 as a direct tracer of electron temperature">Beyond the [OIII]$λ$4363 auroral line: [NeIII]$λ$3868 as a direct tracer of electron temperature</div>
+    </div>
+    <div class="card-meta">Borja Pérez-Díaz、José M. Vílchez、Marco Castellano 等 · 2026-05-25</div>
+    <div class="card-brief translatable" data-en="Auroral lines enable accurate measurements of chemical abundances in ionized gaseous nebulae thanks to their sensitivity to electron temperature. However, metal-enriched systems remain a challenge, as even deep observations cannot retrieve auroral lines due to their intrinsic faintness">Auroral lines enable accurate measurements of chemical abundances in ionized gaseous nebulae thanks to their sensitivity to electron temperature. However, metal-enriched systems remain a challenge, as even deep observations cannot retrieve auroral lines due to their intrinsic faintness</div>
+    <div class="card-hint">点击查看完整内容</div>
+  </div>
+</div>
+<div class="card" style="animation-delay:0.04s" onclick="openModal(this)" data-en-title="Constraining the Inclination of Binary System Orbits with the Astrometric Excess Noise from Gaia DR3" data-en-summary="Orbital inclination is crucial in determining the mass of the binary. The astrometric excess noise contain the orbital motion information, which can be used to constrain the inclination. We aim to constrain the orbital inclination of a binary system by combining radial velocity measurements with the astrometric excess noise from the Gaia DR3 solution. The astrometric excess noise is directly related to the orbital parameters. For a binary system with a radial velocity solution, it can be treated as a function of the orbital inclination. Using the Gaia nominal scanning law and the estimated centroid uncertainties, we simulate Gaia astrometric epoch observations to reproduce the expected excess noise. By sampling different inclinations and comparing the resulting simulated excess noise with the value reported in Gaia DR3, we can constrain the inclination to a specific interval. We have developed a method to constrain the orbital inclination within a specific range, enabling a more accurate determination of the binary mass, particularly for spectroscopic binaries. Internal and external validations demonstrate the robustness of the method, although certain limitations remain. It is most reliable for systems exhibiting a strong astrometric signal of binary motion, while caution is required when applying it to binaries with weak astrometric wobbles or poorly sampled orbits." data-title="Constraining the Inclination of Binary System Orbits with the Astrometric Excess Noise from Gaia DR3" data-summary="Orbital inclination is crucial in determining the mass of the binary. The astrometric excess noise contain the orbital motion information, which can be used to constrain the inclination. We aim to constrain the orbital inclination of a binary system by combining radial velocity measurements with the astrometric excess noise from the Gaia DR3 solution. The astrometric excess noise is directly related to the orbital parameters. For a binary system with a radial velocity solution, it can be treated as a function of the orbital inclination. Using the Gaia nominal scanning law and the estimated centroid uncertainties, we simulate Gaia astrometric epoch observations to reproduce the expected excess noise. By sampling different inclinations and comparing the resulting simulated excess noise with the value reported in Gaia DR3, we can constrain the inclination to a specific interval. We have developed a method to constrain the orbital inclination within a specific range, enabling a more accurate determination of the binary mass, particularly for spectroscopic binaries. Internal and external validations demonstrate the robustness of the method, although certain limitations remain. It is most reliable for systems exhibiting a strong astrometric signal of binary motion, while caution is required when applying it to binaries with weak astrometric wobbles or poorly sampled orbits." data-meta="Shilong Liao、Ye Ding、Shangyu Wen 等 · 2026-05-25" data-keypoints="Orbital inclination is crucial in determining the mass of the binary.|The astrometric excess noise contain the orbital motion information, which can be used to constrain the inclination.|We aim to constrain the orbital inclination of a binary system by combining radial velocity measurements with the astrometric excess noise from the Gaia DR3 solution." data-concepts="" data-url="http://arxiv.org/abs/2605.25482v1" data-layman="这篇论文研究天体物理现象——宇宙中的物理过程。科学家通过观测的方法，用望远镜收集来自宇宙的光信号，对现有理论模型提出了更精确的限制。这一研究加深了我们对宇宙运行机制的理解就像考古学家通过挖掘化石来还原远古生物的样子，天文学家也是通过各种蛛丝马迹来探索宇宙的奥秘。">
+  <div class="card-body">
+    <div class="card-header">
+      <div class="card-num">2</div>
+      <div class="card-title translatable" data-en="Constraining the Inclination of Binary System Orbits with the Astrometric Excess Noise from Gaia DR3">Constraining the Inclination of Binary System Orbits with the Astrometric Excess Noise from Gaia DR3</div>
+    </div>
+    <div class="card-meta">Shilong Liao、Ye Ding、Shangyu Wen 等 · 2026-05-25</div>
+    <div class="card-brief translatable" data-en="Orbital inclination is crucial in determining the mass of the binary. The astrometric excess noise contain the orbital motion information, which can be used to constrain the inclination">Orbital inclination is crucial in determining the mass of the binary. The astrometric excess noise contain the orbital motion information, which can be used to constrain the inclination</div>
+    <div class="card-hint">点击查看完整内容</div>
+  </div>
+</div>
+</div>
 
+</div>
+
+<!-- MODAL -->
+<div class="modal-overlay" id="modalOverlay" onclick="closeModal(event)">
+  <div class="modal-box" onclick="event.stopPropagation()">
+    <div class="modal-header">
+      <button class="modal-close" onclick="closeModal()">✕</button>
+      <div class="modal-title" id="mTitle">论文标题</div>
+      <div class="modal-meta" id="mMeta">作者 · 日期</div>
+    </div>
+    <div class="modal-body">
+      <div class="modal-section">
+        <div class="modal-label">📋 摘要</div>
+        <div class="modal-text" id="mSummary">摘要内容...</div>
+      </div>
+      <div class="modal-section" id="mLaymanSection">
+        <div class="modal-label">💡 通俗解释</div>
+        <div class="modal-text" id="mLayman" style="background:rgba(139,92,246,0.08);border:1px solid rgba(139,92,246,0.2);border-radius:10px;padding:14px 16px;font-size:13px;line-height:1.75;">通俗解释内容...</div>
+        <div style="margin-top:10px;">
+          <button class="modal-link" id="btnLayman" onclick="genLayman()" style="background:linear-gradient(135deg,#8b5cf6,#6366f1);border:none;cursor:pointer;font-size:12px;padding:8px 16px;border-radius:8px;color:#fff;">🌐 在线生成通俗解释</button>
+          <span id="laymanStatus" style="font-size:11px;color:var(--text-dim);margin-left:10px;"></span>
+        </div>
+      </div>
+      <div class="modal-section" id="mKeySection">
+        <div class="modal-label">🔑 关键发现</div>
+        <ul class="kf-list" id="mKeyPoints"></ul>
+      </div>
+      <div class="modal-section" id="mConceptSection">
+        <div class="modal-label">📖 概念批注</div>
+        <div class="modal-concepts" id="mConcepts"></div>
+      </div>
+      <div class="modal-section" style="display:flex;gap:10px;flex-wrap:wrap;">
+        <a class="modal-link" id="mLink" href="#" target="_blank" rel="noopener noreferrer">📄 在 arXiv 查看原文 →</a>
+        <button class="modal-link" onclick="closeModal()" style="background:linear-gradient(135deg,#64748b,#475569);border:none;cursor:pointer;">← 返回卡片列表</button>
+      </div>
+    </div>
   </div>
 </div>
 
+<!-- FOOTER -->
 <div class="footer">
-  数据来源：<a href="https://arxiv.org/list/astro-ph/recent" target="_blank" rel="noopener noreferrer">arXiv astro-ph</a>
-  &nbsp;|&nbsp; 由 AstroDaily 自动生成
-  &nbsp;|&nbsp; 保留最近 30 期
+  今日共 <strong>30</strong> 篇论文 &nbsp;|&nbsp;
+  数据来源：<a href="https://arxiv.org/list/astro-ph/recent" target="_blank" rel="noopener noreferrer">arXiv astro-ph</a> &nbsp;|&nbsp;
+  由 AstroDaily 自动生成
 </div>
 
+<script>
+/* ===== 配置：填写你的 Google Gemini 免费 API Key ===== */
+/* 申请地址：https://aistudio.google.com/app/apikey */
+/* 支持多个 key，用逗号分隔。当第一个被限制时自动尝试下一个。 */
+var GEMINI_API_KEYS = [
+  "AIzaSyAtrmZrA5Ga9So2MD_cTvhqhIdj3iVwX84",
+  "AIzaSyDTPCLz2aPKRAGOg-Pv4qHMJgNDCn1n4Pc",
+];
+var _keyIndex = 0;
+function getNextGeminiKey() {
+  if (GEMINI_API_KEYS.length === 0) return '';
+  var k = GEMINI_API_KEYS[_keyIndex];
+  _keyIndex = (_keyIndex + 1) % GEMINI_API_KEYS.length;
+  return k;
+}
+
+/* ===== Modal ===== */
+function openModal(el) {
+  document.getElementById('mTitle').textContent = el.dataset.title || '';
+  document.getElementById('mMeta').textContent = el.dataset.meta || '';
+  document.getElementById('mSummary').textContent = el.dataset.summary || '';
+  document.getElementById('mLink').href = el.dataset.url || '#';
+
+  // Layman explanation
+  var laymanText = el.dataset.layman || '';
+  var mLayman = document.getElementById('mLayman');
+  if(laymanText && laymanText.trim().length > 10) {
+    mLayman.textContent = laymanText.trim();
+    mLayman.setAttribute('data-en', laymanText.trim());
+    document.getElementById('mLaymanSection').style.display = 'block';
+  } else {
+    document.getElementById('mLaymanSection').style.display = 'none';
+  }
+
+  // Key points
+  var kp = document.getElementById('mKeyPoints');
+  kp.innerHTML = '';
+  var points = (el.dataset.keypoints || '').split('|').filter(function(s){ return s.trim(); });
+  if(points.length) {
+    points.forEach(function(p){
+      var li = document.createElement('li');
+      li.textContent = p.trim();
+      li.dataset.en = p.trim();
+      kp.appendChild(li);
+    });
+    document.getElementById('mKeySection').style.display = 'block';
+  } else {
+    document.getElementById('mKeySection').style.display = 'none';
+  }
+
+  // Concepts
+  var cs = document.getElementById('mConcepts');
+  cs.innerHTML = '';
+  var concepts = (el.dataset.concepts || '').split('|').filter(function(s){ return s.trim(); });
+  if(concepts.length) {
+    concepts.forEach(function(c){
+      var parts = c.split('::');
+      var name = parts[0].trim();
+      var tip = parts[1] ? parts[1].trim() : '';
+      var span = document.createElement('span');
+      span.className = 'c-badge';
+      if(tip) {
+        span.title = tip;
+        span.innerHTML = name + '<span class="c-tip">' + tip + '</span>';
+      } else {
+        span.textContent = name;
+      }
+      cs.appendChild(span);
+    });
+    document.getElementById('mConceptSection').style.display = 'block';
+  } else {
+    document.getElementById('mConceptSection').style.display = 'none';
+  }
+
+  document.getElementById('modalOverlay').classList.add('active');
+  document.body.style.overflow = 'hidden';
+  openModal._currentEl = el;
+
+  // Translate modal content if in Chinese mode
+  if(typeof astroLang !== 'undefined' && astroLang === 'zh') {
+    astroTranslateModalOf(el);
+  }
+}
+
+function closeModal(e) {
+  if(e && e.target !== document.getElementById('modalOverlay')) return;
+  document.getElementById('modalOverlay').classList.remove('active');
+  document.body.style.overflow = '';
+  openModal._currentEl = null;
+}
+
+document.addEventListener('keydown', function(e){
+  if(e.key === 'Escape') closeModal();
+});
+
+/* ===== Nav highlight ===== */
+(function(){
+  var secs = document.querySelectorAll('.sec-anchor');
+  var links = document.querySelectorAll('.nav-link');
+  window.addEventListener('scroll', function(){
+    var cur = '';
+    secs.forEach(function(s){ if(window.scrollY >= s.offsetTop - 70) cur = s.id; });
+    links.forEach(function(l){ l.classList.remove('active'); if(l.getAttribute('href')==='#'+cur) l.classList.add('active'); });
+  });
+  /* Card fade-in */
+  if('IntersectionObserver' in window){
+    var obs = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){ if(e.isIntersecting){ e.target.style.animationPlayState='running'; obs.unobserve(e.target); } });
+    }, {threshold:0.1});
+    document.querySelectorAll('.card').forEach(function(c){ obs.observe(c); });
+  }
+})();
+
+/* ===== Language Toggle ===== */
+var astroLang = localStorage.getItem('astro-lang') || 'en';
+var astroTranslating = false;
+
+function astroTranslateText(text, ok, fail) {
+  if(!text || text.trim().length < 5) { ok(text); return; }
+  var cacheKey = 'astro-tr-' + text.length + '-' + text.substring(0, 60);
+  try {
+    var cached = localStorage.getItem(cacheKey);
+    if(cached) { ok(cached); return; }
+  } catch(e) {}
+  var url = 'https://api.mymemory.translated.net/get?q=' + encodeURIComponent(text) + '&langpair=en|zh-CN';
+  fetch(url)
+    .then(function(r){ return r.json(); })
+    .then(function(d){
+      if(d && d.responseStatus === 200 && d.responseData && d.responseData.translatedText) {
+        var zh = d.responseData.translatedText;
+        try { localStorage.setItem(cacheKey, zh); } catch(e) {}
+        ok(zh);
+      } else {
+        // Log for debugging
+        console.warn('[翻译失败]', d ? d.responseStatus : '网络错误', text.substring(0, 80));
+        fail();
+      }
+    })
+    .catch(function(err){ console.warn('[翻译异常]', err); fail(); });
+}
+
+/* 长文本分段翻译：MyMemory 免费版单次限制约 400 字符 */
+function astroTranslateLongText(text, ok, fail) {
+  if(!text || text.trim().length < 5) { ok(text); return; }
+  if(text.length < 400) {
+    astroTranslateText(text, ok, fail);
+    return;
+  }
+  // 按句子拆分，每段不超过 350 字符
+  var sentences = text.match(/[^.!?]+[.!?]+/g) || [text];
+  var chunks = [], cur = '';
+  sentences.forEach(function(s){
+    s = s.trim();
+    if(!s) return;
+    if((cur + ' ' + s).length < 350) {
+      cur = cur ? cur + ' ' + s : s;
+    } else {
+      if(cur) chunks.push(cur);
+      cur = s;
+    }
+  });
+  if(cur) chunks.push(cur);
+
+  var results = [];
+  function next(i){
+    if(i >= chunks.length) { ok(results.join(' ')); return; }
+    astroTranslateText(chunks[i], function(zh){
+      results.push(zh);
+      setTimeout(function(){ next(i+1); }, 300);
+    }, function(){
+      results.push(chunks[i]); // 保留原文
+      setTimeout(function(){ next(i+1); }, 300);
+    });
+  }
+  next(0);
+}
+
+function astroProcessQueue(queue, idx, done) {
+  if(idx >= queue.length) { done(); return; }
+  var el = queue[idx];
+  var text = el.getAttribute('data-en');
+  astroTranslateText(text, function(zh){
+    el.setAttribute('data-zh', zh);
+    el.textContent = zh;
+    setTimeout(function(){ astroProcessQueue(queue, idx+1, done); }, 250);
+  }, function(){
+    el.setAttribute('data-zh', text);
+    setTimeout(function(){ astroProcessQueue(queue, idx+1, done); }, 250);
+  });
+}
+
+function astroTranslateModalOf(el) {
+  var mTitle = document.getElementById('mTitle');
+  var enTitle = el.dataset.enTitle || el.dataset.title || '';
+  astroTranslateText(enTitle, function(zh){ mTitle.textContent = zh; }, function(){});
+
+  var mSummary = document.getElementById('mSummary');
+  var enSummary = el.dataset.enSummary || el.dataset.summary || '';
+  astroTranslateLongText(enSummary, function(zh){ mSummary.textContent = zh; }, function(){});
+
+  var mLayman = document.getElementById('mLayman');
+  // 优先使用在线生成的中文解释
+  if(mLayman && el.dataset.laymanGen) {
+    mLayman.textContent = el.dataset.laymanGen;
+  } else if(mLayman && el.dataset.layman) {
+    astroTranslateLongText(el.dataset.layman, function(zh){ mLayman.textContent = zh; }, function(){});
+  }
+
+  var kpLis = document.querySelectorAll('#mKeyPoints li');
+  kpLis.forEach(function(li){
+    var en = li.dataset.en || li.textContent;
+    li.dataset.en = en;
+    astroTranslateText(en, function(zh){ li.textContent = zh; }, function(){});
+  });
+}
+
+/* ==== 在线生成通俗解释（调用 Google Gemini 免费 API）==== */
+function genLayman() {
+  var el = openModal._currentEl;
+  if (!el) return;
+  var btn = document.getElementById('btnLayman');
+  var st  = document.getElementById('laymanStatus');
+
+  // 如果已经有缓存的生成结果，直接显示
+  if (el.dataset.laymanGen) {
+    var mLayman = document.getElementById('mLayman');
+    mLayman.textContent = el.dataset.laymanGen;
+    st.textContent = '（已生成）';
+    setTimeout(function(){ st.textContent = ''; }, 2000);
+    return;
+  }
+
+  if (!GEMINI_API_KEYS.length) {
+    st.textContent = '请先在脚本顶部填写 Gemini API Key';
+    return;
+  }
+  btn.disabled = true;
+  st.textContent = '正在生成…';
+
+  var titleEn   = el.dataset.enTitle || el.dataset.title || '';
+  var summaryEn = el.dataset.enSummary || el.dataset.summary || '';
+  var prompt = (
+    '你是一个天体物理科普作家。请用非常通俗的大白话解释下面这篇论文，' +
+    '面向只有大学普通物理基础的读者，不超过 200 字。\n\n' +
+    '论文标题：' + titleEn + '\n' +
+    '论文摘要：' + summaryEn.substring(0, 1200) + '\n\n' +
+    '要求：\n' +
+    '1. 第一句说清楚这篇论文研究了什么（用大白话）。\n' +
+    '2. 第二句说清楚为什么要研究这个——科学意义是什么。\n' +
+    '3. 可以打比方，用日常生活中的事物做类比。\n' +
+    '4. 不要使用任何专业术语，如果必须用，请在括号里用大白话解释。\n' +
+    '5. 直接输出解释，不要说"这篇论文……"这样的废话。'
+  );
+  var body = JSON.stringify({
+    contents: [{ parts: [{ text: prompt }] }],
+    generationConfig: { temperature: 0.4, maxOutputTokens: 400 }
+  });
+
+  function tryKey(keysLeft) {
+    if (keysLeft === 0) {
+      st.textContent = '所有 API Key 均达到调用上限，建议等 1-2 分钟再试，或添加更多 Key';
+      btn.disabled = false;
+      return;
+    }
+    var key = getNextGeminiKey();
+    if (!key) {
+      st.textContent = '没有可用的 API Key';
+      btn.disabled = false;
+      return;
+    }
+    var url = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=' + encodeURIComponent(key);
+    fetch(url, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: body
+    })
+    .then(function(r){
+      if (r.status === 429) {
+        // 当前 key 被限流，尝试下一个
+        return tryKey(keysLeft - 1);
+      }
+      if (!r.ok) {
+        throw new Error('HTTP ' + r.status + ' ' + r.statusText);
+      }
+      return r.json().then(function(d){
+        var text = '';
+        try { text = d.candidates[0].content.parts[0].text; } catch(e) {}
+        if (!text) {
+          var errMsg = (d.error && d.error.message) ? d.error.message : '返回空内容';
+          st.textContent = '生成失败：' + errMsg.substring(0, 80);
+          btn.disabled = false;
+          return;
+        }
+        // 显示并缓存
+        var mLayman = document.getElementById('mLayman');
+        mLayman.textContent = text.substring(0, 600);
+        el.dataset.laymanGen = text.substring(0, 600);
+        // 如果当前是中文模式，顺便翻译
+        if (astroLang === 'zh') {
+          astroTranslateLongText(text.substring(0, 500), function(zh){
+            mLayman.textContent = zh;
+            el.dataset.laymanZh = zh;
+          }, function(){});
+        }
+        st.textContent = '生成完毕！';
+        setTimeout(function(){ st.textContent = ''; }, 4000);
+        btn.disabled = false;
+      });
+    })
+    .catch(function(err){
+      var msg = String(err.message || err);
+      if (msg.indexOf('Failed to fetch') !== -1 || msg.indexOf('NetworkError') !== -1) {
+        st.textContent = '无法连接 Gemini API（网络问题或被墙），建议开启代理后重试';
+      } else if (msg.indexOf('403') !== -1 || msg.indexOf('401') !== -1) {
+        st.textContent = 'API Key 无效或已被限制，请重新申请';
+      } else {
+        st.textContent = '错误：' + msg.substring(0, 80);
+      }
+      btn.disabled = false;
+    });
+  }
+
+  tryKey(GEMINI_API_KEYS.length);
+}
+
+function astroRestoreModalOf(el) {
+  var mTitle = document.getElementById('mTitle');
+  mTitle.textContent = el.dataset.enTitle || el.dataset.title || '';
+
+  var mSummary = document.getElementById('mSummary');
+  mSummary.textContent = el.dataset.enSummary || el.dataset.summary || '';
+
+  var mLayman = document.getElementById('mLayman');
+  if(mLayman && el.dataset.laymanGen) {
+    mLayman.textContent = el.dataset.laymanGen;
+  } else if(mLayman && el.dataset.layman) {
+    mLayman.textContent = el.dataset.layman;
+  }
+
+  var points = (el.dataset.keypoints || '').split('|').filter(function(s){ return s.trim(); });
+  var kpLis = document.querySelectorAll('#mKeyPoints li');
+  kpLis.forEach(function(li, i){
+    if(i < points.length) {
+      li.textContent = points[i].trim();
+      li.dataset.en = points[i].trim();
+    }
+  });
+}
+
+function astroTranslateAll() {
+  astroTranslating = true;
+  var els = document.querySelectorAll('.translatable');
+  var queue = [];
+  for(var i = 0; i < els.length; i++) {
+    var el = els[i];
+    var en = el.getAttribute('data-en') || el.textContent;
+    el.setAttribute('data-en', en);
+    var zh = el.getAttribute('data-zh');
+    if(zh) {
+      el.textContent = zh;
+    } else {
+      queue.push(el);
+    }
+  }
+  astroProcessQueue(queue, 0, function(){ astroTranslating = false; });
+}
+
+function astroRestoreAll() {
+  var els = document.querySelectorAll('.translatable');
+  for(var i = 0; i < els.length; i++) {
+    var en = els[i].getAttribute('data-en');
+    if(en) els[i].textContent = en;
+  }
+  // Also restore modal if open
+  var el = openModal._currentEl;
+  if(el && document.getElementById('modalOverlay').classList.contains('active')) {
+    astroRestoreModalOf(el);
+  }
+}
+
+function toggleLang() {
+  if(astroTranslating) return;
+  if(astroLang === 'en') {
+    astroLang = 'zh';
+    localStorage.setItem('astro-lang', 'zh');
+    document.getElementById('langToggle').textContent = 'EN';
+    astroTranslateAll();
+    // Also translate modal if open
+    var el = openModal._currentEl;
+    if(el && document.getElementById('modalOverlay').classList.contains('active')) {
+      astroTranslateModalOf(el);
+    }
+  } else {
+    astroLang = 'en';
+    localStorage.setItem('astro-lang', 'en');
+    document.getElementById('langToggle').textContent = '中文';
+    astroRestoreAll();
+  }
+}
+
+if(astroLang === 'zh') {
+  document.addEventListener('DOMContentLoaded', function(){
+    document.getElementById('langToggle').textContent = 'EN';
+    astroTranslateAll();
+  });
+}
+</script>
 </body>
 </html>

@@ -720,8 +720,6 @@ def generate_index():
 
 # ── 主流程 ─────────────────────────────────────────────
 def main():
-    os.makedirs(OUTPUT_DIR, exist_ok=True)
-
     import sys
     if len(sys.argv) > 1:
         rep_date = sys.argv[1].strip()
@@ -732,10 +730,10 @@ def main():
 
     papers = fetch_arxiv_papers(max_results=PAPERS_PER_DAY)
     if not papers:
-        print("[错误] 未抓取到论文，退出。")
+        print("[错误] 未抓取到论文，保持现有 index.html 不变。")
         return
 
-    # 保留目标日期及前后 1 天的论文（arXiv 论文发布日期通常提前一天）
+    # 保留目标日期及前后 1 天的论文
     rep_dt = datetime.date.fromisoformat(rep_date)
     allowed_dates = {
         (rep_dt - datetime.timedelta(days=1)).isoformat(),
@@ -744,24 +742,16 @@ def main():
     }
     target_papers = [p for p in papers if p.get("published", "")[:10] in allowed_dates]
     if not target_papers:
-        print("[跳过] %s 及其前后一天均无新论文，跳过生成。" % rep_date)
-        cleanup_old()
-        generate_index()
-        print("\n✅ 无新内容，索引已更新。")
+        print("[跳过] %s 及其前后一天均无新论文，保持现有 index.html 不变。" % rep_date)
         return
     papers = target_papers
     print("[论文] 目标日期附近共 %d 篇论文" % len(papers))
 
-    out_path = os.path.join(OUTPUT_DIR, "astro-daily-%s.html" % rep_date)
     print("[生成] %s 日报..." % rep_date)
-
     html_out = generate_daily_html(papers, rep_date)
-    with open(out_path, "w", encoding="utf-8") as f:
+    with open("index.html", "w", encoding="utf-8") as f:
         f.write(html_out)
-    print("[生成] 已保存：%s" % out_path)
-
-    cleanup_old()
-    generate_index()
+    print("[生成] 已更新：index.html")
     print("\n✅ 全部完成！")
 
 
